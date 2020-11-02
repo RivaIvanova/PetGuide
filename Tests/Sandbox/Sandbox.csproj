@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PetGuide.Common\PetGuide.Common.csproj" />
+    <ProjectReference Include="..\..\Data\PetGuide.Data.Common\PetGuide.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\PetGuide.Data.Models\PetGuide.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\PetGuide.Data\PetGuide.Data.csproj" />
+    <ProjectReference Include="..\..\Services\PetGuide.Services.Data\PetGuide.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\PetGuide.Services.Mapping\PetGuide.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\PetGuide.Services.Messaging\PetGuide.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\PetGuide.Services\PetGuide.Services.csproj" />
+  </ItemGroup>
+
+</Project>
