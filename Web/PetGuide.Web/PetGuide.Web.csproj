@@ -11,13 +11,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\blog-single.cshtml" />
+    <Content Remove="Views\blog.cshtml" />
+    <Content Remove="Views\contact.cshtml" />
     <Content Remove="Views\Home\Index.cshtml" />
+    <Content Remove="Views\Pets\Search.cshtml" />
+    <Content Remove="Views\Pets\SearchDemo.cshtml" />
+    <Content Remove="Views\portfolio-details.cshtml" />
+    <Content Remove="Views\portfolio.cshtml" />
+    <Content Remove="Views\pricing.cshtml" />
+    <Content Remove="Views\search.cshtml" />
+    <Content Remove="Views\services.cshtml" />
+    <Content Remove="Views\Settings\blog.cshtml" />
+    <Content Remove="Views\team.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\blog-single.cshtml" />
+    <None Include="Views\blog.cshtml" />
+    <None Include="Views\contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Pets\Search.cshtml" />
+    <None Include="Views\Pets\SearchDemo.cshtml" />
+    <None Include="Views\portfolio-details.cshtml" />
+    <None Include="Views\portfolio.cshtml" />
+    <None Include="Views\pricing.cshtml" />
+    <None Include="Views\Search.cshtml" />
+    <None Include="Views\services.cshtml" />
+    <None Include="Views\Settings\blog.cshtml" />
+    <None Include="Views\team.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,5 +70,12 @@
     <ProjectReference Include="..\..\Services\PetGuide.Services\PetGuide.Services.csproj" />
     <ProjectReference Include="..\PetGuide.Web.Infrastructure\PetGuide.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\PetGuide.Web.ViewModels\PetGuide.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Events\" />
+    <Folder Include="Views\Advices\" />
+    <Folder Include="Views\Shelters\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 </Project>

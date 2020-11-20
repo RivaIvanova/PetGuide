@@ -28,6 +28,16 @@
     <!-- Template Main CSS File -->
     <link href="~/assets/css/all.css" rel="stylesheet">
     <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <!-- Login/Register CSS File -->
+    <link href="~/assets/css/login-register.css" type="text/css" rel="stylesheet">
+
+    <!-- Search CSS File -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet" />
+    <link href="~/assets/css/search.css" rel="stylesheet" />
+
+    <!--Pet List CSS File-->
+    <link href="~/assets/css/pet-list.css" rel="stylesheet" />
 </head>
 <body>
     <!-- ======= Header ======= -->
@@ -35,7 +45,7 @@
         <div class="container d-flex">
 
             <div class="logo mr-auto">
-                <!-- Uncomment below if you prefer to use an image logo -->
+
                 <a href="/"><img src="~/assets/img/PetGuideLogo.png" alt="PetGuideLogo" width="120" class="img-fluid"></a>
             </div>
 
@@ -46,45 +56,36 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Pets" asp-action="Search">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Advices" asp-action="Advices">Advices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Events" asp-action="Events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Shelters" asp-action="Shelters">Shelters</a>
+                    </li>
 
-                    <li><a href="">Lost Pets</a></li>
-                    <li><a href="">Found and Spotted</a></li>
-                    <li><a href="">Pet Advices</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="">Pet Events</a></li>
-                    <li><a href="">Shelters</a></li>
+                    <li class="get-started">
+                        <a class="nav-linkk" asp-area="" asp-controller="Users" asp-action="Login">Get Involved</a>
+                    </li>
 
-
-
-                    @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-            <partial name="_LoginPartial" />
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
-        </div>*@
-
-                    <li class="get-started"><a href="#get-started">Get Involved</a></li>
                 </ul>
             </nav><!-- .nav-menu -->
 
         </div>
     </header><!-- End Header -->
-
-    <div class="container">
-        @*<partial name="_CookieConsentPartial" />*@
-        <main role="main" class="pb-3">
-            @this.RenderBody()
-        </main>
-    </div>
+    @*<partial name="_CookieConsentPartial" />*@
+    @this.RenderBody()
 
 
 
@@ -96,9 +97,13 @@
 
                     <div class="col-lg-3 col-md-6 footer-info">
                         <h3>PetGuide</h3>
-                        <p><em>“Animals are reliable, many full of love, true in their affections, 
-                            predictable in their actions, grateful and loyal. 
-                            Difficult standards for people to live up to.”</em></p>
+                        <p>
+                            <em>
+                                “Animals are reliable, many full of love, true in their affections,
+                                predictable in their actions, grateful and loyal.
+                                Difficult standards for people to live up to.”
+                            </em>
+                        </p>
                         <br />
                         <p> – Alfred A. Montapert</p>
                     </div>
@@ -117,7 +122,7 @@
                     <div class="col-lg-3 col-md-6 footer-contact">
                         <h4>Contact Us</h4>
                         <p>
-                            If you have suggestions regarding our furry friends 
+                            If you have suggestions regarding our furry friends
                             or want to help in any way, we will be happy to contact us.
                         </p>
 
@@ -166,12 +171,52 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
+    <script src="~/assets/js/login-register.js"></script>
+
+    <!-- Login/Register JS File -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="~/assets/js/search-choices.js"></script>
+    <script>
+        const customSelects = document.querySelectorAll("select");
+        const deleteBtn = document.getElementById('delete')
+        const choices = new Choices('select',
+            {
+                searchEnabled: false,
+                itemSelectText: '',
+                removeItemButton: true,
+            });
+        for (let i = 0; i < customSelects.length; i++) {
+            customSelects[i].addEventListener('addItem', function (event) {
+                if (event.detail.value) {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('valid')
+                    parent.classList.remove('invalid')
+                }
+                else {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('invalid')
+                    parent.classList.remove('valid')
+                }
+            }, false);
+        }
+        deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault()
+            const deleteAll = document.querySelectorAll('.choices__button')
+            for (let i = 0; i < deleteAll.length; i++) {
+                deleteAll[i].click();
+            }
+        });
+
+    </script>
+
 
     @*<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>*@
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>*@
     @await this.RenderSectionAsync("Scripts", required: false)
 
 
