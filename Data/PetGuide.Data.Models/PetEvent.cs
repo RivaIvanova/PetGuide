@@ -28,8 +28,7 @@
         public DateTime Date { get; set; }
 
         [Required]
-        [MaxLength(150)]
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
         public ICollection<UserPetEvent> EventVolunteers { get; set; }
 

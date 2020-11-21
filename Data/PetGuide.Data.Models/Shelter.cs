@@ -21,8 +21,7 @@
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(150)]
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
         public ICollection<Pet> Pets { get; set; }
 

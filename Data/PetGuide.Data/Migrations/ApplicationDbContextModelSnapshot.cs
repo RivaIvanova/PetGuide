@@ -305,6 +305,44 @@ namespace PetGuide.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("PetGuide.Data.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("District")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("PetGuide.Data.Models.Pet", b =>
                 {
                     b.Property<string>("Id")
@@ -327,10 +365,8 @@ namespace PetGuide.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -352,6 +388,8 @@ namespace PetGuide.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("ShelterId");
 
@@ -382,10 +420,8 @@ namespace PetGuide.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -398,6 +434,8 @@ namespace PetGuide.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("PetEvents");
                 });
@@ -526,10 +564,8 @@ namespace PetGuide.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -540,6 +576,8 @@ namespace PetGuide.Data.Migrations
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Shelters");
                 });
@@ -638,6 +676,12 @@ namespace PetGuide.Data.Migrations
 
             modelBuilder.Entity("PetGuide.Data.Models.Pet", b =>
                 {
+                    b.HasOne("PetGuide.Data.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("PetGuide.Data.Models.Shelter", "Shelter")
                         .WithMany("Pets")
                         .HasForeignKey("ShelterId");
@@ -645,6 +689,15 @@ namespace PetGuide.Data.Migrations
                     b.HasOne("PetGuide.Data.Models.ApplicationUser", "User")
                         .WithMany("Pets")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PetGuide.Data.Models.PetEvent", b =>
+                {
+                    b.HasOne("PetGuide.Data.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PetGuide.Data.Models.Picture", b =>
@@ -671,6 +724,15 @@ namespace PetGuide.Data.Migrations
                     b.HasOne("PetGuide.Data.Models.ApplicationUser", null)
                         .WithMany("Posts")
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("PetGuide.Data.Models.Shelter", b =>
+                {
+                    b.HasOne("PetGuide.Data.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PetGuide.Data.Models.UserPetEvent", b =>
