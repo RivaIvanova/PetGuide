@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.EventVolunteers = new HashSet<UserPetEvent>();
+            this.Pictures = new HashSet<Picture>();
         }
 
         [Required]
@@ -31,5 +32,7 @@
         public string Location { get; set; }
 
         public ICollection<UserPetEvent> EventVolunteers { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

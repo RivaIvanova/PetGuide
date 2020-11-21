@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.ShelterVolunteers = new HashSet<UserShelter>();
+            this.Pictures = new HashSet<Picture>();
         }
 
         [Required]
@@ -26,6 +27,8 @@
         public ICollection<Pet> Pets { get; set; }
 
         public ICollection<UserShelter> ShelterVolunteers { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
 
         // Shelter List
     }

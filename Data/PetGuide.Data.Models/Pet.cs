@@ -1,6 +1,7 @@
 ﻿namespace PetGuide.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using PetGuide.Data.Common.Models;
@@ -10,6 +11,7 @@
         public Pet()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Pictures = new HashSet<Picture>();
         }
 
         [Required]
@@ -38,5 +40,7 @@
         public string ShelterId { get; set; }
 
         public Shelter Shelter { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

@@ -40,6 +40,8 @@
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Picture> Pictures { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -61,25 +63,6 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //// Pet
-            // builder
-            //    .Entity<Pet>()
-            //    .HasOne(x => x.Shelter)
-            //    .WithMany(x => x.Pets)
-            //    .HasForeignKey(x => x.ShelterId);
-
-            // builder
-            //    .Entity<Pet>()
-            //    .HasOne(x => x.User)
-            //    .WithMany(x => x.Pets)
-            //    .HasForeignKey(x => x.UserId);
-
-            //// Shelter
-            // builder
-            //    .Entity<Shelter>()
-            //    .HasMany(x => x.Pets)
-            //    .WithOne(x => x.Shelter)
-            //    .HasForeignKey(x => x.ShelterId);
             builder
                 .Entity<UserShelter>()
                 .HasKey(us => new { us.UserId, us.ShelterId });
