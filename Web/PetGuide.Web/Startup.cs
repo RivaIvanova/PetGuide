@@ -18,6 +18,7 @@
     using PetGuide.Data.Repositories;
     using PetGuide.Data.Seeding;
     using PetGuide.Services.Data;
+    using PetGuide.Services.Data.Pets;
     using PetGuide.Services.Mapping;
     using PetGuide.Services.Messaging;
     using PetGuide.Web.ViewModels;
@@ -64,6 +65,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            services.AddTransient<IGetPetsDetailsService, GetPetsDetailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

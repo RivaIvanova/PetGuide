@@ -1,9 +1,4 @@
-/**
-* Template Name: Serenity - v2.1.0
-* Template URL: https://bootstrapmade.com/serenity-bootstrap-corporate-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+
 !(function($) {
   "use strict";
 
@@ -173,7 +168,7 @@
     });
   });
 
-  // Portfolio details carousel
+  // portfolio details carousel
   $(".portfolio-details-carousel").owlCarousel({
     autoplay: true,
     dots: true,

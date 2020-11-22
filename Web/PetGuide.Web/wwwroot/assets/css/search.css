@@ -455,6 +455,7 @@ legend {
   position: relative;
   margin-bottom: 24px;
   font-size: 16px;
+  width: 100%;
 }
 
 .choices:focus {
@@ -484,6 +485,8 @@ legend {
 
 .choices[data-type*="select-one"] .choices__inner {
   padding-bottom: 7.5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .choices[data-type*="select-one"] .choices__input {

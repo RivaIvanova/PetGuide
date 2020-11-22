@@ -29,19 +29,10 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\blog-single.cshtml" />
-    <None Include="Views\blog.cshtml" />
-    <None Include="Views\contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Pets\Search.cshtml" />
     <None Include="Views\Pets\SearchDemo.cshtml" />
-    <None Include="Views\portfolio-details.cshtml" />
-    <None Include="Views\portfolio.cshtml" />
-    <None Include="Views\pricing.cshtml" />
-    <None Include="Views\Search.cshtml" />
-    <None Include="Views\services.cshtml" />
     <None Include="Views\Settings\blog.cshtml" />
-    <None Include="Views\team.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

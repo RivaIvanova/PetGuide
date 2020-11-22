@@ -1,10 +1,3 @@
-/**
-* Template Name: Serenity - v2.1.0
-* Template URL: https://bootstrapmade.com/serenity-bootstrap-corporate-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 /*--------------------------------------------------------------
 # General
 
@@ -517,7 +510,7 @@ section {
 # Breadcrumbs
 --------------------------------------------------------------*/
 .breadcrumbs {
-  padding: 0;
+  padding-bottom: 50px;
 }
 
 .breadcrumbs .breadcrumb-hero {
@@ -1022,7 +1015,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Portfolio
+# portfolio
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
   margin-bottom: 30px;
@@ -1440,7 +1433,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Portfolio Details
+# portfolio Details
 --------------------------------------------------------------*/
 .portfolio-details .portfolio-details-container {
   position: relative;
@@ -1498,7 +1491,7 @@ section {
 }
 
 .portfolio-details .portfolio-description {
-  padding-top: 50px;
+  padding-top: 100px;
 }
 
 .portfolio-details .portfolio-description h2 {

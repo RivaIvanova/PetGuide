@@ -28,11 +28,6 @@
             return this.View(model);
         }
 
-        public IActionResult blog()
-        {
-            return this.View();
-        }
-
         public async Task<IActionResult> InsertSetting()
         {
             var random = new Random();

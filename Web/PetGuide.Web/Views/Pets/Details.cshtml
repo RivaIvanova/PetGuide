@@ -1,0 +1,88 @@
+﻿@model PetGuide.Web.ViewModels.Pets.PetsDetailsViewModel
+@{ 
+    this.ViewData["Title"] = "Pet Details";
+}
+<main id="main">
+
+    <!-- Pets Details Heading -->
+    <section class="breadcrumbs">
+
+        <div class="breadcrumb-hero">
+            <div class="container">
+                <div class="breadcrumb-hero">
+                    <h2>Pet Details</h2>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- END Pets Details Heading -->
+    <!-- Pets Details -->
+    <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+
+            <div class="portfolio-details-container">
+
+                <div class="owl-carousel portfolio-details-carousel">
+                    @*<img src="~/assets/img/dog-yellow-font.jpg" class="img-fluid" alt="">
+                    <img src="~/assets/img/register-font.png" class="img-fluid" alt="">
+                    <img src="~/assets/img/register-font2.jpg" class="img-fluid" alt="">*@
+                </div>
+
+                <div class="portfolio-info">
+                    <h3>Project information</h3>
+                    <ul>
+                        <li><strong>Name</strong>: @Model.Name</li>
+                        <li><strong>Location</strong>: @Model.Location.District.ToString()</li>
+                        <li><strong>Date</strong>: 01 March, 2020</li>
+                        <li><strong>Person</strong>: @Model.Contact?.UserName</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="portfolio-description">
+                <h2>Name</h2>
+                <p>
+                    @Model.Name
+                </p>
+
+                <h2>Location</h2>
+                <p>
+                    District: @Model.Location.District.ToString()
+                </p>
+                <p>
+                    Street:  @Model.Location.Street
+                </p>
+                <p>
+                    Additional Info: @Model.Location.AdditionalInfo
+                </p>
+
+                <h2>Age</h2>
+                <p>
+                    @Model.Age
+                </p>
+
+                <h2>Description</h2>
+                <p>
+                    @Model.Description
+                </p>
+
+                <h2>Contacts</h2>
+                <p>
+                    Fullname:  @Model.Contact?.FirstName @Model.Contact?.LastName
+                </p>
+                <p>
+                    Username: @Model.Contact?.UserName
+                </p>
+                <p>
+                    Email: @Model.Contact?.Email
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- END Pets Details -->
+
+</main>
