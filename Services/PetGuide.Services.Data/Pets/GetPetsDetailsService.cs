@@ -9,28 +9,25 @@
     public class GetPetsDetailsService : IGetPetsDetailsService
     {
         private readonly IDeletableEntityRepository<Pet> petsRepository;
-        private readonly IDeletableEntityRepository<Location> locationsRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
         public GetPetsDetailsService(
-            IDeletableEntityRepository<Pet> petsRepository,
-            IDeletableEntityRepository<Location> locationsRepository,
-            IDeletableEntityRepository<ApplicationUser> usersRepository)
+            IDeletableEntityRepository<Pet> petsRepository)
         {
             this.petsRepository = petsRepository;
-            this.locationsRepository = locationsRepository;
-            this.usersRepository = usersRepository;
         }
 
-        public PetsDetailsDto GetPetsDetails()
+        public PetsDetailsDto GetPetsDetails(string id)
         {
+            var pet = this.petsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
+
             var data = new PetsDetailsDto
             {
-                Name = this.petsRepository.All().FirstOrDefault().Name,
-                Location = this.locationsRepository.All().FirstOrDefault(),
-                Age = this.petsRepository.All().FirstOrDefault().Age,
-                Description = this.petsRepository.All().FirstOrDefault().Description,
-                Contact = this.usersRepository.All().FirstOrDefault(),
+                Name = pet.Name,
+                Age = pet.Age,
+                Location = pet.Location,
+                CreatedOn = pet.CreatedOn,
+                Description = pet.Description,
+                Contact = pet.User,
             };
 
             return data;

@@ -25,16 +25,17 @@
 
                 <div class="owl-carousel portfolio-details-carousel">
                     @*<img src="~/assets/img/dog-yellow-font.jpg" class="img-fluid" alt="">
+        <img src="~/assets/img/register-font.png" class="img-fluid" alt="">
+        <img src="~/assets/img/register-font2.jpg" class="img-fluid" alt="">*@
                     <img src="~/assets/img/register-font.png" class="img-fluid" alt="">
-                    <img src="~/assets/img/register-font2.jpg" class="img-fluid" alt="">*@
                 </div>
 
                 <div class="portfolio-info">
                     <h3>Project information</h3>
                     <ul>
                         <li><strong>Name</strong>: @Model.Name</li>
-                        <li><strong>Location</strong>: @Model.Location.District.ToString()</li>
-                        <li><strong>Date</strong>: 01 March, 2020</li>
+                        <li><strong>Location</strong>: @*@Model.Location.District.ToString()*@</li>
+                        <li><strong>Date</strong>: @Model.CreatedOnAsString</li>
                         <li><strong>Person</strong>: @Model.Contact?.UserName</li>
                     </ul>
                 </div>
@@ -48,7 +49,7 @@
                 </p>
 
                 <h2>Location</h2>
-                <p>
+                @*<p>
                     District: @Model.Location.District.ToString()
                 </p>
                 <p>
@@ -56,7 +57,7 @@
                 </p>
                 <p>
                     Additional Info: @Model.Location.AdditionalInfo
-                </p>
+                </p>*@
 
                 <h2>Age</h2>
                 <p>

@@ -64,8 +64,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Events\" />
     <Folder Include="Views\Advices\" />
+    <Folder Include="Views\Events\" />
     <Folder Include="Views\Shelters\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>

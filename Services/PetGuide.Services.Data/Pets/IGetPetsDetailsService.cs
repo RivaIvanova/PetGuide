@@ -4,6 +4,6 @@
 
     public interface IGetPetsDetailsService
     {
-        PetsDetailsDto GetPetsDetails();
+        PetsDetailsDto GetPetsDetails(string id);
     }
 }

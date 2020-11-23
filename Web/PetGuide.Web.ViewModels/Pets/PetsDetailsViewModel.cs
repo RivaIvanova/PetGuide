@@ -1,10 +1,10 @@
-﻿namespace PetGuide.Services.Data.DTOs
+﻿namespace PetGuide.Web.ViewModels.Pets
 {
     using System;
 
     using PetGuide.Data.Models;
 
-    public class PetsDetailsDto
+    public class PetsDetailsViewModel
     {
         public string Id { get; set; }
 
@@ -15,6 +15,8 @@
         public int? Age { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public string CreatedOnAsString => this.CreatedOn.ToString("f");
 
         public string Description { get; set; }
 

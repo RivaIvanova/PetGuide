@@ -1,17 +1,32 @@
 ﻿namespace PetGuide.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
     using PetGuide.Services.Data.Pets;
     using PetGuide.Web.ViewModels.Pets;
 
     public class PetsController : BaseController
     {
+        private readonly IAddPetService addPetService;
         private readonly IGetPetsDetailsService getPetsDetailsService;
+        private readonly IGetAllPetsService getAllPetsService;
 
-        public PetsController(IGetPetsDetailsService getPetsDetailsService)
+        public PetsController(
+            IAddPetService addPetService,
+            IGetPetsDetailsService getPetsDetailsService,
+            IGetAllPetsService getAllPetsService)
         {
+            this.addPetService = addPetService;
             this.getPetsDetailsService = getPetsDetailsService;
+            this.getAllPetsService = getAllPetsService;
+        }
+
+        public IActionResult All()
+        {
+            var pets = this.getAllPetsService.GetAll();
+
+            return this.View(pets);
         }
 
         // Add Pets
@@ -20,15 +35,19 @@
             return this.View();
         }
 
+
         [HttpPost]
-        public IActionResult Add(AddPetInputModel input)
+        public async Task<IActionResult> Add(AddPetInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
+
+            await this.addPetService.AddAsync(input);
+
             // Redirect to All Pets
-            return this.Redirect("/Pets/Search");
+            return this.Redirect("/Pets/All");
         }
 
         // Search Pets
@@ -38,14 +57,14 @@
         }
 
         // Pets Details
-        public IActionResult Details()
+        public IActionResult Details(string id)
         {
-            var petsDetailsDto = this.getPetsDetailsService.GetPetsDetails();
+            var petsDetailsDto = this.getPetsDetailsService.GetPetsDetails(id);
 
             var viewModel = new PetsDetailsViewModel
             {
                 Name = petsDetailsDto.Name,
-                Location = petsDetailsDto.Location,
+                CreatedOn = petsDetailsDto.CreatedOn,
                 Age = petsDetailsDto.Age,
                 Description = petsDetailsDto.Description,
                 Contact = petsDetailsDto.Contact,
