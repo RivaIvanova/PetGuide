@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\**" />
+    <Content Remove="wwwroot\assets\**" />
+    <EmbeddedResource Remove="wwwroot\assets\**" />
+    <None Remove="wwwroot\assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\blog-single.cshtml" />
     <Content Remove="Views\blog.cshtml" />
     <Content Remove="Views\contact.cshtml" />
@@ -31,7 +38,6 @@
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Pets\Search.cshtml" />
-    <None Include="Views\Pets\SearchDemo.cshtml" />
     <None Include="Views\Settings\blog.cshtml" />
   </ItemGroup>
 
@@ -67,6 +73,5 @@
     <Folder Include="Views\Advices\" />
     <Folder Include="Views\Events\" />
     <Folder Include="Views\Shelters\" />
-    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 </Project>
