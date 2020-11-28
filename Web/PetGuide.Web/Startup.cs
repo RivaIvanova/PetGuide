@@ -43,16 +43,18 @@
 
             services.Configure<CookiePolicyOptions>(
                 options =>
-                    {
-                        options.CheckConsentNeeded = context => true;
-                        options.MinimumSameSitePolicy = SameSiteMode.None;
-                    });
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
 
             services.AddControllersWithViews(
                 options =>
-                    {
-                        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    }).AddRazorRuntimeCompilation();
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                })
+                .AddRazorRuntimeCompilation();
+
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
@@ -87,7 +89,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
