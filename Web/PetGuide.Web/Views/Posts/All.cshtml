@@ -1,4 +1,4 @@
-﻿@model ICollection<PetGuide.Web.ViewModels.Pets.PetsDetailsViewModel>
+﻿@model ICollection<PetGuide.Web.ViewModels.Posts.AllPostsViewModel>
 
 <main id="main">
 
@@ -17,9 +17,12 @@
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-lost">Lost Pets</li>
-                        <li data-filter=".filter-spotted">Spotted Pets</li>
-                        <li data-filter=".filter-found">Found Pets</li>
+                        <li data-filter=".filter-lost">Health</li>
+                        <li data-filter=".filter-spotted">Grooming</li>
+                        <li data-filter=".filter-found">Food</li>
+                        <li data-filter=".filter-lost">Behaviour</li>
+                        <li data-filter=".filter-spotted">Toys</li>
+                        <li data-filter=".filter-found">Communication</li>
                     </ul>
                 </div>
             </div>
@@ -31,7 +34,7 @@
 
             <div class="row">
 
-                @foreach (var petModel in Model)
+                @foreach (var postModel in Model)
                 {
 
                     <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
@@ -42,23 +45,23 @@
                             </div>
 
                             <h2 class="entry-title">
-                                <a href="/Pets/Details/@petModel.Id"> @petModel.Name </a>
+                                <a href="/Posts/Details/@postModel.Id"> @postModel.Title </a>
                             </h2>
 
                             <div class="entry-meta">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @petModel.Contact?.UserName </li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @petModel.CreatedOnAsString </i> </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @postModel.Author?.UserName </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @postModel.CreatedOnAsString </i> </li>
                                 </ul>
                             </div>
 
                             <div class="entry-content">
-                                <textarea disabled rows="4">@petModel.ShortDescription</textarea>
+                                <textarea disabled rows="4">@postModel.ShortContent</textarea>
 
                             </div>
 
                             <div class="read-more">
-                                <a href="/Pets/Details/@petModel.Id">Read More</a>
+                                <a href="/Posts/Details/@postModel.Id">Read More</a>
                             </div>
 
                         </article><!-- End blog entry -->

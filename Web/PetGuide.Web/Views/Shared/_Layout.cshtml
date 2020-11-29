@@ -43,6 +43,12 @@
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link">Hello, @this.User.Identity.Name</a>
+                        </li>
+                    }
 
 
                     <li class="nav-item active">
@@ -55,7 +61,7 @@
                         <a class="nav-linkk" asp-area="" asp-controller="Pets" asp-action="All">All Pets</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-linkk" asp-area="" asp-controller="Advices" asp-action="Advices">Advices</a>
+                        <a class="nav-linkk" asp-area="" asp-controller="Posts" asp-action="All">Advices</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-linkk" asp-area="" asp-controller="Home" asp-action="About">About</a>
@@ -71,7 +77,20 @@
                     </li>
 
                     <li class="get-started">
-                        <a class="nav-linkk" asp-area="" asp-controller="Users" asp-action="Login">Get Involved</a>
+
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                    <button type="submit" class="nav-linkk">Logout</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="nav-linkk" asp-area="Identity" asp-page="/Account/Login">Get Involved</a>
+                            }
+                        }
+
                     </li>
 
                 </ul>

@@ -4,7 +4,7 @@
 
 <div class="container-register">
     <div class="d-flex justify-content-center h-100">
-        <div class="card" style="width: 800px; height: auto">
+        <div class="card" style="width: 800px">
             <div class="card-header">
                 <h3>Add Pet</h3>
                 <div class="d-flex justify-content-end social_icon">
@@ -45,12 +45,12 @@
 
                             <span asp-validation-for="District" class="text-danger"></span>
                             <div class="input-group form-group">
-                                <div class="input-group-prepend" style="width: 100%">
+                                <div class="input-group-prepend" style="width:100%">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <select asp-for="District" style="width:100%; border-top-left-radius: 0px" class="form-control" asp-items="Html.GetEnumSelectList<District>()">
+                                    <select asp-for="District" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<District>()">
                                         <option placeholder="" value="">District</option>
                                     </select>
-                               
+
                                 </div>
                             </div>
                         </div>
@@ -83,9 +83,9 @@
                         <div class="col-12 col-md-6">
                             <span asp-validation-for="Type" class="text-danger"></span>
                             <div class="input-group form-group">
-                                <div class="input-group-prepend" style="width: 100%">
+                                <div class="input-group-prepend" style="width:100%">
                                     <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
-                                    <select asp-for="Type" style="width:100%" class="form-control" asp-items="Html.GetEnumSelectList<PetType>()">
+                                    <select asp-for="Type" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetType>()">
                                         <option placeholder="" value="">Type</option>
                                     </select>
 
@@ -111,8 +111,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Add" class="btn float-right login_btn">
+                        <input type="submit" value="Add" class="btn float-right login_btn" />
                     </div>
+
                 </form>
             </div>
         </div>

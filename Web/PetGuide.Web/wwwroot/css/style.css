@@ -6,6 +6,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
+  height: auto;
 }
 
 a {
@@ -131,6 +132,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu .get-started a:hover {
+  background: #ffa852;
+  color: #fff;
+}
+
+.nav-menu .get-started form{
+    padding-top: 0px;
+}
+
+.nav-menu .get-started form button{
+  background: #ff9a35;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 15px;
+  padding: 10px 25px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+  border: none;
+}
+
+.nav-menu .get-started form button:hover {
   background: #ffa852;
   color: #fff;
 }
@@ -274,9 +297,33 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   margin: 15px 15px 0 15px;
   padding: 10px 25px;
+  text-align: center;
 }
 
 .mobile-nav .get-started a:hover {
+  background: #ffa852;
+  color: #fff;
+}
+
+.mobile-nav .get-started form{
+    padding-top: 0px;
+}
+
+.mobile-nav .get-started form button{
+  background: #ff9a35;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 15px;
+  padding: 10px 25px;
+  width: -webkit-fill-available;
+  font-family: 'Numans', sans-serif;
+  font-weight: 500;
+  position: relative;
+  border: none;
+  text-align: center;
+}
+
+.mobile-nav .get-started form button:hover {
   background: #ffa852;
   color: #fff;
 }

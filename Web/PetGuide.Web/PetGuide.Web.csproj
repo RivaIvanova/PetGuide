@@ -76,7 +76,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Advices\" />
     <Folder Include="Views\Events\" />
     <Folder Include="Views\Shelters\" />
   </ItemGroup>

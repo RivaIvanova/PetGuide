@@ -3,10 +3,10 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-/*background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+/*background-image: url(../img/register-font3.png);
 background-size: cover;
 background-repeat: no-repeat;*/
-height: 100%;
+height: auto;
 font-family: 'Numans', sans-serif;
 }
 
@@ -25,6 +25,8 @@ a:hover {
 height: 100%;
 margin-top: 100px;
 background: url(../img/register-font3.png);
+background-size: cover;
+background-repeat: no-repeat;
 align-content: center;
 }
 
@@ -32,13 +34,14 @@ align-content: center;
 height: 100%;
 margin-top: 100px;
 background: url(../img/register-font3.png);
+background-size: cover;
+background-repeat: no-repeat;
 align-content: center;
 }
 
 .card{
-height: 370px;
-margin-top: 100px;
-margin-bottom: auto;
+margin-top: 50px;
+margin-bottom: 50px;
 width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 }
@@ -50,7 +53,7 @@ color: #ff9a35;
 }
 
 .social_icon span:hover{
-color: white;
+color: rgba(0,0,0,0.5);
 cursor: pointer;
 }
 
