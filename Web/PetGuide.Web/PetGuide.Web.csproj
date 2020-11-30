@@ -77,6 +77,5 @@
 
   <ItemGroup>
     <Folder Include="Views\Events\" />
-    <Folder Include="Views\Shelters\" />
   </ItemGroup>
 </Project>

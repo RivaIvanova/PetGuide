@@ -12,7 +12,12 @@
             return this.View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
+        {
+            return this.View();
+        }
+
+        public IActionResult Contact()
         {
             return this.View();
         }

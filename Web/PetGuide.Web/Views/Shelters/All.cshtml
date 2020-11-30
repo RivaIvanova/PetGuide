@@ -1,0 +1,51 @@
+﻿@model ICollection<PetGuide.Web.ViewModels.Shelters.AllSheltersViewModel>
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="breadcrumb-hero">
+            <div class="container">
+                <div class="breadcrumb-hero">
+                    <h2>Shelters</h2>
+                    <p>
+                        PetGuide partners with some local shelters where many of our nice users help in any way they can.
+                        It is not excluded that some users don't manage to find a pet's owner at first.
+                        In most cases these users take care for these pets until someone seeks for them.
+                        But sometimes our users don't have this kind of oppotunity and are forced to leave these pets at shelters.
+                        Eventhough they can't take care of them at their homes, they often visit them at the shelter and help in every activity they can take part.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="row">
+
+                @foreach (var shelter in Model)
+                {
+                    <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up">
+                        <!-- SHELTER PICTURE -->
+                        <div class="card" style="background-image: url('../img/shelters/woman-with-cat.jpg'); background-size: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="">@shelter.Name</a></h5>
+                                <textarea class="card-text" disabled rows="1">@shelter.Address </textarea>
+
+                                <div class="read-more">
+                                    <a href="/Shelters/Details/@shelter.Id"><i class="icofont-arrow-right"></i> Read More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+    </section>
+</main>
