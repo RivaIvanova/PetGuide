@@ -28,7 +28,5 @@
         public ICollection<UserShelter> ShelterVolunteers { get; set; }
 
         public ICollection<Picture> Pictures { get; set; }
-
-        // Shelter List
     }
 }

@@ -68,6 +68,7 @@
                 Age = petsDetailsDto.Age,
                 Description = petsDetailsDto.Description,
                 Contact = petsDetailsDto.Contact,
+                Location = petsDetailsDto.Location,
             };
 
             return this.View(viewModel);
