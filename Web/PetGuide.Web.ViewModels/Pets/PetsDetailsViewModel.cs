@@ -20,8 +20,6 @@
 
         public string Description { get; set; }
 
-        public string ShortDescription => this.Description.Trim();
-
         public ApplicationUser Contact { get; set; }
     }
 }

@@ -18,7 +18,6 @@
     using PetGuide.Data.Repositories;
     using PetGuide.Data.Seeding;
     using PetGuide.Services.Data;
-    using PetGuide.Services.Data.Pets;
     using PetGuide.Services.Data.Posts;
     using PetGuide.Services.Data.Shelters;
     using PetGuide.Services.Mapping;
@@ -50,6 +49,12 @@
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services.ConfigureApplicationCookie(
+                options =>
+                {
+                    options.LoginPath = "/Login";
+                });
+
             services.AddControllersWithViews(
                 options =>
                 {
@@ -70,9 +75,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
 
-            services.AddTransient<IGetPetsDetailsService, GetPetsDetailsService>();
-            services.AddTransient<IAddPetService, AddPetService>();
-            services.AddTransient<IGetAllPetsService, GetAllPetsService>();
+            services.AddTransient<IPetService, PetService>();
 
             services.AddTransient<IGetAllPostsService, GetAllPostsService>();
 

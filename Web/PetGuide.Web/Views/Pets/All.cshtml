@@ -1,4 +1,4 @@
-﻿@model ICollection<PetGuide.Web.ViewModels.Pets.PetsDetailsViewModel>
+﻿@model PetGuide.Web.ViewModels.Pets.AllPetsListViewModel
 
 <main id="main">
 
@@ -31,13 +31,14 @@
 
             <div class="row">
 
-                @foreach (var petModel in Model)
+                @foreach (var petModel in Model.Pets)
                 {
 
                     <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
                         <article class="entry">
 
                             <div class="entry-img">
+                                <!-- PET PICTURE -->
                                 <img src="~/img/register-font2.jpg" alt="" class="img-fluid">
                             </div>
 
@@ -47,7 +48,7 @@
 
                             <div class="entry-meta">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @petModel.Contact?.UserName </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @petModel.Contact.UserName </li>
                                     <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @petModel.CreatedOnAsString </i> </li>
                                 </ul>
                             </div>
@@ -58,7 +59,7 @@
                             </div>
 
                             <div class="read-more">
-                                <a href="/Pets/Details/@petModel.Id">Read More</a>
+                                <a asp-action="Details" asp-route-id="@petModel.Id">Read More</a>
                             </div>
 
                         </article><!-- End blog entry -->
@@ -69,15 +70,7 @@
 
             </div>
 
-            <div class="blog-pagination" data-aos="fade-up">
-                <ul class="justify-content-center">
-                    <li class="disabled"><i class="icofont-rounded-left"></i></li>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#"><i class="icofont-rounded-right"></i></a></li>
-                </ul>
-            </div>
+            <partial name="_PagingPartial" model="@Model" />
 
         </div>
     </section><!-- End Blog Section -->

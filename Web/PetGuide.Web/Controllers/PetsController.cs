@@ -1,42 +1,53 @@
 ﻿namespace PetGuide.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using PetGuide.Services.Data.Pets;
+    using PetGuide.Services.Data;
+
     using PetGuide.Web.ViewModels.Pets;
 
     public class PetsController : BaseController
     {
-        private readonly IAddPetService addPetService;
-        private readonly IGetPetsDetailsService getPetsDetailsService;
-        private readonly IGetAllPetsService getAllPetsService;
+        private readonly IPetService petService;
 
         public PetsController(
-            IAddPetService addPetService,
-            IGetPetsDetailsService getPetsDetailsService,
-            IGetAllPetsService getAllPetsService)
+            IPetService petService)
         {
-            this.addPetService = addPetService;
-            this.getPetsDetailsService = getPetsDetailsService;
-            this.getAllPetsService = getAllPetsService;
+            this.petService = petService;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
-            var pets = this.getAllPetsService.GetAll();
+            if (id <= 0)
+            {
+                id = 1;
+            }
 
-            return this.View(pets);
+            const int itemsPerPage = 12;
+
+            var viewModel = new AllPetsListViewModel
+            {
+                PageNumber = id,
+                ItemsCount = this.petService.GetCount(),
+                ItemsPerPage = itemsPerPage,
+                Pets = this.petService.GetAll(id, itemsPerPage),
+            };
+
+            return this.View(viewModel);
         }
 
         // Add Pets
+        [Authorize]
         public IActionResult Add()
         {
             return this.View();
         }
 
-
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(AddPetInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -44,9 +55,10 @@
                 return this.View();
             }
 
-            await this.addPetService.AddAsync(input);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            // Redirect to All Pets
+            await this.petService.AddAsync(input, userId);
+
             return this.Redirect("/Pets/All");
         }
 
@@ -59,7 +71,7 @@
         // Pets Details
         public IActionResult Details(string id)
         {
-            var petsDetailsDto = this.getPetsDetailsService.GetPetsDetails(id);
+            var petsDetailsDto = this.petService.GetPetsDetails(id);
 
             var viewModel = new PetsDetailsViewModel
             {
