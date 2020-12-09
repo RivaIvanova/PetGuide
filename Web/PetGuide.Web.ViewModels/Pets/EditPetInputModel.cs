@@ -1,10 +1,10 @@
-﻿namespace PetGuide.Services.Data.DTOs
+﻿namespace PetGuide.Web.ViewModels.Pets
 {
     using System;
 
     using PetGuide.Data.Models;
 
-    public class PetsDetailsDto
+    public class EditPetInputModel
     {
         public string Id { get; set; }
 
@@ -16,10 +16,10 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public string CreatedOnAsString => this.CreatedOn.ToString("f");
+
         public string Description { get; set; }
 
-        public string ShortDescription => this.Description.Trim();
-
-        public ApplicationUser Contact { get; set; }
+        public PetType Type { get; set; }
     }
 }

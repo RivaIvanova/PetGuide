@@ -19,6 +19,7 @@
             this.petService = petService;
         }
 
+        // All Pets
         public IActionResult All(int id = 1)
         {
             if (id <= 0)
@@ -62,6 +63,35 @@
             return this.Redirect("/Pets/All");
         }
 
+        // Edit Pets
+        [Authorize]
+        public IActionResult Edit(string id)
+        {
+            var inputModel = this.petService.GetPetEdit(id);
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(string id, EditPetInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.petService.EditAsync(id, input);
+            return this.RedirectToAction(nameof(this.Details), new { id });
+        }
+
+        // Delete Pets
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.petService.DeleteAsync(id);
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         // Search Pets
         public IActionResult Search()
         {
@@ -71,17 +101,7 @@
         // Pets Details
         public IActionResult Details(string id)
         {
-            var petsDetailsDto = this.petService.GetPetsDetails(id);
-
-            var viewModel = new PetsDetailsViewModel
-            {
-                Name = petsDetailsDto.Name,
-                CreatedOn = petsDetailsDto.CreatedOn,
-                Age = petsDetailsDto.Age,
-                Description = petsDetailsDto.Description,
-                Contact = petsDetailsDto.Contact,
-                Location = petsDetailsDto.Location,
-            };
+            var viewModel = this.petService.GetPetsDetails(id);
 
             return this.View(viewModel);
         }

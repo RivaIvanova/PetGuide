@@ -76,6 +76,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
 
             services.AddTransient<IPetService, PetService>();
+            services.AddTransient<ILocationService, LocationService>();
 
             services.AddTransient<IGetAllPostsService, GetAllPostsService>();
 

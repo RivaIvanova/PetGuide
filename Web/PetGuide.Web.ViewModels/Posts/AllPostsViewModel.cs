@@ -18,7 +18,7 @@
 
         public string Content { get; set; }
 
-        public string ShortContent => this.Content.Length >= 200 ? $"{this.Content.Substring(0, 200)}..." : this.Content;
+        public string ShortContent => this.Content.Length >= 100 ? $"{this.Content.Substring(0, 100)}..." : this.Content;
 
         public ApplicationUser Author { get; set; }
     }

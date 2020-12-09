@@ -19,18 +19,19 @@
         [MaxLength(30)]
         public string Name { get; set; }
 
-        [Required]
-        public Location Location { get; set; }
-
         public int? Age { get; set; }
 
         [Required]
         [MaxLength(500)]
         public string Description { get; set; }
 
-        // Type of Pet (Lost, Found, Spotted) - Enum or Roles
         [Required]
         public PetType Type { get; set; }
+
+        public int LocationId { get; set; }
+
+        [Required]
+        public Location Location { get; set; }
 
         public string UserId { get; set; }
 

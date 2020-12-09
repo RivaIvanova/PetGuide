@@ -20,6 +20,8 @@
 
         public string Description { get; set; }
 
+        public PetType Type { get; set; }
+
         public ApplicationUser Contact { get; set; }
     }
 }

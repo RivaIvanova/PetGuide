@@ -27,6 +27,8 @@
         [Required]
         public DateTime Date { get; set; }
 
+        public int LocationId { get; set; }
+
         [Required]
         public Location Location { get; set; }
 

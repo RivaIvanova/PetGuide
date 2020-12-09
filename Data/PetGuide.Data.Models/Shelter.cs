@@ -20,6 +20,8 @@
         [MaxLength(30)]
         public string Name { get; set; }
 
+        public int LocationId { get; set; }
+
         [Required]
         public Location Location { get; set; }
 
