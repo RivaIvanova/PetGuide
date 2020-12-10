@@ -15,7 +15,7 @@
         }
 
         [Required]
-        [RegularExpression("^[A-Z][a-z]+ ([A-Z][a-z]+)*$")]
+        [RegularExpression(@"^[A-Z][a-z]+\s?(([A-Z][a-z]+)\s?){0,3}$")]
         [MaxLength(30)]
         public string Name { get; set; }
 

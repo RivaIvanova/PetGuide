@@ -60,13 +60,21 @@
 
             await this.petService.AddAsync(input, userId);
 
-            return this.Redirect("/Pets/All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         // Edit Pets
         [Authorize]
         public IActionResult Edit(string id)
         {
+            var pet = this.petService.GetPetById(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (pet.UserId != userId)
+            {
+                return this.RedirectToAction(nameof(this.All));
+            }
+
             var inputModel = this.petService.GetPetEdit(id);
             return this.View(inputModel);
         }
@@ -75,6 +83,14 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id, EditPetInputModel input)
         {
+            var pet = this.petService.GetPetById(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (pet.UserId != userId)
+            {
+                return this.RedirectToAction(nameof(this.All));
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -88,7 +104,14 @@
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            await this.petService.DeleteAsync(id);
+            var pet = this.petService.GetPetById(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (pet.UserId == userId)
+            {
+                await this.petService.DeleteAsync(id);
+            }
+
             return this.RedirectToAction(nameof(this.All));
         }
 

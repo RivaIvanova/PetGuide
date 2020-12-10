@@ -1,7 +1,7 @@
 ﻿namespace PetGuide.Services.Data
 {
-    using System;
     using System.Linq;
+
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
 
@@ -19,7 +19,7 @@
             var location = this.locationsRepository
                .All()
                .FirstOrDefault(
-               x => x.District == district && x.Street == street && x.AdditionalInfo == additionalLocationInfo);
+               x => x.District == district && x.Street == street && x.AdditionalLocationInfo == additionalLocationInfo);
 
             if (location == null)
             {
@@ -27,7 +27,7 @@
                 {
                     District = district,
                     Street = street,
-                    AdditionalInfo = additionalLocationInfo == null ? "No additional location info" : additionalLocationInfo.Trim(),
+                    AdditionalLocationInfo = additionalLocationInfo == null ? "No additional location info" : additionalLocationInfo.Trim(),
                 };
             }
 

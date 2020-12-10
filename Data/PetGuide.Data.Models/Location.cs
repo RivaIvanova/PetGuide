@@ -6,6 +6,7 @@
 
     public class Location : BaseDeletableModel<int>
     {
+        [Required]
         public District District { get; set; }
 
         [Required]
@@ -13,6 +14,6 @@
         public string Street { get; set; }
 
         [MaxLength(150)]
-        public string AdditionalInfo { get; set; }
+        public string AdditionalLocationInfo { get; set; }
     }
 }

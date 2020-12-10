@@ -12,6 +12,6 @@
 
         public Location Location { get; set; }
 
-        public string Address => $"{this.Location.District} {this.Location.Street} {this.Location.AdditionalInfo}";
+        public string Address => $"{this.Location.District} {this.Location.Street} {this.Location.AdditionalLocationInfo}";
     }
 }

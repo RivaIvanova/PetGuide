@@ -19,7 +19,7 @@
             {
                 District = District.Mladost,
                 Street = "Best Street 2",
-                AdditionalInfo = "Next to the bus stop",
+                AdditionalLocationInfo = "Next to the bus stop",
             };
 
             await dbContext.Pets.AddAsync(new Pet { Name = "Barky", Location = location, Age = 2, Description = "Best dog in the world!" });

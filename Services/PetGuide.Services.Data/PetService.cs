@@ -40,7 +40,7 @@
                 UserId = userId,
             };
 
-            var location = this.locationService.GetLocation(input.District, input.Street, input.AdditionalInfo);
+            var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
 
             pet.Location = location;
 
@@ -52,7 +52,7 @@
         public async Task EditAsync(string id, EditPetInputModel input)
         {
             var pet = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
-            var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalInfo);
+            var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
 
             pet.Name = input.Name;
             pet.Age = input.Age;
@@ -136,6 +136,9 @@
             return this.petsRepository.All().Count();
         }
 
-        
+        public Pet GetPetById(string id)
+        {
+            return this.petsRepository.All().FirstOrDefault(x => x.Id == id);
+        }
     }
 }

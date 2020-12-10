@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using PetGuide.Data.Models;
     using PetGuide.Web.ViewModels.Pets;
 
     public interface IPetService
@@ -18,6 +18,8 @@
         PetsDetailsViewModel GetPetsDetails(string id);
 
         EditPetInputModel GetPetEdit(string id);
+
+        Pet GetPetById(string id);
 
         int GetCount();
     }
