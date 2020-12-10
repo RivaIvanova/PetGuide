@@ -487,6 +487,26 @@ h1, h2, h3, h4, h5, h6 {
             background: #ffa852;
         }
 
+.btn-add-pet a {
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin: 10px;
+    border: 2px solid #fff;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+    .btn-add-pet:hover a {
+        background: #ffa852;
+        color: #fff;
+    }
+
 @media (min-width: 1024px) {
     #hero {
         background-attachment: fixed;

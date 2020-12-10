@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PetGuide.Data.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class BasePetViewModel
     {
@@ -22,5 +23,14 @@
 
         [Required]
         public PetType Type { get; set; }
+
+        [Required]
+        public PetStatus Status { get; set; }
+
+        [Required]
+        public PetSize Size { get; set; }
+
+        [Required]
+        public PetColor Color { get; set; }
     }
 }

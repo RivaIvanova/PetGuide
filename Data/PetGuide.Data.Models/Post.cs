@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PetGuide.Data.Common.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class Post : BaseDeletableModel<string>
     {

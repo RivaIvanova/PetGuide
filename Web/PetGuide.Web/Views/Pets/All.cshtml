@@ -10,6 +10,13 @@
                     <h2>All Pets</h2>
                     <p> Here you are able to see all registered pets. </p>
                 </div>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <div class="btn-add-pet">
+                        <a asp-controller="Pets" asp-action="Add">Add a new pet</a>
+                    </div>
+                }
+
             </div>
         </div>
         <section id="portfolio" class="portfolio" style="padding-top: 60px">
@@ -24,6 +31,8 @@
                 </div>
             </div>
         </section>
+
+
     </section><!-- End Breadcrumbs -->
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">

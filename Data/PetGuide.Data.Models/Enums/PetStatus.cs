@@ -1,6 +1,6 @@
-﻿namespace PetGuide.Data.Models
+﻿namespace PetGuide.Data.Models.Enums
 {
-    public enum PetType
+    public enum PetStatus
     {
         Lost = 1,
         Found = 2,

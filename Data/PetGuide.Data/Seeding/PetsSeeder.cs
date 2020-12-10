@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using PetGuide.Data.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class PetsSeeder : ISeeder
     {

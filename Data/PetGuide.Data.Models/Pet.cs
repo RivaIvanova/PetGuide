@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PetGuide.Data.Common.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class Pet : BaseDeletableModel<string>
     {
@@ -27,6 +28,15 @@
 
         [Required]
         public PetType Type { get; set; }
+
+        [Required]
+        public PetStatus Status { get; set; }
+
+        [Required]
+        public PetSize Size { get; set; }
+
+        [Required]
+        public PetColor Color { get; set; }
 
         public int LocationId { get; set; }
 

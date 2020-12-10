@@ -4,6 +4,7 @@
 
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class LocationService : ILocationService
     {

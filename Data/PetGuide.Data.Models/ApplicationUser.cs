@@ -9,6 +9,7 @@ namespace PetGuide.Data.Models
     using Microsoft.AspNetCore.Identity;
 
     using PetGuide.Data.Common.Models;
+    using PetGuide.Data.Models.Enums;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
