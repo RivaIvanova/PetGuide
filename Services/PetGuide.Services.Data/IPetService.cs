@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using PetGuide.Data.Models;
     using PetGuide.Web.ViewModels.Pets;
 
@@ -14,6 +15,8 @@
         Task DeleteAsync(string id);
 
         IEnumerable<AllPetsViewModel> GetAll(int page, int petsPerPage = 12);
+
+        IEnumerable<SearchPetViewModel> GetRecentlyAdded();
 
         PetsDetailsViewModel GetPetsDetails(string id);
 

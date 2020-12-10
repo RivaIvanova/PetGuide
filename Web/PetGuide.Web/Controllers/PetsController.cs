@@ -118,6 +118,13 @@
         // Search Pets
         public IActionResult Search()
         {
+            //var viewModel = new SearchPetListViewModel
+            //{
+            //    Pets = this.petService.GetRecentlyAdded(),
+            //};
+
+            //return this.View(viewModel);
+
             return this.View();
         }
 

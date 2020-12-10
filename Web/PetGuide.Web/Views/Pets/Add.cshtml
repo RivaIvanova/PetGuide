@@ -31,13 +31,55 @@
 
                         <div class="col-12 col-md-6">
 
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend" style="width:100%">
+                                    <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                                    <select asp-for="Type" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetType>()">
+                                        <option placeholder="" value="">Type</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <span asp-validation-for="Color" class="text-danger"></span>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend" style="width:100%">
+                                    <span class="input-group-text"><i class="fas fa-palette"></i></span>
+                                    <select asp-for="Color" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetColor>()">
+                                        <option placeholder="" value="">Color</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
                             <span asp-validation-for="Age" class="text-danger"></span>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
                                 </div>
-                                <input asp-for="Age" type="text" class="form-control" placeholder="Age">
+                                <input asp-for="Age" type="text" class="form-control" placeholder="Age in years">
 
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <span asp-validation-for="Size" class="text-danger"></span>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend" style="width:100%">
+                                    <span class="input-group-text"><i class="fas fa-weight"></i></span>
+                                    <select asp-for="Size" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetSize>()">
+                                        <option placeholder="" value="">Size</option>
+                                    </select>
+
+                                </div>
                             </div>
                         </div>
 
@@ -81,20 +123,6 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <span asp-validation-for="Type" class="text-danger"></span>
-                            <div class="input-group form-group">
-                                <div class="input-group-prepend" style="width:100%">
-                                    <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
-                                    <select asp-for="Type" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetType>()">
-                                        <option placeholder="" value="">Type</option>
-                                    </select>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6">
 
                             <span asp-validation-for="Description" class="text-danger"></span>
                             <div class="input-group form-group">
@@ -105,6 +133,20 @@
 
                             </div>
 
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend" style="width:100%">
+                                    <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                                    <select asp-for="Status" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetStatus>()">
+                                        <option placeholder="" value="">Status</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
                         </div>
 
 

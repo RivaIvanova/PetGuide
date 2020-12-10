@@ -26,7 +26,7 @@
 
                     <div class="col-md-8">
 
-                        @if (this.User.Identity.Name.Equals(this.Model.Contact.UserName))
+                        @if (this.User.Identity.IsAuthenticated && this.User.Identity.Name.Equals(this.Model.Contact.UserName))
                         {
                             <div class="d-flex mb-3">
 
@@ -72,7 +72,7 @@
                             <h3>Pet information</h3>
                             <ul>
                                 <li><strong>Name</strong>: @Model.Name</li>
-                                <li><strong>Location</strong>: @Model.Location.District.ToString()</li>
+                                <li><strong>Location</strong>: @Html.DisplayFor(x => x.Location.District)</li>
                                 <li><strong>Date</strong>: @Model.CreatedOnAsString</li>
                                 <li><strong>Person</strong>: @Model.Contact.UserName</li>
                             </ul>
@@ -95,14 +95,34 @@
                         </p>
 
                         <p>
+                            <strong>Type:</strong>
+                            @Model.Type.ToString()
+                        </p>
+
+                        <p>
+                            <strong>Color:</strong>
+                            @Model.Color.ToString()
+                        </p>
+
+                        <p>
                             <strong>Age:</strong>
                             @Model.Age
+                        </p>
+
+                        <p>
+                            <strong>Size:</strong>
+                            @Model.Size.ToString()
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            @Model.Status.ToString()
                         </p>
 
                         <h2>Location</h2>
                         <p>
                             <strong>District:</strong>
-                            @Model.Location.District.ToString()
+                            @Html.DisplayFor(x => x.Location.District)
                         </p>
                         <p>
                             <strong>Street:</strong>
@@ -121,10 +141,7 @@
                         <p>
                             @Model.Description
                         </p>
-                        <p>
-                            <strong>Type</strong>
-                            @Model.Type.ToString()
-                        </p>
+                        
 
                         <h2>Contacts</h2>
                         <p>
@@ -133,11 +150,11 @@
                         </p>
                         <p>
                             <strong>Username:</strong>
-                            @Model.Contact?.UserName
+                            @Model.Contact.UserName
                         </p>
                         <p>
                             <strong>Email:</strong>
-                            @Model.Contact?.Email
+                            @Model.Contact.Email
                         </p>
 
                     </div>

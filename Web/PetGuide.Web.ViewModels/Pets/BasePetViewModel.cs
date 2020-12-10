@@ -5,7 +5,7 @@
     using PetGuide.Data.Models;
     using PetGuide.Data.Models.Enums;
 
-    public class BasePetViewModel
+    public abstract class BasePetViewModel
     {
         [Required]
         [RegularExpression(@"^[A-Z][a-z]+\s?(([A-Z][a-z]+)\s?){0,3}$")]
