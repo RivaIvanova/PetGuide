@@ -156,14 +156,79 @@
         }
 
         // Get Recently Added Pets
-        public IEnumerable<SearchPetViewModel> GetRecentlyAdded()
+        public IEnumerable<SearchPetResultViewModel> GetRecentlyAdded()
         {
             return this.petsRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(10)
-                .To<SearchPetViewModel>()
+                .To<SearchPetResultViewModel>()
                 .ToList();
+        }
+
+        public IEnumerable<SearchPetResultViewModel> SearchPets(SearchPetListViewModel input)
+        {
+            var pets = this.petsRepository.All().AsQueryable();
+
+            foreach (var pet in pets)
+            {
+                if (input.Type != null)
+                {
+                    pets = pets.Where(x => x.Type == input.Type);
+                }
+
+                if (input.Color != null)
+                {
+                    pets = pets.Where(x => x.Color == input.Color);
+                }
+
+                if (input.Age != null)
+                {
+                    pets = pets.Where(x => x.Age == input.Age);
+                }
+
+                if (input.Size != null)
+                {
+                    pets = pets.Where(x => x.Size == input.Size);
+                }
+
+                if (input.District != null)
+                {
+                    pets = pets.Where(x => x.Location.District == input.District);
+                }
+
+                if (input.Street != null)
+                {
+                    pets = pets.Where(x => x.Location.Street == input.Street);
+                }
+
+                if (input.Status != null)
+                {
+                    pets = pets.Where(x => x.Status == input.Status);
+                }
+            }
+
+            return pets
+                .OrderByDescending(x => x.CreatedOn)
+                .To<SearchPetResultViewModel>()
+                .ToList();
+        }
+
+        public SearchPetListViewModel SetSearchValues(SearchPetListViewModel input)
+        {
+            var viewModel = new SearchPetListViewModel
+            {
+                Age = input.Age == 0 ? default : input.Age,
+                Street = input.Street ?? default,
+                Description = input.Description ?? default,
+                Color = input.Color == 0 ? default : input.Color,
+                Size = input.Size == 0 ? default : input.Size,
+                Status = input.Status == 0 ? default : input.Status,
+                Type = input.Type == 0 ? default : input.Type,
+                District = input.District == 0 ? default : input.District,
+            };
+
+            return viewModel;
         }
     }
 }

@@ -57,6 +57,38 @@ color: rgba(0,0,0,0.5);
 cursor: pointer;
 }
 
+/*Search*/
+.search_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: #ff9a35;
+}
+
+.search_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+@media (max-width: 455px) {
+    .search_icon {
+        position: absolute;
+        right: 20px;
+        top: -60px;
+    }
+}
+
+.search_btn {
+    color: black;
+    background-color: #ff9a35;
+    width: 100%;
+}
+
+    .search_btn:hover {
+        color: black;
+        background-color: #ffa852;
+    }
+
 .card-header h3{
 color: white;
 }

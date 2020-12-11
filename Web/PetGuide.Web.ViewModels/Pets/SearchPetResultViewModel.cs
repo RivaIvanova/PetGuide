@@ -4,7 +4,7 @@
     using PetGuide.Data.Models.Enums;
     using PetGuide.Services.Mapping;
 
-    public class SearchPetViewModel : IMapFrom<Pet>
+    public class SearchPetResultViewModel : IMapFrom<Pet>
     {
         public string Id { get; set; }
 

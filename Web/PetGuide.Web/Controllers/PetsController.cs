@@ -118,14 +118,29 @@
         // Search Pets
         public IActionResult Search()
         {
-            //var viewModel = new SearchPetListViewModel
-            //{
-            //    Pets = this.petService.GetRecentlyAdded(),
-            //};
+            var viewModel = new SearchPetListViewModel
+            {
+                Age = default,
+                Color = default,
+                Size = default,
+                Status = default,
+                Type = default,
+                District = default,
+                Street = default,
+                Description = default,
+                Pets = this.petService.GetRecentlyAdded(),
+            };
 
-            //return this.View(viewModel);
+            return this.View(viewModel);
+        }
 
-            return this.View();
+        [HttpPost]
+        public IActionResult Search(SearchPetListViewModel input)
+        {
+            var viewModel = this.petService.SetSearchValues(input);
+            viewModel.Pets = this.petService.SearchPets(input);
+
+            return this.View(viewModel);
         }
 
         // Pets Details

@@ -16,11 +16,15 @@
 
         IEnumerable<AllPetsViewModel> GetAll(int page, int petsPerPage = 12);
 
-        IEnumerable<SearchPetViewModel> GetRecentlyAdded();
+        IEnumerable<SearchPetResultViewModel> GetRecentlyAdded();
 
         PetsDetailsViewModel GetPetsDetails(string id);
 
         EditPetInputModel GetPetEdit(string id);
+
+        IEnumerable<SearchPetResultViewModel> SearchPets(SearchPetListViewModel input);
+
+        SearchPetListViewModel SetSearchValues(SearchPetListViewModel input);
 
         Pet GetPetById(string id);
 
