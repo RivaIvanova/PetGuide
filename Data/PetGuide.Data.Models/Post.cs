@@ -13,6 +13,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
+            this.Tags = new HashSet<Tag>();
         }
 
         [Required]
@@ -28,8 +29,12 @@
         // List of User Likes
         public int Likes { get; set; }
 
+        public string AuthorId { get; set; }
+
         public ApplicationUser Author { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Tag> Tags { get; set; }
     }
 }

@@ -1,0 +1,87 @@
+﻿@*@model PetGuide.Web.ViewModels.Posts.PostDetailsViewModel*@
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="breadcrumb-hero">
+            <div class="container">
+                <div class="breadcrumb-hero">
+                    <h2>Add new Article</h2>
+                    <p>Best section where anybody could get usefull information about his or her pets.</p>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 mx-auto pt-3 entries">
+
+                    <article class="entry entry-single">
+
+                        <div class="card-body p-0">
+
+                            <form method="post">
+
+                                <div class="entry-content ml-3">
+                                    <h3>Article title</h3>
+                                </div>
+
+                                <span @*asp-validation-for=""*@ class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea @*asp-for=""*@ rows="1" style="resize:none" type="text" class="form-control" placeholder="Title"></textarea>
+
+                                </div>
+
+                                <span @*asp-validation-for="Category"*@ class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend" style="width:100%">
+                                        <select @*asp-for="Category"*@ class="form-control" @*asp-items="Html.GetEnumSelectList<PostCategory>()*@ @*"*@>
+                                            <option placeholder="" value="">Category</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Content</h3>
+                                </div>
+
+                                <span @*asp-validation-for=""*@ class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea @*asp-for=""*@ rows="8" style="resize:none" type="text" class="form-control" placeholder="Here you can write your article..."></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Quote</h3>
+                                </div>
+
+                                <span @*asp-validation-for=""*@ class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea @*asp-for=""*@ rows="2" style="resize:none" type="text" class="form-control" placeholder="If there is a suitable quote please share it with us. :)"></textarea>
+
+                                </div>
+
+                                <div class="entry-footer clearfix">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 mx-auto">
+                                            <div class="form-group mb-0 mt-2 text-center">
+                                                <input type="submit" value="Share" class="btn search_btn" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                            </form>
+                        </div>
+                    </article><!-- End blog entry -->
+                </div><!-- End blog entries list -->
+            </div>
+        </div>
+    </section><!-- End Blog Section -->
+</main><!-- End #main -->

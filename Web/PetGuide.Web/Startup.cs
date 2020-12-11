@@ -18,7 +18,6 @@
     using PetGuide.Data.Repositories;
     using PetGuide.Data.Seeding;
     using PetGuide.Services.Data;
-    using PetGuide.Services.Data.Posts;
     using PetGuide.Services.Data.Shelters;
     using PetGuide.Services.Mapping;
     using PetGuide.Services.Messaging;
@@ -78,7 +77,7 @@
             services.AddTransient<IPetService, PetService>();
             services.AddTransient<ILocationService, LocationService>();
 
-            services.AddTransient<IGetAllPostsService, GetAllPostsService>();
+            services.AddTransient<IPostService, PostService>();
 
             services.AddTransient<IGetAllSheltersService, GetAllSheltersService>();
         }

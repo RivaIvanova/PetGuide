@@ -1,22 +1,38 @@
 ﻿namespace PetGuide.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using PetGuide.Services.Data.Posts;
+    using PetGuide.Services.Data;
+    using PetGuide.Web.ViewModels.Posts;
 
     public class PostsController : Controller
     {
-        private readonly IGetAllPostsService getAllPostsService;
+        private readonly IPostService postService;
 
-        public PostsController(IGetAllPostsService getAllPostsService)
+        public PostsController(IPostService postService)
         {
-            this.getAllPostsService = getAllPostsService;
+            this.postService = postService;
         }
 
         public IActionResult All()
         {
-            var posts = this.getAllPostsService.GetAll();
+            var viewModel = new AllPostsListViewModel
+            {
+                Posts = this.postService.GetAll(),
+            };
 
-            return this.View(posts);
+            return this.View(viewModel);
+        }
+
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        public IActionResult Details(string id)
+        {
+            var viewModel = this.postService.GetPostDetails(id);
+
+            return this.View(viewModel);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ICollection<PetGuide.Web.ViewModels.Posts.AllPostsViewModel>
+﻿@model PetGuide.Web.ViewModels.Posts.AllPostsListViewModel
 
 <main id="main">
 
@@ -7,9 +7,16 @@
         <div class="breadcrumb-hero">
             <div class="container">
                 <div class="breadcrumb-hero">
-                    <h2>All Pets</h2>
-                    <p> Here you are able to see all registered pets. </p>
+                    <h2>All Posts</h2>
+                    <p> Best section where anybody could get usefull information about his or her pets. </p>
                 </div>
+
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <div class="btn-add-pet">
+                        <a asp-controller="Posts" asp-action="Add">Add a new article</a>
+                    </div>
+                }
             </div>
         </div>
         <section id="portfolio" class="portfolio" style="padding-top: 60px">
@@ -34,7 +41,7 @@
 
             <div class="row">
 
-                @foreach (var postModel in Model)
+                @foreach (var post in Model.Posts)
                 {
 
                     <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
@@ -45,23 +52,23 @@
                             </div>
 
                             <h2 class="entry-title">
-                                <a href="/Posts/Details/@postModel.Id"> @postModel.Title </a>
+                                <a asp-action="Details" asp-route-id="@post.Id"> @post.Title </a>
                             </h2>
 
                             <div class="entry-meta">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @postModel.Author?.UserName </li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @postModel.CreatedOnAsString </i> </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @post.Author?.UserName </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @post.CreatedOnAsString </i> </li>
                                 </ul>
                             </div>
 
                             <div class="entry-content">
-                                <textarea disabled rows="4">@postModel.ShortContent</textarea>
+                                <textarea disabled rows="4">@post.ShortContent</textarea>
 
                             </div>
 
                             <div class="read-more">
-                                <a href="/Posts/Details/@postModel.Id">Read More</a>
+                                <a asp-action="Details" asp-route-id="@post.Id">Read More</a>
                             </div>
 
                         </article><!-- End blog entry -->
