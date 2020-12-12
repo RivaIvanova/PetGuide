@@ -27,7 +27,7 @@
                 location = new Location
                 {
                     District = district,
-                    Street = street,
+                    Street = street.Trim(),
                     AdditionalLocationInfo = additionalLocationInfo == null ? "No additional location info" : additionalLocationInfo.Trim(),
                 };
             }

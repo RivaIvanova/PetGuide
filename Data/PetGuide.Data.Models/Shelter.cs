@@ -16,14 +16,21 @@
         }
 
         [Required]
-        [RegularExpression("^[A-Z][a-z]+ ([A-Z][a-z]+)*$")]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public int LocationId { get; set; }
 
         [Required]
         public Location Location { get; set; }
+
+        [Required]
+        [MaxLength(1500)]
+        public string Description { get; set; }
+
+        [Required]
+        [MaxLength(1000)]
+        public string Activities { get; set; }
 
         public ICollection<Pet> Pets { get; set; }
 

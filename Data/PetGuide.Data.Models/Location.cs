@@ -11,10 +11,10 @@
         public District District { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Street { get; set; }
 
-        [MaxLength(150)]
+        [MaxLength(250)]
         public string AdditionalLocationInfo { get; set; }
     }
 }

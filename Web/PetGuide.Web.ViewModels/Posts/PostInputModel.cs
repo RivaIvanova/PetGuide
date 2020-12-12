@@ -8,7 +8,7 @@
     {
         [Required]
         [MinLength(5)]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Required]
@@ -17,7 +17,7 @@
 
         public PostCategory Category { get; set; }
 
-        [RegularExpression(@"^(?:[a-zA-z]{2,}\s?)*$", ErrorMessage = "Tag field is not valid.")]
+        [RegularExpression(@"^(?:[a-zA-z]{2,}\s?)*$", ErrorMessage = "Tag should contain only letters and be separated by whitespace.")]
         public string Tags { get; set; }
     }
 }

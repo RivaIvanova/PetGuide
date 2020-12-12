@@ -18,7 +18,7 @@
     using PetGuide.Data.Repositories;
     using PetGuide.Data.Seeding;
     using PetGuide.Services.Data;
-    using PetGuide.Services.Data.Shelters;
+
     using PetGuide.Services.Mapping;
     using PetGuide.Services.Messaging;
     using PetGuide.Web.ViewModels;
@@ -76,10 +76,8 @@
 
             services.AddTransient<IPetService, PetService>();
             services.AddTransient<ILocationService, LocationService>();
-
             services.AddTransient<IPostService, PostService>();
-
-            services.AddTransient<IGetAllSheltersService, GetAllSheltersService>();
+            services.AddTransient<IShelterService, ShelterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
