@@ -2,9 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class AddPostInputModel
+    using PetGuide.Data.Models.Enums;
+
+    public class PostInputModel
     {
         [Required]
+        [MinLength(5)]
         [MaxLength(30)]
         public string Title { get; set; }
 
@@ -14,6 +17,7 @@
 
         public PostCategory Category { get; set; }
 
-
+        [RegularExpression(@"^(?:[a-zA-z]{2,}\s?)*$", ErrorMessage = "Tag field is not valid.")]
+        public string Tags { get; set; }
     }
 }

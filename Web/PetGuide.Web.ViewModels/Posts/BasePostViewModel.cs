@@ -3,6 +3,7 @@
     using System;
 
     using PetGuide.Data.Models;
+    using PetGuide.Data.Models.Enums;
 
     public abstract class BasePostViewModel
     {
@@ -15,6 +16,8 @@
         public string CreatedOnAsString => this.CreatedOn.ToString("f");
 
         public string Content { get; set; }
+
+        public PostCategory Category { get; set; }
 
         public string ShortContent => this.Content.Length >= 100 ? $"{this.Content.Substring(0, 100)}..." : this.Content;
 

@@ -28,6 +28,22 @@
 
                 <div class="col-lg-8 entries">
 
+                    @if (this.User.Identity.IsAuthenticated && this.User.Identity.Name.Equals(this.Model.Author.UserName))
+                    {
+                        <div class="d-flex mb-3">
+
+                            <div>
+                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                            </div>
+                            <div class="ml-1">
+                                <form method="post" id="deleteForm" asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id">
+                                </form>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            </div>
+
+                        </div>
+                    }
+
                     <article class="entry entry-single">
 
                         <div class="entry-img">
@@ -41,53 +57,21 @@
 
                         <div class="entry-meta">
                             <ul>
-                                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Model.Author?.UserName</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Model.Author.UserName</a></li>
                                 <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @Model.CreatedOnAsString</li>
-                                <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a href="blog-single.html">@Model.Category.ToString()</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a asp-action="All" asp-route-id="@Model.Category.ToString()">@Model.Category.ToString()</a></li>
                             </ul>
                         </div>
 
                         <div class="entry-content">
                             <p>
-                                Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
-                                Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
+                                @Model.Content
                             </p>
 
-                            <p>
-                                Sit repellat hic cupiditate hic ut nemo. Quis nihil sunt non reiciendis. Sequi in accusamus harum vel aspernatur. Excepturi numquam nihil cumque odio. Et voluptate cupiditate.
-                            </p>
-
-                            <blockquote>
-                                <i class="icofont-quote-left quote-left"></i>
-                                <p>
-                                    Et vero doloremque tempore voluptatem ratione vel aut. Deleniti sunt animi aut. Aut eos aliquam doloribus minus autem quos.
-                                </p>
-                                <i class="las la-quote-right quote-right"></i>
-                                <i class="icofont-quote-right quote-right"></i>
-                            </blockquote>
-
-                            <p>
-                                Sed quo laboriosam qui architecto. Occaecati repellendus omnis dicta inventore tempore provident voluptas mollitia aliquid. Id repellendus quia. Asperiores nihil magni dicta est suscipit perspiciatis. Voluptate ex rerum assumenda dolores nihil quaerat.
-                                Dolor porro tempora et quibusdam voluptas. Beatae aut at ad qui tempore corrupti velit quisquam rerum. Omnis dolorum exercitationem harum qui qui blanditiis neque.
-                                Iusto autem itaque. Repudiandae hic quae aspernatur ea neque qui. Architecto voluptatem magni. Vel magnam quod et tempora deleniti error rerum nihil tempora.
-                            </p>
-
-                            <h3>Et quae iure vel ut odit alias.</h3>
-                            <p>
-                                Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit ut rerum atque. Optio provident dolores atque voluptatem rem excepturi molestiae qui. Voluptatem laborum omnis ullam quibusdam perspiciatis nulla nostrum. Voluptatum est libero eum nesciunt aliquid qui.
-                                Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex sed. Quibusdam rerum dolores sint consequatur quidem ea.
-                                Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque aut.
-                            </p>
-                            <img src="assets/img/blog-inside-post.jpg" class="img-fluid" alt="">
 
 
                             <div class="container page-top">
-
-
-
                                 <div class="row">
-
-
                                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                                         <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
                                             <img src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid " alt="">
@@ -111,39 +95,23 @@
                                             <img src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid " alt="">
                                         </a>
                                     </div>
-
                                 </div>
-
-
-
-
                             </div>
-
-
-
-                            <h3>Ut repellat blanditiis est dolore sunt dolorum quae.</h3>
-                            <p>
-                                Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum. In assumenda quia quae a id praesentium. Quos deleniti libero sed occaecati aut porro autem. Consectetur sed excepturi sint non placeat quia repellat incidunt labore. Autem facilis hic dolorum dolores vel.
-                                Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo omnis quibusdam esse. Ex libero illum iusto totam et ut aut blanditiis. Veritatis numquam ut illum ut a quam vitae.
-                            </p>
-                            <p>
-                                Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa voluptas incidunt. Nulla sit eaque mollitia nisi asperiores est veniam.
-                            </p>
-
                         </div>
 
                         <div class="entry-footer clearfix">
                             <div class="float-left">
                                 <i class="icofont-comment"></i>
                                 <ul class="cats">
-                                    <li><a href="#">Health</a></li>
+                                    <li><a asp-action="Category" asp-route-id="@Model.Category.ToString()">@Model.Category.ToString()</a></li>
                                 </ul>
 
                                 <i class="icofont-tags"></i>
                                 <ul class="tags">
-                                    <li><a href="#">Love</a></li>
-                                    <li><a href="#">Tips</a></li>
-                                    <li><a href="#">Dogs</a></li>
+                                    @foreach (var tag in Model.Tags)
+                                    {
+                                        <li><a asp-action="All" asp-route-id="@tag.Name">@tag.Name</a></li>
+                                    }
                                 </ul>
                             </div>
 
@@ -237,7 +205,7 @@
                         <h3 class="sidebar-title">Contribution</h3>
                         <div class="sidebar-item categories">
                             <ul>
-                                <li><a href="#">@Model.Likes people found this article useful.</a></li>
+                                <li><a>@Model.Contribution</a></li>
                             </ul>
 
                         </div><!-- End sidebar search formn-->
@@ -245,12 +213,10 @@
                         <h3 class="sidebar-title">Categories</h3>
                         <div class="sidebar-item categories">
                             <ul>
-                                <li><a href="#">Health <span> (22) </span></a></li>
-                                <li><a href="#">Grooming <span>(12)</span></a></li>
-                                <li><a href="#">Food <span>(5)</span></a></li>
-                                <li><a href="#">Behaviour <span>(22)</span></a></li>
-                                <li><a href="#">Toys <span>(8)</span></a></li>
-                                <li><a href="#">Communication <span>(14)</span></a></li>
+                                @foreach (var category in Model.AllCategories)
+                                {
+                                    <li><a asp-action="Category" asp-route-id="@category">@category.ToString() <span> (22) </span></a></li>
+                                }
                             </ul>
 
                         </div><!-- End sidebar categories-->
@@ -258,18 +224,10 @@
                         <h3 class="sidebar-title">Tags</h3>
                         <div class="sidebar-item tags">
                             <ul>
-                                <li><a href="#">Pets</a></li>
-                                <li><a href="#">Dogs</a></li>
-                                <li><a href="#">Friends</a></li>
-                                <li><a href="#">Friendship</a></li>
-                                <li><a href="#">Funny</a></li>
-                                <li><a href="#">Happy</a></li>
-                                <li><a href="#">Love</a></li>
-                                <li><a href="#">Kind</a></li>
-                                <li><a href="#">Silly</a></li>
-                                <li><a href="#">Smart</a></li>
-                                <li><a href="#">Tips</a></li>
-                                <li><a href="#">Joy</a></li>
+                                @foreach (var tag in Model.AllTags)
+                                {
+                                    <li><a asp-action="All" asp-route-id="@tag.Id">@tag.Name.ToString()</a></li>
+                                }
                             </ul>
 
                         </div><!-- End sidebar tags-->
@@ -282,5 +240,24 @@
 
         </div>
     </section><!-- End Blog Section -->
-
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete @Model.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to delete "@Model.Title"?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main><!-- End #main -->

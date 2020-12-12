@@ -102,6 +102,7 @@
 
         // Delete Pets
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             var pet = this.petService.GetPetById(id);

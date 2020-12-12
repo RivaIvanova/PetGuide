@@ -38,6 +38,10 @@
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<PostTag> PostTags { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
@@ -72,6 +76,10 @@
             builder
                 .Entity<UserPetEvent>()
                 .HasKey(up => new { up.UserId, up.PetEventId });
+
+            builder
+                .Entity<PostTag>()
+                .HasKey(pt => new { pt.PostId, pt.TagId });
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

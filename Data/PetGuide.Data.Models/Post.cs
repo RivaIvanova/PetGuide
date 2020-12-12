@@ -13,10 +13,11 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
-            this.Tags = new HashSet<Tag>();
+            this.Tags = new HashSet<PostTag>();
         }
 
         [Required]
+        [MinLength(5)]
         [MaxLength(30)]
         public string Title { get; set; }
 
@@ -24,6 +25,7 @@
         [MaxLength(2500)]
         public string Content { get; set; }
 
+        [Required]
         public PostCategory Category { get; set; }
 
         // List of User Likes
@@ -35,6 +37,6 @@
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<PostTag> Tags { get; set; }
     }
 }

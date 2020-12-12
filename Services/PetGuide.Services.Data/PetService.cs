@@ -100,7 +100,7 @@
         // Edit Pet
         public async Task EditAsync(string id, EditPetInputModel input)
         {
-            var pet = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
+            var pet = this.GetPetById(id);
             var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
 
             pet.Name = input.Name;
@@ -119,7 +119,7 @@
         // Delete Pet
         public async Task DeleteAsync(string id)
         {
-            var pet = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
+            var pet = this.GetPetById(id);
             this.petsRepository.Delete(pet);
             await this.petsRepository.SaveChangesAsync();
         }

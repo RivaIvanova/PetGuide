@@ -1,4 +1,4 @@
-﻿@model PetGuide.Web.ViewModels.Posts.AllPostsListViewModel
+﻿@model PetGuide.Web.ViewModels.Posts.AllPostsInCategoryViewModel
 
 <main id="main">
 
@@ -7,16 +7,9 @@
         <div class="breadcrumb-hero">
             <div class="container">
                 <div class="breadcrumb-hero">
-                    <h2>All Posts</h2>
+                    <h2>All Posts in @Model.Category category</h2>
                     <p> Best section where anybody could get usefull information about his or her pets. </p>
                 </div>
-
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    <div class="btn-add-pet">
-                        <a asp-controller="Posts" asp-action="Add">Add a new article</a>
-                    </div>
-                }
             </div>
         </div>
         <section id="portfolio" class="portfolio" style="padding-top: 60px">
@@ -57,8 +50,8 @@
 
                             <div class="entry-meta">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @post.Author.UserName </li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @post.Category.ToString() </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @post.Author?.UserName </li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"> @post.CreatedOnAsString </i> </li>
                                 </ul>
                             </div>
 
