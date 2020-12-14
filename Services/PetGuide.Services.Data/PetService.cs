@@ -29,7 +29,7 @@
         }
 
         // Add Pet
-        public async Task AddAsync(AddPetInputModel input, string userId)
+        public async Task AddAsync(AddPetInputModel input, string userId, string shelterId = null)
         {
             var pet = new Pet
             {
@@ -44,7 +44,6 @@
             };
 
             var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
-
             pet.Location = location;
 
             await this.petsRepository.AddAsync(pet);

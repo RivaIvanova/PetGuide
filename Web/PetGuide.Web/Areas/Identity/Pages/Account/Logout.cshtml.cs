@@ -9,7 +9,6 @@
     using Microsoft.Extensions.Logging;
     using PetGuide.Data.Models;
 
-    [AllowAnonymous]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;

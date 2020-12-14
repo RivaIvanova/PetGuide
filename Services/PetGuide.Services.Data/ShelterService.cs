@@ -129,5 +129,28 @@
 
             return viewModel;
         }
+
+        // Add Pet To Shelter
+        public async Task AddAsync(string shelterId, AddPetToShelterInputModel input, string userId)
+        {
+            var shelter = this.sheltersRepository.All().FirstOrDefault(x => x.Id == shelterId);
+
+            var pet = new Pet
+            {
+                Name = input.Name.Trim(),
+                Type = input.Type,
+                Color = input.Color,
+                Age = input.Age,
+                Size = input.Size,
+                Status = input.Status,
+                Description = input.Description.Trim(),
+                LocationId = shelter.LocationId,
+                ShelterId = shelter.Id,
+                UserId = userId,
+            };
+
+            await this.petsRepository.AddAsync(pet);
+            await this.petsRepository.SaveChangesAsync();
+        }
     }
 }

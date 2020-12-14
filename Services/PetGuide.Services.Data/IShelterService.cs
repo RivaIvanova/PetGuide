@@ -14,6 +14,8 @@
 
         Task DeleteAsync(string id);
 
+        Task AddAsync(string shelterId, AddPetToShelterInputModel input, string userId);
+
         ShelterInputModel GetShelterEdit(string id);
 
         ShelterDetailsViewModel GetSheltesDetails(string id);

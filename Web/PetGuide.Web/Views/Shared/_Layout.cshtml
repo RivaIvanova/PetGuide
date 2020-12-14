@@ -23,17 +23,17 @@
     <link href="~/lib/aos/dist/aos.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="~/css/style.min.css" rel="stylesheet">
+    <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true">
 
     <!-- Login/Register CSS File -->
-    <link href="~/css/login-register.css" type="text/css" rel="stylesheet">
+    <link href="~/css/login-register.css" type="text/css" rel="stylesheet" asp-append-version="true">
 
     <!--Pet List CSS File-->
-    <link href="~/css/pet-list.css" rel="stylesheet" />
+    <link href="~/css/pet-list.css" rel="stylesheet" asp-append-version="true">
 
     <!--Pet Post Gallery CSS File-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-    <link href="~/css/gallery.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen" asp-append-version="true">
+    <link href="~/css/gallery.css" rel="stylesheet" asp-append-version="true">
 </head>
 <body>
     <!-- ======= Header ======= -->
@@ -196,12 +196,12 @@
     <script src="~/lib/aos/dist/aos.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="~/js/main.js"></script>
-    <script src="~/js/login-register.js"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/login-register.js" asp-append-version="true"></script>
 
     <!--Pet Post Gallery JS File-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-    <script src="~/js/gallery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js" asp-append-version="true"></script>
+    <script src="~/js/gallery.js" asp-append-version="true"></script>
 
     @await this.RenderSectionAsync("Scripts", required: false)
 

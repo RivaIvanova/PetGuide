@@ -140,7 +140,7 @@
                             <div class="input-group form-group">
                                 <div class="input-group-prepend" style="width:100%">
                                     <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
-                                    <select asp-for="Status" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetStatus>()">
+                                    <select asp-for="Status" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetStatus>().Where(x => x.Text != PetStatus.Sheltered.ToString())">
                                         <option placeholder="" value="">Status</option>
                                     </select>
 

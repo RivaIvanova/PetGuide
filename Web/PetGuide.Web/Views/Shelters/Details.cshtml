@@ -11,7 +11,7 @@
         <div class="breadcrumb-hero">
             <div class="container">
                 <div class="breadcrumb-hero">
-                    <h2>Pet Details</h2>
+                    <h2>@Model.Name</h2>
                 </div>
             </div>
         </div>
@@ -40,9 +40,14 @@
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                 </div>
 
+                                <div class="entry-footer ml-1 clearfix">
+                                    <div class="form-group mb-0 mt-0 text-center">
+                                        <a class="btn search_btn" asp-controller="Shelters" asp-action="Pet" asp-route-id="@Model.Id">Add pet to shelter</a>
+                                    </div>
+                                </div>
+
                             </div>
                         }
-
 
                         <div id="carouselExampleControls" class="carousel slide" data-interval="6000" data-ride="carousel">
                             <div class="carousel-inner" style="max-height: 450px">
@@ -69,6 +74,25 @@
                     </div>
 
                     <div class="col-md-4">
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.ShelterModeratorRoleName))
+                        {
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mx-auto">
+                                    <div class="d-flex mb-3">
+                                        <div class="entry-footer ml-1 clearfix">
+                                            <div class="form-group mb-0 mt-2 text-center">
+                                                <a class="btn search_btn" asp-controller="Shelters" asp-action="Pet" asp-route-id="@Model.Id">Add pet to shelter</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
+                        }
+
                         <div class="portfolio-info">
                             <h3>Shelter information</h3>
                             <ul>
@@ -80,73 +104,77 @@
                         </div>
                     </div>
 
+                    <div class="col-12">
+                        <div class="portfolio-description pt-5">
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <h2>Personal information</h2>
+                                    <p>
+                                        <strong>Name:</strong>
+                                        @Model.Name
+                                    </p>
+
+                                    <h2>Description</h2>
+                                    <p>
+                                        @Model.Description
+                                    </p>
+
+                                    <h2>Location</h2>
+                                    <p>
+                                        <strong>District:</strong>
+                                        @Html.DisplayFor(x => x.Location.District)
+                                    </p>
+                                    <p>
+                                        <strong>Street:</strong>
+                                        @Model.Location.Street
+                                    </p>
+                                    <p>
+                                        <strong>Additional location info:</strong>
+                                        @Model.Location.AdditionalLocationInfo
+                                    </p>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <h2>Activities</h2>
+                                    <p>
+                                        @Model.Activities
+                                    </p>
+
+
+                                    <h2>Volunteers</h2>
+                                    @foreach (var volunteer in Model.ShelterVolunteers)
+                                    {
+                                        <p>
+                                            <strong>Fullname:</strong>
+                                            @volunteer.FirstName @volunteer.LastName
+                                        </p>
+                                        <p>
+                                            <strong>Username:</strong>
+                                            @volunteer.UserName
+                                        </p>
+                                        <p>
+                                            <strong>Email:</strong>
+                                            @volunteer.Email
+                                        </p>
+                                        <hr />
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="portfolio-description">
-                <div class="row">
-
-                    <div class="col-md-6">
-
-                        <h2>Personal information</h2>
-                        <p>
-                            <strong>Name:</strong>
-                            @Model.Name
-                        </p>
-
-                        <h2>Description</h2>
-                        <p>
-                            @Model.Description
-                        </p>
-
-                        <h2>Location</h2>
-                        <p>
-                            <strong>District:</strong>
-                            @Html.DisplayFor(x => x.Location.District)
-                        </p>
-                        <p>
-                            <strong>Street:</strong>
-                            @Model.Location.Street
-                        </p>
-                        <p>
-                            <strong>Additional location info:</strong>
-                            @Model.Location.AdditionalLocationInfo
-                        </p>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <h2>Activities</h2>
-                        <p>
-                            @Model.Activities
-                        </p>
-
-
-                        <h2>Volunteers</h2>
-                        @foreach (var volunteer in Model.ShelterVolunteers)
-                        {
-                            <p>
-                                <strong>Fullname:</strong>
-                                @volunteer.FirstName @volunteer.LastName
-                            </p>
-                            <p>
-                                <strong>Username:</strong>
-                                @volunteer.UserName
-                            </p>
-                            <p>
-                                <strong>Email:</strong>
-                                @volunteer.Email
-                            </p>
-                            <hr />
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 

@@ -16,6 +16,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+    using PetGuide.Common;
     using PetGuide.Data.Models;
 
     [AllowAnonymous]
@@ -119,6 +120,7 @@
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
+                    await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
                     this.logger.LogInformation("User created a new account with password.");
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);

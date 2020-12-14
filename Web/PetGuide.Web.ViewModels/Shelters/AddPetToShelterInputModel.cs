@@ -1,11 +1,10 @@
-﻿namespace PetGuide.Web.ViewModels.Pets
+﻿namespace PetGuide.Web.ViewModels.Shelters
 {
     using System.ComponentModel.DataAnnotations;
 
-    using PetGuide.Data.Models;
     using PetGuide.Data.Models.Enums;
 
-    public abstract class BasePetViewModel
+    public class AddPetToShelterInputModel
     {
         [Required]
         [RegularExpression(@"^[A-Z][a-z]+\s?(([A-Z][a-z]+)\s?){0,3}$", ErrorMessage = "Name should start with capital letter and could be four parts.")]
@@ -13,9 +12,6 @@
         public string Name { get; set; }
 
         public int? Age { get; set; }
-
-        [Required]
-        public Location Location { get; set; }
 
         [Required]
         [MaxLength(500)]

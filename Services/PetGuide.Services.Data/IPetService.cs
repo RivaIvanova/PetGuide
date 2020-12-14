@@ -8,7 +8,7 @@
 
     public interface IPetService
     {
-        Task AddAsync(AddPetInputModel input, string userId);
+        Task AddAsync(AddPetInputModel input, string userId, string shelterId = null);
 
         Task EditAsync(string id, EditPetInputModel input);
 
