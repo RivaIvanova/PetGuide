@@ -1,9 +1,6 @@
 ﻿namespace PetGuide.Web.ViewModels.Pets
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
-
-    using PetGuide.Data.Models;
 
     public class EditPetInputModel : BasePetViewModel
     {

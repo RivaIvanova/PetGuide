@@ -71,12 +71,12 @@
 
             [Required]
             [StringLength(30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Firstname")]
+            [Display(Name = "First name")]
             public string FirstName { get; set; }
 
             [Required]
             [StringLength(30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Lastname")]
+            [Display(Name = "Last name")]
             public string LastName { get; set; }
 
             [Required]

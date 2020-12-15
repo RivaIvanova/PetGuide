@@ -6,6 +6,7 @@
 
     using PetGuide.Data.Common.Models;
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Web.Infrastructure.Attributes;
 
     public class Pet : BaseDeletableModel<string>
     {
@@ -16,7 +17,6 @@
         }
 
         [Required]
-        [RegularExpression(@"^[A-Z][a-z]+\s?(([A-Z][a-z]+)\s?){0,3}$")]
         [MaxLength(30)]
         public string Name { get; set; }
 

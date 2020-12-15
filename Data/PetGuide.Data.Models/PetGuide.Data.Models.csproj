@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Web\PetGuide.Web.Infrastructure\PetGuide.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\PetGuide.Data.Common\PetGuide.Data.Common.csproj" />
   </ItemGroup>
   

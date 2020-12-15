@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PetGuide.Data.Common.Models;
+    using PetGuide.Web.Infrastructure.Attributes;
 
     public class PetEvent : BaseDeletableModel<string>
     {
@@ -16,16 +17,24 @@
         }
 
         [Required]
-        [RegularExpression("^[A-Z][a-z]+ ([A-Z][a-z]+)*$")]
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [MinLength(10)]
+        public string Purpose { get; set; }
+
+        [Required]
+        [MaxLength(1500)]
         public string Description { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        [MaxLength(1500)]
+        public string Activities { get; set; }
+
+        [Required]
+        [DateMinValue]
+        public DateTime DateTime { get; set; }
 
         public int LocationId { get; set; }
 
