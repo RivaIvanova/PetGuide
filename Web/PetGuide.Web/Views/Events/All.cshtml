@@ -1,5 +1,186 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model PetGuide.Web.ViewModels.Events.AllEventsListViewModel
+
+<div id="main">
+    <section id="schedules" class="schedule section-padding">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12 mt-5 mb-5 text-center">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="monday-tab" data-toggle="tab" href="#monday" role="tab" aria-controls="monday" aria-expanded="true">
+                                <div class="item-text">
+                                    <h4>Today's Events</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tuesday-tab" data-toggle="tab" href="#tuesday" role="tab" aria-controls="tuesday">
+                                <div class="item-text">
+                                    <h4>Upcomming Events</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="wednesday-tab" data-toggle="tab" href="#wednesday" role="tab" aria-controls="wednesday">
+                                <div class="item-text">
+                                    <h4>Past Events</h4>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12">
+                    <div class="schedule-area row wow fadeInDown" data-wow-delay="0.3s">
+                        <div class="schedule-tab-content col-12 clearfix">
+                            <div class="tab-content" id="myTabContent">
+
+                                <div class="tab-pane fade show active" id="monday" role="tabpanel" aria-labelledby="monday-tab">
+                                    <div id="accordion">
+
+                                        @{ var first = 1;
+
+                                            var colapseShow = "";
+
+                                            if (first == 1)
+                                            {
+                                                colapseShow = "show";
+                                            }
+
+                                            foreach (var petEvent in Model.TodaysEvents)
+                                            {
+
+                                <div class="card">
+                                    <div id="headingOne@(first)">
+                                        <div class="schedule-slot-time">
+                                            <span>@petEvent.Date</span>
+                                            <span>@petEvent.Time</span>
+                                        </div>
+                                        <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseOne@(first)" aria-expanded="false" aria-controls="collapseOne@(first)">
+                                            <div class="images-box">
+                                                <img class="img-fluid" src="~/img/about/dog-blue-background-2.jpg" alt="">
+                                            </div>
+                                            <h4><a asp-action="Details" asp-route-id="@petEvent.Id">@petEvent.Name</a></h4>
+                                            <h5 class="name">@petEvent.Purpose</h5>
+                                        </div>
+                                    </div>
+                                    <div id="collapseOne@(first)" class="collapse @colapseShow" aria-labelledby="headingOne@(first)" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>@petEvent.ShortDescription</p>
+                                            <div class="location">
+                                                <span>Location:</span>@petEvent.LocationAsString
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> first++;
+                                colapseShow = "";
+
+                            } }
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="tuesday" role="tabpanel" aria-labelledby="tuesday-tab">
+                                    <div id="accordion2">
+
+                                        @{ var second = 1;
+
+                                                        if (second == 1)
+                                                        {
+                                                            colapseShow = "show";
+                                                        }
+
+                                                        foreach (var petEvent in Model.UpcommingEvents)
+                                                        {
+                                            <div class="card">
+                                                <div id="headingTwo@(second)">
+                                                    <div class="schedule-slot-time">
+                                                        <span>@petEvent.Date</span>
+                                                        <span>@petEvent.Time</span>
+                                                    </div>
+                                                    <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseTwo@(second)" aria-expanded="false" aria-controls="collapseTwo@(second)">
+                                                        <div class="images-box">
+                                                            <img class="img-fluid" src="~/img/about/dog-blue-background-2.jpg" alt="">
+                                                        </div>
+                                                        <h4><a asp-action="Details" asp-route-id="@petEvent.Id">@petEvent.Name</a></h4>
+                                                        <h5 class="name">@petEvent.Purpose</h5>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseTwo@(second)" class="collapse @colapseShow" aria-labelledby="headingTwo@(second)" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p>@petEvent.ShortDescription</p>
+                                                        <div class="location">
+                                                            <span>Location:</span>@petEvent.LocationAsString
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            second++;
+                                                            colapseShow = "";
+                                                        } }
+
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="wednesday" role="tabpanel" aria-labelledby="wednesday-tab">
+                                    <div id="accordion3">
+
+                                        @{ var third = 1;
+
+                                                        if (third == 1)
+                                                        {
+                                                            colapseShow = "show";
+                                                        }
+
+                                                        foreach (var petEvent in Model.PastEvents)
+                                                        {
+                                            <div class="card">
+                                                <div id="headingThree@(third)">
+                                                    <div class="schedule-slot-time">
+                                                        <span>@petEvent.Date</span>
+                                                        <span>@petEvent.Time</span>
+                                                    </div>
+                                                    <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseThree@(third)" aria-expanded="false" aria-controls="collapseThree@(third)">
+                                                        <div class="images-box">
+                                                            <img class="img-fluid" src="~/img/about/dog-blue-background-2.jpg" alt="">
+                                                        </div>
+                                                        <h4><a asp-action="Details" asp-route-id="@petEvent.Id">@petEvent.Name</a></h4>
+                                                        <h5 class="name">@petEvent.Purpose</h5>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseThree@(third)" class="collapse" aria-labelledby="headingThree@(third)" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p>@petEvent.ShortDescription</p>
+                                                        <div class="location">
+                                                            <span>Location:</span>@petEvent.LocationAsString
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            third++;
+                                            colapseShow = "";
+                                        } }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </section>
+
+</div>
+
+@section EventListing {
+    <link href="~/css/event-all.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/event - responsive.css" rel="stylesheet" asp-append-version="true">
+    @*  *@}

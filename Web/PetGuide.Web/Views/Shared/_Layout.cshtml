@@ -24,9 +24,11 @@
 
     <!-- Template Main CSS File -->
     <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true">
-
-    <!-- Login/Register CSS File -->
-    <link href="~/css/login-register.css" type="text/css" rel="stylesheet" asp-append-version="true">
+   
+    @if (IsSectionDefined("LoginRegisterAdd"))
+    {
+        @await this.RenderSectionAsync("LoginRegisterAdd", required: true)
+    }
 
     <!--Pet List CSS File-->
     <link href="~/css/pet-list.css" rel="stylesheet" asp-append-version="true">
@@ -34,6 +36,12 @@
     <!--Pet Post Gallery CSS File-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen" asp-append-version="true">
     <link href="~/css/gallery.css" rel="stylesheet" asp-append-version="true">
+
+    @if (IsSectionDefined("EventListing"))
+    {
+        @await this.RenderSectionAsync("EventListing", required: true)
+    }
+
 </head>
 <body>
     <!-- ======= Header ======= -->

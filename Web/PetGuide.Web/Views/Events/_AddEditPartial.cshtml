@@ -1,0 +1,90 @@
+﻿@using PetGuide.Data.Models.Enums
+@model PetGuide.Web.ViewModels.Events.EventInputModel
+
+
+<div class="entry-content ml-3">
+    <h3>Event name</h3>
+</div>
+
+<span asp-validation-for="Name" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Name" rows="1" style="resize:none" type="text" class="form-control" placeholder="Name"></textarea>
+
+</div>
+
+<div class="entry-content ml-3">
+    <h3>Event purpose</h3>
+</div>
+
+<span asp-validation-for="Purpose" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Purpose" rows="1" style="resize:none" type="text" class="form-control" placeholder="Purpose"></textarea>
+
+</div>
+
+<div class="entry-content ml-3">
+    <h3>Event date</h3>
+</div>
+
+<div class="row">
+
+    <span asp-validation-for="Date" class="text-danger"></span>
+    <div class="input-group form-group col-6">
+        <input asp-for="Date" type="date" class="form-control">
+
+    </div>
+
+    <span asp-validation-for="Time" class="text-danger"></span>
+    <div class="input-group form-group col-6">
+        <input asp-for="Time" type="time" class="form-control">
+
+    </div>
+
+</div>
+
+
+<div class="entry-content ml-3">
+    <h3>Location</h3>
+</div>
+
+<span asp-validation-for="Location.District" class="text-danger"></span>
+<div class="input-group form-group">
+    <div class="input-group-prepend" style="width:100%">
+        <select asp-for="Location.District" class="form-control" asp-items="Html.GetEnumSelectList<District>() ">
+            <option placeholder="" value="">District</option>
+        </select>
+
+    </div>
+</div>
+
+<span asp-validation-for="Location.Street" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Location.Street" rows="1" style="resize:none" type="text" class="form-control" placeholder="Street"></textarea>
+
+</div>
+
+<span asp-validation-for="Location.AdditionalLocationInfo" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Location.AdditionalLocationInfo" rows="1" style="resize:none" type="text" class="form-control" placeholder="Additional location info"></textarea>
+
+</div>
+
+<div class="entry-content ml-3">
+    <h3>Description</h3>
+</div>
+
+<span asp-validation-for="Description" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Description" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here you can describe the event..."></textarea>
+
+</div>
+
+<div class="entry-content ml-3">
+    <h3>Activities</h3>
+</div>
+
+<span asp-validation-for="Activities" class="text-danger"></span>
+<div class="input-group form-group">
+    <textarea asp-for="Activities" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here describe the event activities. e.g. Pet topics discusions, Group training, etc."></textarea>
+
+</div>
