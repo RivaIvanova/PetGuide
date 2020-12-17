@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PetGuide.Data.Migrations
+﻿namespace PetGuide.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
     public partial class UpdatePostModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,7 +50,7 @@ namespace PetGuide.Data.Migrations
                 type: "nvarchar(30)",
                 maxLength: 30,
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
 
             migrationBuilder.AlterColumn<int>(
                 name: "LocationId",

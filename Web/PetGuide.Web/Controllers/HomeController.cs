@@ -7,6 +7,7 @@
 
     public class HomeController : BaseController
     {
+        [Route("/")]
         public IActionResult Index()
         {
             return this.View();

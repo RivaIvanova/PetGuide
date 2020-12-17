@@ -22,6 +22,5 @@
         public string ShortContent => this.Content.Length >= 100 ? $"{this.Content.Substring(0, 100)}..." : this.Content;
 
         public ApplicationUser Author { get; set; }
-
     }
 }

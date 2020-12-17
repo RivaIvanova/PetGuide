@@ -1,0 +1,210 @@
+﻿/* Schedule Area */
+#schedules {
+    background: #f3f4f3;
+}
+
+#schedule-tab {
+    position: relative;
+}
+
+.schedule .nav-tabs {
+    display: block;
+    border-bottom: none;
+}
+
+    .schedule .nav-tabs .nav-item {
+        margin-bottom: 16px;
+        text-align: center;
+        margin: 0 10px;
+        display: inline-block;
+    }
+
+    .schedule .nav-tabs .nav-link {
+        padding: 12px 15px;
+        background: #fff;
+        padding-top: 16px;
+        border-radius: 4px;
+        box-shadow: 0 8px 24px #E2E8ED;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+        .schedule .nav-tabs .nav-item.show .nav-link, .schedule .nav-tabs .nav-link.active,
+        .schedule .nav-tabs .nav-item .nav-link:hover {
+            border-color: transparent;
+            position: relative;
+            background-image: linear-gradient(65deg, #ff9a35 20%, #ffac59 90%);
+        }
+
+            .schedule .nav-tabs .nav-item.show .nav-link h4, .schedule .nav-tabs .nav-link.active h4,
+            .schedule .nav-tabs .nav-item .nav-link:hover h4 {
+                color: #fff;
+            }
+
+            .schedule .nav-tabs .nav-item.show .nav-link h5, .schedule .nav-tabs .nav-link.active h5,
+            .schedule .nav-tabs .nav-item .nav-link:hover h5 {
+                color: #fff;
+            }
+
+            .schedule .nav-tabs .nav-item.show .nav-link:before, .schedule .nav-tabs .nav-link.active:before {
+                content: '';
+                position: absolute;
+                left: 42%;
+                bottom: -24px;
+                border-width: 12px;
+                border-style: solid;
+                border-color: #ff9a35 transparent transparent transparent;
+            }
+
+.schedule .item-text {
+    border-radius: 4px;
+    position: relative;
+}
+
+    .schedule .item-text h4 {
+        font-size: 15px;
+        color: #2f323c;
+        line-height: 22px;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    .schedule .item-text h5 {
+        font-size: 14px;
+        color: #848484;
+        line-height: 16px;
+        font-weight: 400;
+        text-transform: capitalize;
+    }
+
+.schedule .schedule-tab-content .tab-content {
+    box-shadow: 0 8px 24px #E2E8ED;
+}
+
+.schedule .schedule-tab-content .card {
+    border: none;
+}
+
+.schedule .show .card-body {
+    background: #f3f4f3;
+}
+
+.schedule .card .schedule-slot-time {
+    background-image: linear-gradient(65deg, #ff9a35 20%, #ffac59 90%);
+    color: #fff;
+    padding: 38px 28px;
+    float: left;
+    font-size: 18px;
+    font-weight: 700;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 18%;
+    flex: 0 0 18%;
+    max-width: 18%;
+}
+
+.schedule .card-header {
+    position: relative;
+    padding: 35px 40px 35px 224px;
+    border-bottom: 1px dashed #e5e5e5;
+    cursor: pointer;
+    border-left: none;
+    width: 100%;
+}
+
+    .schedule .card-header .images-box {
+        width: 70px;
+        height: 70px;
+        float: left;
+        margin-right: 20px;
+    }
+
+        .schedule .card-header .images-box img {
+            border-radius: 50%;
+        }
+
+    .schedule .card-header .time {
+        color: #777777;
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .schedule .card-header h4 {
+        font-weight: 700;
+        font-size: 18px;
+        color: #212121;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .schedule .card-header .name {
+        position: relative;
+        font-size: 14px;
+        color: #777777;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+.schedule .card-body {
+    padding: 30px 45px 30px 45px;
+    background: #fff;
+}
+
+    .schedule .card-body .location {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #777777;
+    }
+
+        .schedule .card-body .location span {
+            color: #ff9a35;
+            margin-right: 5px;
+        }
+
+.accordion .card {
+    border-radius: 0px;
+    margin-bottom: -2px;
+}
+
+.accordion .header-title {
+    position: relative;
+}
+
+    .accordion .header-title:after {
+        font-family: "LineIcons";
+        content: "\e93a";
+        position: absolute;
+        right: 10px;
+        color: #999;
+        top: 50%;
+        line-height: 1;
+        padding: 0px 5px;
+        margin-top: -7px;
+    }
+
+.accordion .collapsed:after {
+    content: "\e940";
+}
+
+.accordion .card-header {
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+    .accordion .card-header i {
+        color: #ff9a35;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        line-height: 40px;
+        text-align: center;
+        margin-right: 10px;
+        border-right: 1px solid #ddd;
+    }
+
+.accordion .card-body {
+    padding-left: 56px;
+}

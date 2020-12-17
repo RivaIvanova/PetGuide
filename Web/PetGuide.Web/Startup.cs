@@ -48,6 +48,14 @@
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services.AddAuthorization(
+                options =>
+                {
+                    options.AddPolicy(
+                        "EventEditRoles",
+                        policy => policy.RequireRole("Administrator", "Event Moderator"));
+                });
+
             services.ConfigureApplicationCookie(
                 options =>
                 {
@@ -79,6 +87,7 @@
             services.AddTransient<IPetService, PetService>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IShelterService, ShelterService>();
+            services.AddTransient<IRequestService, RequestService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

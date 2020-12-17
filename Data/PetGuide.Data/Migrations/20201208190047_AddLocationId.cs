@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PetGuide.Data.Migrations
+﻿namespace PetGuide.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddLocationId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

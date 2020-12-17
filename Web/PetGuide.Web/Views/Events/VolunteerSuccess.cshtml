@@ -1,0 +1,31 @@
+﻿@{
+    this.Layout = "_CleanLayout";
+}
+
+@model PetGuide.Web.ViewModels.Events.VolunteerSuccessViewModel
+<!-- Volunteer Success Modal -->
+
+<div id="volunteer" class="modal show fade" style="display: block" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-success">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                    <i class="icofont-check-alt"></i>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Great!</h4>
+                <p>Your request has been sent successfully. After being approved by our moderators you'll receive an email with further information about the event.</p>
+                <a class="btn btn-success" asp-action="All"><i class="icofont-arrow-left"></i><span>Go to all</span></a>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@Model.Id"><span>Continue with event</span> <i class="icofont-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-backdrop fade show"></div>
+
+@section Modal {
+    <link href="~/css/modal.css" type="text/css" rel="stylesheet" asp-append-version="true" />
+}

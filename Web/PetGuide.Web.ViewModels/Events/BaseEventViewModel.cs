@@ -1,5 +1,7 @@
 ﻿namespace PetGuide.Web.ViewModels.Events
 {
+    using System;
+
     using PetGuide.Data.Models;
 
     public class BaseEventViewModel
@@ -8,9 +10,9 @@
 
         public string Purpose { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
 
         public string Description { get; set; }
 

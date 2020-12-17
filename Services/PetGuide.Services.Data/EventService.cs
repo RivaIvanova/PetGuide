@@ -26,7 +26,7 @@
         }
 
         // Add Event
-        public async Task AddAsync(EventInputModel input, string userId)
+        public async Task AddAsync(EventInputModel input)
         {
             var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
             var dateAndTime = this.GetDateAndTime(input.Date, input.Time);
@@ -45,6 +45,7 @@
             await this.eventsRepository.SaveChangesAsync();
         }
 
+        // Edit Event
         public EventInputModel GetEventEdit(string id)
         {
             var petEvent = this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
@@ -64,10 +65,20 @@
             return viewModel;
         }
 
-        // Edit Event
-        public Task EditAsync(string id, EventInputModel input)
+        public async Task EditAsync(string id, EventInputModel input)
         {
-            throw new NotImplementedException();
+            var petEvent = this.GetEventById(id);
+            var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
+            var dateAndTime = this.GetDateAndTime(input.Date, input.Time);
+
+            petEvent.Name = input.Name;
+            petEvent.Purpose = input.Purpose;
+            petEvent.Description = input.Description;
+            petEvent.Activities = input.Activities;
+            petEvent.DateTime = dateAndTime;
+            petEvent.Location = location;
+
+            await this.eventsRepository.SaveChangesAsync();
         }
 
         // Delete Event
@@ -89,8 +100,8 @@
                    Id = x.Id,
                    Name = x.Name,
                    Purpose = x.Purpose,
-                   Date = x.DateTime.Date.ToString("d"),
-                   Time = x.DateTime.TimeOfDay.ToString("t"),
+                   Date = x.DateTime,
+                   Time = x.DateTime,
                    Description = x.Description,
                    Location = x.Location,
                })
@@ -108,8 +119,8 @@
                 Id = petEvent.Id,
                 Name = petEvent.Name,
                 Purpose = petEvent.Purpose,
-                Date = petEvent.DateTime.Date.ToString("d"),
-                Time = petEvent.DateTime.TimeOfDay.ToString("t"),
+                Date = petEvent.DateTime,
+                Time = petEvent.DateTime,
                 Description = petEvent.Description,
                 Activities = petEvent.Activities,
                 Location = location,

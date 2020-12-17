@@ -8,7 +8,7 @@
 
     public interface IEventService
     {
-        Task AddAsync(EventInputModel input, string userId);
+        Task AddAsync(EventInputModel input);
 
         Task EditAsync(string id, EventInputModel input);
 

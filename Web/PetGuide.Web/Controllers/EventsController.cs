@@ -12,33 +12,14 @@
     public class EventsController : BaseController
     {
         private readonly IEventService eventService;
+        private readonly IRequestService requestService;
 
         public EventsController(
-            IEventService eventService)
+            IEventService eventService,
+            IRequestService requestService)
         {
             this.eventService = eventService;
-        }
-
-        // Add Event
-        public IActionResult Add()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Add(EventInputModel input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
-
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            await this.eventService.AddAsync(input, userId);
-
-            return this.Redirect("/");
+            this.requestService = requestService;
         }
 
         // Get All Events
@@ -66,11 +47,76 @@
             return this.View(viewModel);
         }
 
+        // Add Event
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Add(EventInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await this.eventService.AddAsync(input);
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        // Edit Event
+        [Authorize(Policy = "EventEditRoles")]
         public IActionResult Edit(string id)
         {
             var inputModel = this.eventService.GetEventEdit(id);
             return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "EventEditRoles")]
+        public async Task<IActionResult> Edit(string id, EventInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.eventService.EditAsync(id, input);
+            return this.RedirectToAction(nameof(this.Details), new { id });
+        }
+
+        // Delete Event
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.eventService.DeleteAsync(id);
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        // Add Volunteer Request
+        public IActionResult VolunteerSuccess(string id)
+        {
+            var viewModel = new VolunteerSuccessViewModel { Id = id };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Volunteer(string id)
+        {
+            var volunteerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (this.requestService.IsRequestSent(id, volunteerId))
+            {
+                return this.BadRequest();
+            }
+
+            await this.requestService.AddAsync(id, volunteerId);
+            return this.RedirectToAction(nameof(this.VolunteerSuccess), new { id });
         }
     }
 }

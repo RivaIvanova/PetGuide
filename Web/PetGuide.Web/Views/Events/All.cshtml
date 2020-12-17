@@ -53,8 +53,8 @@
                                 <div class="card">
                                     <div id="headingOne@(first)">
                                         <div class="schedule-slot-time">
-                                            <span>@petEvent.Date</span>
-                                            <span>@petEvent.Time</span>
+                                            <span>@petEvent.Date.ToString("d")</span>
+                                            <span>@petEvent.Time.ToString("t")</span>
                                         </div>
                                         <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseOne@(first)" aria-expanded="false" aria-controls="collapseOne@(first)">
                                             <div class="images-box">
@@ -97,8 +97,10 @@
                                             <div class="card">
                                                 <div id="headingTwo@(second)">
                                                     <div class="schedule-slot-time">
-                                                        <span>@petEvent.Date</span>
-                                                        <span>@petEvent.Time</span>
+                                                        <span>@petEvent.Date.ToString("d")</span>
+                                                        <div class="mt-2">
+                                                            <span>@petEvent.Time.ToString("t")</span>
+                                                        </div>
                                                     </div>
                                                     <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseTwo@(second)" aria-expanded="false" aria-controls="collapseTwo@(second)">
                                                         <div class="images-box">
@@ -139,8 +141,8 @@
                                             <div class="card">
                                                 <div id="headingThree@(third)">
                                                     <div class="schedule-slot-time">
-                                                        <span>@petEvent.Date</span>
-                                                        <span>@petEvent.Time</span>
+                                                        <span>@petEvent.Date.ToString("d")</span>
+                                                        <span>@petEvent.Time.ToString("t")</span>
                                                     </div>
                                                     <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseThree@(third)" aria-expanded="false" aria-controls="collapseThree@(third)">
                                                         <div class="images-box">

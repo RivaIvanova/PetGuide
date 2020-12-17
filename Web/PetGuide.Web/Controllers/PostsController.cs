@@ -68,7 +68,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        // Edit Posts
+        // Edit Post
         [Authorize]
         public IActionResult Edit(string id)
         {

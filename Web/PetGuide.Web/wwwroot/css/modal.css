@@ -1,0 +1,302 @@
+﻿body {
+    font-family: 'Varela Round', sans-serif;
+}
+
+
+@media (min-width: 540px) {
+    .modal-success {
+        color: #434e65;
+        width: 525px;
+    }
+}
+
+    .modal-success .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .modal-success .modal-header {
+        background: #47c9a2;
+        border-bottom: none;
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+
+    .modal-success h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    .modal-success .form-control, .modal-success .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+
+    .modal-success .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+
+        .modal-success .close:hover {
+            opacity: 0.8;
+        }
+
+    .modal-success .icon-box {
+        color: #fff;
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+        .modal-success .icon-box i {
+            font-size: 64px;
+            margin: -4px 0 0 -4px;
+        }
+
+    .modal-success.modal-dialog {
+        margin-top: 80px;
+    }
+
+    .modal-success .btn, .modal-success .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+
+        .modal-success .btn:hover, .modal-success .btn:focus {
+            background: #eda645 !important;
+            outline: none;
+        }
+
+        .modal-success .btn span {
+            margin: 5px 3px 0;
+            float: left;
+        }
+
+        .modal-success .btn i {
+            margin-left: 1px;
+            padding-top: 3px;
+            font-size: 20px;
+            float: left;
+        }
+
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+/*Delete Modal*/
+
+@media (min-width: 540px) {
+    .modal-delete {
+        color: #636363;
+        width: 400px;
+    }
+}
+
+    .modal-delete .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-delete .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-delete h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-delete .close {
+        position: absolute;
+        top: -5px;
+        right: -2px;
+    }
+
+    .modal-delete .modal-body {
+        color: #999;
+    }
+
+    .modal-delete .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+        .modal-delete .modal-footer a {
+            color: #999;
+        }
+
+    .modal-delete .icon-box {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        z-index: 9;
+        text-align: center;
+        border: 3px solid #f15e5e;
+    }
+
+        .modal-delete .icon-box i {
+            color: #f15e5e;
+            font-size: 46px;
+            display: inline-block;
+            margin-top: 13px;
+        }
+
+    .modal-delete .btn, .modal-delete .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #60c7c1;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-delete .btn-secondary {
+        background: #c1c1c1;
+    }
+
+        .modal-delete .btn-secondary:hover, .modal-delete .btn-secondary:focus {
+            background: #a8a8a8;
+        }
+
+    .modal-delete .btn-danger {
+        background: #f15e5e;
+    }
+
+        .modal-delete .btn-danger:hover, .modal-delete .btn-danger:focus {
+            background: #ee3535;
+        }
+
+/*Confirm Modal*/
+
+@media (min-width: 540px) {
+    .modal-question {
+        color: #636363;
+        width: 400px;
+    }
+}
+
+.modal-question .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.modal-question .modal-header {
+    border-bottom: none;
+    position: relative;
+}
+
+.modal-question h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+
+.modal-question .close {
+    position: absolute;
+    top: -5px;
+    right: -2px;
+}
+
+.modal-question .modal-body {
+    color: #999;
+}
+
+.modal-question .modal-footer {
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+}
+
+    .modal-question .modal-footer a {
+        color: #999;
+    }
+
+.modal-question .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #58e083;
+}
+
+    .modal-question .icon-box i {
+        color: #58e083;
+        font-size: 46px;
+        display: inline-block;
+        margin-top: 13px;
+    }
+
+.modal-question .btn, .modal-question .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+.modal-question .btn-secondary {
+    background: #c1c1c1;
+}
+
+    .modal-question .btn-secondary:hover, .modal-question .btn-secondary:focus {
+        background: #a8a8a8;
+    }
+
+.modal-question .btn-success {
+    background: #58e083;
+}
+
+    .modal-question .btn-success:hover, .modal-question .btn-success:focus {
+        background: #26ad41;
+    }

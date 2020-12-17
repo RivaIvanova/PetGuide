@@ -1,127 +1,294 @@
-﻿@model PetGuide.Web.ViewModels.Events.EventDetailsViewModel
+﻿@using PetGuide.Common
+@model PetGuide.Web.ViewModels.Events.EventDetailsViewModel
 
 <main id="main">
 
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs pb-0">
+        <div class="breadcrumb-hero">
+            <div class="container">
+                <div class="breadcrumb-hero">
+                    <h2>@Model.Name</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <div class="d-flex mb-1 mt-3">
+
+                    <div>
+                        <a asp-controller="Events" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                    </div>
+                    <div class="ml-1">
+                        <form method="post" id="deleteForm" asp-controller="Events" asp-action="Delete" asp-route-id="@Model.Id">
+                        </form>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </section><!-- End Breadcrumbs -->
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
         <div class="container">
 
-            <div class="row">
+            <div class="row mt-2">
 
-                <div class="col-lg-8 mx-auto pt-3 entries">
+                <div class="col-lg-6 entries">
+
+
 
                     <article class="entry entry-single">
 
-                        <div class="card-body p-0">
+                        <div class="entry-img">
+                            <!-- PICTURE -->
+                            <img src="~/img/animal-video.jpg" alt="" class="img-fluid">
+                        </div>
 
-                            <form method="post">
+                        <h2 class="entry-title">
+                            @Model.Name
+                        </h2>
 
-                                <div class="entry-content ml-3">
-                                    <h3>Event name</h3>
-                                </div>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="icofont-ui-calendar"></i> @Model.Date.ToString("d")</li>
+                                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @Model.Time.ToString("t")</li>
+                            </ul>
 
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Name" rows="1" style="resize:none" type="text" class="form-control" placeholder="Name"></textarea>
+                            @*<div class="float-right share">
+                                    <a href="" title="Share on Twitter"><i class="icofont-twitter"></i></a>
+                                    <a href="" title="Share on Facebook"><i class="icofont-facebook"></i></a>
+                                    <a href="" title="Share on Instagram"><i class="icofont-instagram"></i></a>
+                                </div>*@
+                        </div>
 
-                                </div>
+                        <div class="entry-content">
+                            <p>
+                                @Model.Description
+                            </p>
 
-                                <div class="entry-content ml-3">
-                                    <h3>Event purpose</h3>
-                                </div>
+                            <h3>Activities</h3>
+                            <p>
+                                @Model.Activities
+                            </p>
 
-                                <span asp-validation-for="Purpose" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Purpose" rows="1" style="resize:none" type="text" class="form-control" placeholder="Purpose"></textarea>
+                            <h3>Location</h3>
+                            <div class="float-left">
+                                <i class="icofont-location-pin"></i>
 
-                                </div>
+                            </div>
+                            <p>@Model.LocationString</p>
+                        </div>
 
-                                <div class="entry-content ml-3">
-                                    <h3>Event date</h3>
-                                </div>
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.UserRoleName))
+                        {
+                            <div class="entry-footer mx-auto clearfix">
+                                <form method="post" data-toggle="modal" data-target="#volunteer" id="volunteerForm" asp-action="Volunteer" asp-route-id="@Model.Id">
+                                </form>
+                                <button type="button" class="btn search_btn" data-toggle="modal" data-target="#confirmModal">Become a volunteer</button>
+                            </div>
+                        }
 
+
+                    </article><!-- End blog entry -->
+
+
+                    <div class="blog-comments">
+
+                        <h4 class="comments-count">8 Comments</h4>
+
+                        <div id="comment-1" class="comment clearfix">
+                            <img src="~/img/animal-video.jpg" class="comment-img  float-left" alt="">
+                            <h5><a href="">Georgia Reader</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                            <time datetime="2020-01-01">01 Jan, 2020</time>
+                            <p>
+                                Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et et. Est ad aut sapiente quis molestiae est qui cum soluta.
+                                Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui facilis et.
+                            </p>
+
+                        </div><!-- End comment #1 -->
+
+                        <div id="comment-2" class="comment clearfix">
+                            <img src="~/img/register-font.png" class="comment-img  float-left" alt="">
+                            <h5><a href="">Aron Alvarado</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                            <time datetime="2020-01-01">01 Jan, 2020</time>
+                            <p>
+                                Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe. Officiis illo ut beatae.
+                            </p>
+
+                            <div id="comment-reply-1" class="comment comment-reply clearfix">
+                                <img src="~/img/about/dog-blue-background-2.jpg" class="comment-img  float-left" alt="">
+                                <h5><a href="">Lynda Small</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                                <time datetime="2020-01-01">01 Jan, 2020</time>
+                                <p>
+                                    Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed necessitatibus aut est. Eum officiis sed repellat maxime vero nisi natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.
+
+                                </p>
+
+                                <div id="comment-reply-2" class="comment comment-reply clearfix">
+                                    <img src="~/img/about/two-rabbits.jpg" class="comment-img  float-left" alt="">
+                                    <h5><a href="">Sianna Ramsay</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                                    <time datetime="2020-01-01">01 Jan, 2020</time>
+                                    <p>
+                                        Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam. Placeat porro est commodi est officiis voluptas repellat quisquam possimus. Perferendis id consectetur necessitatibus.
+                                    </p>
+
+                                </div><!-- End comment reply #2-->
+
+                            </div><!-- End comment reply #1-->
+
+                        </div><!-- End comment #2-->
+
+
+                        <div class="reply-form">
+                            <h4>Leave a Reply</h4>
+                            <form action="">
                                 <div class="row">
-
-                                    <span asp-validation-for="Date" class="text-danger"></span>
-                                    <div class="input-group form-group col-6">
-                                        <input asp-for="Date" type="date" class="form-control">
-
-                                    </div>
-
-                                    <span asp-validation-for="Time" class="text-danger"></span>
-                                    <div class="input-group form-group col-6">
-                                        <input asp-for="Time" type="time" class="form-control">
-
-                                    </div>
-
-                                </div>
-
-
-                                <div class="entry-content ml-3">
-                                    <h3>Location</h3>
-                                </div>
-
-                                <span asp-validation-for="Location.District" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend" style="width:100%">
-                                        <select asp-for="Location.District" class="form-control">
-                                            <option placeholder="" value="">District</option>
-                                        </select>
-
+                                    <div class="col form-group">
+                                        <textarea name="comment" class="form-control" placeholder="Your Comment"></textarea>
                                     </div>
                                 </div>
-
-                                <span asp-validation-for="Location.Street" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Location.Street" rows="1" style="resize:none" type="text" class="form-control" placeholder="Street"></textarea>
-
-                                </div>
-
-                                <span asp-validation-for="Location.AdditionalLocationInfo" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Location.AdditionalLocationInfo" rows="1" style="resize:none" type="text" class="form-control" placeholder="Additional location info"></textarea>
-
-                                </div>
-
-                                <div class="entry-content ml-3">
-                                    <h3>Description</h3>
-                                </div>
-
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Description" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here you can describe the event..."></textarea>
-
-                                </div>
-
-                                <div class="entry-content ml-3">
-                                    <h3>Activities</h3>
-                                </div>
-
-                                <span asp-validation-for="Activities" class="text-danger"></span>
-                                <div class="input-group form-group">
-                                    <textarea asp-for="Activities" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here describe the event activities. e.g. Pet topics discusions, Group training, etc."></textarea>
-
-                                </div>
-
-                                <div class="entry-footer clearfix">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 mx-auto">
-                                            <div class="form-group mb-0 mt-2 text-center">
-                                                <input type="submit" value="Share" class="btn search_btn" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button type="submit" class="btn btn-primary">Post Comment</button>
 
                             </form>
+
                         </div>
-                    </article><!-- End blog entry -->
+
+                    </div><!-- End blog comments -->
+
                 </div><!-- End blog entries list -->
+
+                <div class="col-lg-6">
+
+                    <div class="sidebar">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 mx-auto">
+                                    <time datetime="2014-09-20" class="icon">
+                                        <em>@Model.Date.ToString("dddd")</em>
+                                        <strong>@Model.Date.ToString("MMMM") @Model.Date.ToString("yyyy")</strong>
+                                        <span>@Model.Date.ToString("dd")</span>
+                                    </time>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container mt-5 page-top">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid " alt="">
+
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid " alt="">
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid " alt="">
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid " alt="">
+
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid " alt="">
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                    <a href="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                                        <img src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid " alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
             </div>
+
         </div>
     </section><!-- End Blog Section -->
+
 </main><!-- End #main -->
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-delete">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="icofont-close"></i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete @Model.Name?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Modal -->
+<div id="confirmModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-question">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="icofont-question"></i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to become a volunteer at @Model.Name?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="volunteerForm.submit()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section LoginRegisterAdd {
     <link href="~/css/login-register.css" type="text/css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/modal.css" type="text/css" rel="stylesheet" asp-append-version="true" />
+}
+@section Calendar {
+    <link href="~/css/calendar.css" type="text/css" rel="stylesheet" asp-append-version="true">
 }
