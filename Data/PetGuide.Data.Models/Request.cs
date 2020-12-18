@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using PetGuide.Data.Common.Models;
 
     public class Request : BaseDeletableModel<string>
@@ -10,8 +11,6 @@
         {
             this.Id = Guid.NewGuid().ToString();
         }
-
-        public DateTime DateTime { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string VolunteerId { get; set; }

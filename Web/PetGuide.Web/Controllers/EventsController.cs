@@ -68,7 +68,7 @@
         }
 
         // Edit Event
-        [Authorize(Policy = "EventEditRoles")]
+        [Authorize(Policy = "EventRoles")]
         public IActionResult Edit(string id)
         {
             var inputModel = this.eventService.GetEventEdit(id);
@@ -76,7 +76,7 @@
         }
 
         [HttpPost]
-        [Authorize(Policy = "EventEditRoles")]
+        [Authorize(Policy = "EventRoles")]
         public async Task<IActionResult> Edit(string id, EventInputModel input)
         {
             if (!this.ModelState.IsValid)

@@ -52,8 +52,12 @@
                 options =>
                 {
                     options.AddPolicy(
-                        "EventEditRoles",
+                        "EventRoles",
                         policy => policy.RequireRole("Administrator", "Event Moderator"));
+
+                    options.AddPolicy(
+                        "DashboardRoles",
+                        policy => policy.RequireRole("Administrator", "Event Moderator", "Shelter Moderator"));
                 });
 
             services.ConfigureApplicationCookie(

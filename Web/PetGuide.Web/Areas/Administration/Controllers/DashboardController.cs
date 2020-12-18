@@ -1,22 +1,41 @@
 ﻿namespace PetGuide.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Services.Data;
-    using PetGuide.Web.ViewModels.Administration.Dashboard;
 
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly IRequestService requestService;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(IRequestService requestService)
         {
-            this.settingsService = settingsService;
+            this.requestService = requestService;
         }
 
+        [Authorize(Policy = "DashboardRoles")]
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            var viewModel = this.requestService.GetDashboard();
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "DashboardRoles")]
+        public async Task<IActionResult> Approve(string id)
+        {
+            await this.requestService.ApproveAsync(id);
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "DashboardRoles")]
+        public async Task<IActionResult> Decline(string id)
+        {
+            await this.requestService.DeclineAsync(id);
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

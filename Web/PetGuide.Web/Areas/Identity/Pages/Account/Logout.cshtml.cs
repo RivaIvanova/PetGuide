@@ -29,16 +29,14 @@
             await this.signInManager.SignOutAsync();
             this.logger.LogInformation("User logged out.");
 
-            return this.RedirectToAction("/Home/Index");
-
-            //if (returnUrl != null)
-            //{
-            //    return this.LocalRedirect(returnUrl);
-            //}
-            //else
-            //{
-            //    return this.RedirectToPage();
-            //}
+            if (returnUrl != null)
+            {
+                return this.LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return this.RedirectToPage();
+            }
         }
     }
 }

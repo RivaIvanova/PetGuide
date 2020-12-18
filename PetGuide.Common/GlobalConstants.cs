@@ -8,7 +8,7 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const string ShelterModeratorRoleName = "ShelterModerator";
+        public const string ShelterModeratorRoleName = "Shelter Moderator";
 
         public const string EventModeratorRoleName = "Event Moderator";
     }
