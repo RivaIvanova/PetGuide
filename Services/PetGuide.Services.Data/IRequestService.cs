@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using PetGuide.Data.Models;
     using PetGuide.Web.ViewModels.Administration.Dashboard;
 
     public interface IRequestService
@@ -15,8 +15,8 @@
 
         bool IsRequestSent(string id, string volunteerId);
 
-        public IEnumerable<RequestViewModel> GetAll();
+        IEnumerable<RequestViewModel> GetAll();
 
-        public IndexViewModel GetDashboard();
+        Request GetRequestById(string id);
     }
 }

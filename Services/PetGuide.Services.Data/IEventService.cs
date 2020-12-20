@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using PetGuide.Data.Models;
+    using PetGuide.Web.ViewModels.Administration.Events;
     using PetGuide.Web.ViewModels.Events;
 
     public interface IEventService
@@ -21,5 +22,9 @@
         EventInputModel GetEventEdit(string id);
 
         PetEvent GetEventById(string id);
+
+        IEnumerable<EventViewModel> GetAllEventsAdminView();
+
+        EventsListViewModel EventsAdminView();
     }
 }

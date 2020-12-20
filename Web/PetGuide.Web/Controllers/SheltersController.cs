@@ -7,20 +7,23 @@
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Common;
     using PetGuide.Services.Data;
-    using PetGuide.Web.ViewModels.Pets;
+    using PetGuide.Web.ViewModels.Events;
     using PetGuide.Web.ViewModels.Shelters;
 
     public class SheltersController : Controller
     {
         private readonly IShelterService sheltersService;
         private readonly IPetService petService;
+        private readonly IRequestService requestService;
 
         public SheltersController(
             IShelterService sheltersService,
-            IPetService petService)
+            IPetService petService,
+            IRequestService requestService)
         {
             this.sheltersService = sheltersService;
             this.petService = petService;
+            this.requestService = requestService;
         }
 
         public IActionResult All()
@@ -94,7 +97,7 @@
 
         [HttpPost]
         [Authorize]
-        [Authorize(Roles = "Administrator,ShelterModerator")]
+        [Authorize(Roles = "Administrator,Shelter Moderator")]
         public async Task<IActionResult> Pet(string id, AddPetToShelterInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -107,6 +110,29 @@
             await this.sheltersService.AddAsync(id, input, userId);
 
             return this.RedirectToAction(nameof(this.Details), new { id });
+        }
+
+        // Volunteer Request Success
+        public IActionResult VolunteerSuccess(string id)
+        {
+            var viewModel = new VolunteerSuccessViewModel { Id = id };
+
+            return this.View(viewModel);
+        }
+
+        // Add Volunteer Request
+        [HttpPost]
+        public async Task<IActionResult> Volunteer(string id)
+        {
+            var volunteerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (this.requestService.IsRequestSent(id, volunteerId))
+            {
+                return this.BadRequest();
+            }
+
+            await this.requestService.AddAsync(id, volunteerId);
+            return this.RedirectToAction(nameof(this.VolunteerSuccess), new { id });
         }
     }
 }

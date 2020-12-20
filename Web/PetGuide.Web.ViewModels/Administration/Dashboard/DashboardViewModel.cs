@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class IndexViewModel
+    public class DashboardViewModel
     {
         public int PetsCount { get; set; }
 

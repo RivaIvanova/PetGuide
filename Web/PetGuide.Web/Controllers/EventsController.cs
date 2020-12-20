@@ -97,7 +97,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        // Add Volunteer Request
+        // Volunteer Request Success
         public IActionResult VolunteerSuccess(string id)
         {
             var viewModel = new VolunteerSuccessViewModel { Id = id };
@@ -105,6 +105,7 @@
             return this.View(viewModel);
         }
 
+        // Add Volunteer Request
         [HttpPost]
         public async Task<IActionResult> Volunteer(string id)
         {

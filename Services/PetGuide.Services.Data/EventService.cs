@@ -7,20 +7,25 @@
 
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
+    using PetGuide.Services.Mapping;
+    using PetGuide.Web.ViewModels.Administration.Events;
     using PetGuide.Web.ViewModels.Events;
 
     public class EventService : IEventService
     {
         private readonly IDeletableEntityRepository<PetEvent> eventsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Location> locationsRepository;
         private readonly ILocationService locationService;
 
         public EventService(
             IDeletableEntityRepository<PetEvent> eventsRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Location> locationsRepository,
             ILocationService locationService)
         {
             this.eventsRepository = eventsRepository;
+            this.usersRepository = usersRepository;
             this.locationsRepository = locationsRepository;
             this.locationService = locationService;
         }
@@ -133,6 +138,31 @@
         public PetEvent GetEventById(string id)
         {
             return this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<EventViewModel> GetAllEventsAdminView()
+        {
+            return this.eventsRepository
+                 .AllAsNoTracking()
+                 .OrderByDescending(x => x.DateTime)
+                 .To<EventViewModel>()
+                 .ToList();
+        }
+
+        public EventsListViewModel EventsAdminView()
+        {
+            var volunteersCount = this.usersRepository.AllAsNoTracking().Where(x => x.PetEvents.Count > 0).Count();
+            var eventsCount = this.eventsRepository.AllAsNoTracking().Count();
+            var events = this.GetAllEventsAdminView();
+
+            var petEvent = new EventsListViewModel
+            {
+                VolunteersCount = volunteersCount,
+                EventsCount = eventsCount,
+                Events = events,
+            };
+
+            return petEvent;
         }
 
         private DateTime GetDateAndTime(DateTime date, DateTime time)

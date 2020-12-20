@@ -38,7 +38,6 @@
         {
             var viewModel = new AllPostsInCategoryViewModel
             {
-                //Category = category,
                 Posts = this.postService.GetAllByCategory(category),
             };
 

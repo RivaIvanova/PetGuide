@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/favicon.ico" rel="icon" />
+    <link href="~/favicon-image.png" rel="apple-touch-icon">
+
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/lib/icofont/src/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/lib/aos/dist/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/css/dashboard/css-skin-elastic.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/dashboard/dashboard-style.css" asp-append-version="true">
+
+
+    @if (IsSectionDefined("Modal"))
+    {
+        @await this.RenderSectionAsync("Modal", required: true)
+    }
+
+</head>
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex">
+
+            <div class="logo mr-auto">
+
+                <a href="/"><img src="~/img/PetGuideLogo.png" alt="PetGuideLogo" width="120" class="img-fluid"></a>
+            </div>
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link">Hello, @this.User.Identity.Name</a>
+                        </li>
+                    }
+
+
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Home</a>
+                    </li>
+
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-linkk" asp-area="" asp-controller="Pets" asp-action="All">My Pets</a>
+                        </li>
+                    }
+
+
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Pets" asp-action="Search">Search</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Posts" asp-action="All">Advices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="Administration" asp-controller="Administration" asp-action="Events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-linkk" asp-area="Administration" asp-controller="Administration" asp-action="Shelters">Shelters</a>
+                    </li>
+
+                    <li class="get-started">
+
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                    <button type="submit" class="nav-linkk">Logout</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="nav-linkk" asp-area="Identity" asp-page="/Account/Login">Get Involved</a>
+                            }
+                        }
+
+                    </li>
+
+                </ul>
+            </nav><!-- .nav-menu -->
+
+        </div>
+    </header><!-- End Header -->
+
+
+    @this.RenderBody()
+
+    <a href="#" class="back-to-top"><i class="icofont-paw"></i></a>
+
+    <script src="~/js/main.js" asp-append-version="true"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+
+    <script src="~/lib/aos/dist/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js" asp-append-version="true"></script>
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+
+    @*<script src="~/js/dashboard.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

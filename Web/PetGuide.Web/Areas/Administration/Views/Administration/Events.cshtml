@@ -1,0 +1,146 @@
+﻿@{
+    this.Layout = "_AdminLayout";
+}
+
+@model PetGuide.Web.ViewModels.Administration.Events.EventsListViewModel
+
+<main id="main-dashboard">
+    <div class="content">
+        <div class="container">
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.VolunteersCount</span></div>
+                                            <div class="stat-heading">Volunteers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="fa fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.EventsCount</span></div>
+                                            <div class="stat-heading">Events</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Widgets -->
+
+            <div class="clearfix"></div>
+            <!-- Orders -->
+            <div class="orders">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">Requests</h4>
+                            </div>
+                            <div class="card-body--">
+                                <div class="table-stats order-table ov-h">
+                                    <table class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th class="serial">#</th>
+                                                <th>ID</th>
+                                                <th>Date & Time</th>
+                                                <th>Name</th>
+                                                <th>Crated On</th>
+                                                <th>Volunteers Count</th>
+                                                <th>Location</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var index = 1;
+                                                foreach (var petEvent in Model.Events)
+                                                {
+                                                    <tr>
+                                                        <td class="serial">@index.</td>
+                                                        <td>@petEvent.Id</td>
+                                                        <td>@petEvent.DateTime.ToString("g")</td>
+                                                        <td><span class="name">@petEvent.Name</span></td>
+                                                        <td><span class="name">@petEvent.CreatedOn.ToString("g")</span></td>
+                                                        <td><span class="name">@petEvent.EventVolunteersCount</span></td>
+                                                        <td><span class="name">@petEvent.LocationAsString</span></td>
+                                                        <td>
+                                                            <form method="post">
+                                                                <a asp-area="" asp-controller="Events" asp-action="Edit" asp-route-id="@petEvent.Id"><i class="fa fa-edit fa-2x"></i></a>
+                                                                <a class="cursor-pointer" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-alt color-red fa-2x"></i></a>
+                                                                <a asp-area="" asp-controller="Events" asp-action="Details" asp-route-id="@petEvent.Id"><i class="fa fa-eye flat-color-1 fa-2x"></i></a>
+
+                                                            </form>
+                                                            <form method="post" id="deleteForm" asp-area="" asp-controller="Events" asp-action="Delete" asp-route-id="@petEvent.Id">
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+
+                                                    index++;
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div> <!-- /.table-stats -->
+                            </div>
+                        </div> <!-- /.card -->
+                    </div>  <!-- /.col-lg-8 -->
+
+                </div>
+            </div>
+            <!-- /.orders -->
+        </div>
+    </div>
+    </div>
+</main>
+
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-delete">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="fa fa-times"></i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this event?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Modal {
+    <link href="~/css/modal.css" type="text/css" rel="stylesheet" asp-append-version="true" />
+} 

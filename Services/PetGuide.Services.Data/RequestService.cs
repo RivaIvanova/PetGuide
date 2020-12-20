@@ -14,7 +14,6 @@
         private readonly IDeletableEntityRepository<PetEvent> eventsRepository;
         private readonly IDeletableEntityRepository<Request> requestsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly IDeletableEntityRepository<Pet> petsRepository;
         private readonly IRepository<Shelter> sheltersRepository;
         private readonly IEventService eventService;
         private readonly IShelterService shelterService;
@@ -23,7 +22,6 @@
             IDeletableEntityRepository<PetEvent> eventsRepository,
             IDeletableEntityRepository<Request> requestsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IDeletableEntityRepository<Pet> petsRepository,
             IRepository<Shelter> sheltersRepository,
             IEventService eventService,
             IShelterService shelterService)
@@ -31,7 +29,6 @@
             this.eventsRepository = eventsRepository;
             this.requestsRepository = requestsRepository;
             this.usersRepository = usersRepository;
-            this.petsRepository = petsRepository;
             this.sheltersRepository = sheltersRepository;
             this.eventService = eventService;
             this.shelterService = shelterService;
@@ -81,26 +78,6 @@
                 .ToList();
         }
 
-        // Get Dashboard
-        public IndexViewModel GetDashboard()
-        {
-            var pets = this.petsRepository.AllAsNoTracking().Count();
-            var users = this.usersRepository.AllAsNoTracking().Count();
-            var shelters = this.sheltersRepository.AllAsNoTracking().Count();
-            var events = this.eventsRepository.AllAsNoTracking().Count();
-
-            var dashboard = new IndexViewModel
-            {
-                PetsCount = pets,
-                UsersCount = users,
-                SheltersCount = shelters,
-                EventsCount = events,
-                Requests = this.GetAll(),
-            };
-
-            return dashboard;
-        }
-
         // Approve Request
         public async Task ApproveAsync(string id)
         {
@@ -131,6 +108,11 @@
             var request = this.requestsRepository.All().FirstOrDefault(x => x.Id == id);
             this.requestsRepository.Delete(request);
             await this.requestsRepository.SaveChangesAsync();
+        }
+
+        public Request GetRequestById(string id)
+        {
+            return this.requestsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
         }
     }
 }

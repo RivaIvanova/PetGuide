@@ -3,6 +3,7 @@
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
+    using PetGuide.Common;
     using PetGuide.Web.ViewModels;
 
     public class HomeController : BaseController
@@ -10,6 +11,11 @@
         [Route("/")]
         public IActionResult Index()
         {
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.RedirectToAction("Index", "Dashboard", new { area = "Administration" });
+            }
+
             return this.View();
         }
 

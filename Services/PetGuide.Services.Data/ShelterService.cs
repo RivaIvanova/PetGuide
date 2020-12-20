@@ -6,21 +6,23 @@
 
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
+    using PetGuide.Services.Mapping;
+    using PetGuide.Web.ViewModels.Administration.Shelters;
     using PetGuide.Web.ViewModels.Shelters;
 
     public class ShelterService : IShelterService
     {
         private readonly IRepository<Shelter> sheltersRepository;
-        private readonly IRepository<ApplicationUser> usersRepository;
-        private readonly IRepository<Location> locationsRepository;
-        private readonly IRepository<Pet> petsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IDeletableEntityRepository<Location> locationsRepository;
+        private readonly IDeletableEntityRepository<Pet> petsRepository;
         private readonly ILocationService locationService;
 
         public ShelterService(
             IRepository<Shelter> sheltersRepository,
-            IRepository<ApplicationUser> usersRepository,
-            IRepository<Location> locationsRepository,
-            IRepository<Pet> petsRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IDeletableEntityRepository<Location> locationsRepository,
+            IDeletableEntityRepository<Pet> petsRepository,
             ILocationService locationService)
         {
             this.sheltersRepository = sheltersRepository;
@@ -151,6 +153,34 @@
 
             await this.petsRepository.AddAsync(pet);
             await this.petsRepository.SaveChangesAsync();
+        }
+
+        // Admin
+        public IEnumerable<ShelterViewModel> GetAllSheltersAdminView()
+        {
+            return this.sheltersRepository
+                 .AllAsNoTracking()
+                 .OrderByDescending(x => x.CreatedOn)
+                 .To<ShelterViewModel>()
+                 .ToList();
+        }
+
+        public SheltersListViewModel SheltersAdminView()
+        {
+            var petsCount = this.petsRepository.AllAsNoTracking().Where(x => x.ShelterId != null).Count();
+            var volunteersCount = this.usersRepository.AllAsNoTracking().Where(x => x.Shelters.Count > 0).Count();
+            var sheltersCount = this.sheltersRepository.AllAsNoTracking().Count();
+            var shelters = this.GetAllSheltersAdminView();
+
+            var shelter = new SheltersListViewModel
+            {
+                PetsCount = petsCount,
+                VolunteersCount = volunteersCount,
+                SheltersCount = sheltersCount,
+                Shelters = shelters,
+            };
+
+            return shelter;
         }
     }
 }

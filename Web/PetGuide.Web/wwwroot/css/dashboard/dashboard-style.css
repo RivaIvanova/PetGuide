@@ -15,6 +15,9 @@
     background-color: #f8f7ed;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
 
 #weatherWidget .currentDesc {
     color: #ffffff !important;
