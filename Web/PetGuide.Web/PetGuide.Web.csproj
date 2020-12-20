@@ -73,8 +73,4 @@
     <ProjectReference Include="..\PetGuide.Web.Infrastructure\PetGuide.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\PetGuide.Web.ViewModels\PetGuide.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Shared\Shelters\" />
-  </ItemGroup>
 </Project>

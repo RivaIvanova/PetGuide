@@ -5,16 +5,32 @@
 
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Services.Data;
+    using PetGuide.Services.Messaging;
     using PetGuide.Web.ViewModels.Events;
 
     public class RequestsController : Controller
     {
-        //private readonly IRequestService requestService;
+        private readonly IRequestService requestService;
+        private readonly IEmailSender emailSender;
 
-        //public RequestsController(IRequestService requestService)
-        //{
-        //    this.requestService = requestService;
-        //}
+        public RequestsController(
+            IRequestService requestService,
+            IEmailSender emailSender)
+        {
+            this.requestService = requestService;
+            this.emailSender = emailSender;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendToEmail(string id)
+        {
+            var receiverId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var email = this.requestService.GetEventEmailDetails(id, receiverId);
+
+            await this.emailSender.SendEmailAsync(email.SenderEmail, email.SenderName, "tamolar835@boersy.com", email.Title, email.Content);
+            return this.RedirectToAction("All", "Events");
+        }
 
         //// Add Volunteer Request
 

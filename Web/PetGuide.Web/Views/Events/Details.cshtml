@@ -64,10 +64,10 @@
                             </ul>
 
                             @*<div class="float-right share">
-                                    <a href="" title="Share on Twitter"><i class="icofont-twitter"></i></a>
-                                    <a href="" title="Share on Facebook"><i class="icofont-facebook"></i></a>
-                                    <a href="" title="Share on Instagram"><i class="icofont-instagram"></i></a>
-                                </div>*@
+                <a href="" title="Share on Twitter"><i class="icofont-twitter"></i></a>
+                <a href="" title="Share on Facebook"><i class="icofont-facebook"></i></a>
+                <a href="" title="Share on Instagram"><i class="icofont-instagram"></i></a>
+            </div>*@
                         </div>
 
                         <div class="entry-content">
@@ -95,6 +95,10 @@
                                 </form>
                                 <button type="button" class="btn search_btn" data-toggle="modal" data-target="#confirmModal">Become a volunteer</button>
                             </div>
+
+                            <form method="post" asp-controller="Requests" asp-action="SendToEmail" asp-route-id="@Model.Id">
+                                <button class="btn btn-warning">Send to my email</button>
+                            </form>
                         }
 
 

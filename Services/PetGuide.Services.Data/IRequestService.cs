@@ -2,8 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using PetGuide.Data.Models;
     using PetGuide.Web.ViewModels.Administration.Dashboard;
+    using PetGuide.Web.ViewModels.Requests;
 
     public interface IRequestService
     {
@@ -18,5 +20,9 @@
         IEnumerable<RequestViewModel> GetAll();
 
         Request GetRequestById(string id);
+
+        EmailViewModel GetEventEmailDetails(string id, string receiverId);
+
+        EmailViewModel GetShelterEmailDetails(string id, string receiverId);
     }
 }
