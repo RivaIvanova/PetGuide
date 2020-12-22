@@ -12,11 +12,14 @@
     public class PetsController : BaseController
     {
         private readonly IPetService petService;
+        private readonly ILocationService locationService;
 
         public PetsController(
-            IPetService petService)
+            IPetService petService,
+            ILocationService locationService)
         {
             this.petService = petService;
+            this.locationService = locationService;
         }
 
         // All Pets
@@ -130,6 +133,7 @@
                 Street = default,
                 Description = default,
                 Pets = this.petService.GetRecentlyAdded(),
+                Locations = this.locationService.GetPetsLocation(),
             };
 
             return this.View(viewModel);
@@ -140,6 +144,7 @@
         {
             var viewModel = this.petService.SetSearchValues(input);
             viewModel.Pets = this.petService.SearchPets(input);
+            viewModel.Locations = this.locationService.GetPetsLocation();
 
             return this.View(viewModel);
         }

@@ -6,7 +6,6 @@
 
     using PetGuide.Data.Common.Models;
     using PetGuide.Data.Models.Enums;
-    using PetGuide.Web.Infrastructure.Attributes;
 
     public class Pet : BaseDeletableModel<string>
     {

@@ -11,5 +11,7 @@
         public string Name { get; set; }
 
         public PetType Type { get; set; }
+
+        public PetStatus Status { get; set; }
     }
 }

@@ -1,8 +1,12 @@
 ﻿namespace PetGuide.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Common;
+    using PetGuide.Data.Models;
     using PetGuide.Services.Data;
     using PetGuide.Web.Controllers;
 
@@ -18,10 +22,11 @@
         }
 
         [Authorize(Policy = "DashboardRoles")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = this.dashboardService.GetDashboard();
             return this.View(viewModel);
         }
+
     }
 }

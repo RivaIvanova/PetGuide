@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Web.ViewModels.Locations;
 
     public class SearchPetListViewModel
     {
@@ -23,5 +24,7 @@
         public PetColor? Color { get; set; }
 
         public IEnumerable<SearchPetResultViewModel> Pets { get; set; }
+
+        public IEnumerable<SearchPetLocationViewModel> Locations { get; set; }
     }
 }

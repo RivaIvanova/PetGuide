@@ -16,5 +16,9 @@
 
         [MaxLength(250)]
         public string AdditionalLocationInfo { get; set; }
+
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
     }
 }

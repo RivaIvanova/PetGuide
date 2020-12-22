@@ -21,7 +21,6 @@ namespace PetGuide.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             // Custom collections
-            this.Badges = new HashSet<Badge>();
             this.Posts = new HashSet<Post>();
             this.Pets = new HashSet<Pet>();
             this.Shelters = new HashSet<UserShelter>();
@@ -58,9 +57,6 @@ namespace PetGuide.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
-
-        [NotMapped]
-        public ICollection<Badge> Badges { get; set; }
 
         public ICollection<Post> Posts { get; set; }
 
