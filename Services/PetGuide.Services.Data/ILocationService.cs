@@ -10,6 +10,6 @@
     {
         Location GetLocation(District district, string street, string additionalLocationInfo);
 
-        IEnumerable<SearchPetLocationViewModel> GetPetsLocation();
+        IEnumerable<SearchPetLocationViewModel> GetAllPetsLocation();
     }
 }

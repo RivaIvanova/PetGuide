@@ -133,7 +133,7 @@
                 Street = default,
                 Description = default,
                 Pets = this.petService.GetRecentlyAdded(),
-                Locations = this.locationService.GetPetsLocation(),
+                Locations = this.locationService.GetAllPetsLocation(),
             };
 
             return this.View(viewModel);
@@ -142,10 +142,16 @@
         [HttpPost]
         public IActionResult Search(SearchPetListViewModel input)
         {
-            var viewModel = this.petService.SetSearchValues(input);
-            viewModel.Pets = this.petService.SearchPets(input);
-            viewModel.Locations = this.locationService.GetPetsLocation();
+            var viewModel = new SearchPetResultListViewModel
+            {
+                PetsWithLocation = this.petService.SearchPets(input),
+            };
 
+            return this.View(nameof(this.SearchResult), viewModel);
+        }
+
+        public IActionResult SearchResult(SearchPetListViewModel viewModel)
+        {
             return this.View(viewModel);
         }
 

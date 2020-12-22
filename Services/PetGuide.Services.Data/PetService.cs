@@ -7,6 +7,7 @@
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
     using PetGuide.Services.Mapping;
+    using PetGuide.Web.ViewModels.Locations;
     using PetGuide.Web.ViewModels.Pets;
 
     public class PetService : IPetService
@@ -165,7 +166,7 @@
                 .ToList();
         }
 
-        public IEnumerable<SearchPetResultViewModel> SearchPets(SearchPetListViewModel input)
+        public IEnumerable<SearchPetLocationViewModel> SearchPets(SearchPetListViewModel input)
         {
             var pets = this.petsRepository.All().AsQueryable();
 
@@ -205,29 +206,22 @@
                 {
                     pets = pets.Where(x => x.Status == input.Status);
                 }
+
+                if (input.Description != null)
+                {
+                    var keyWords = input.Description.Trim().Split(' ').ToList();
+
+                    foreach (var keyWord in keyWords)
+                    {
+                        pets = pets.Where(x => x.Description.Contains(keyWord));
+                    }
+                }
             }
 
             return pets
                 .OrderByDescending(x => x.CreatedOn)
-                .To<SearchPetResultViewModel>()
+                .To<SearchPetLocationViewModel>()
                 .ToList();
-        }
-
-        public SearchPetListViewModel SetSearchValues(SearchPetListViewModel input)
-        {
-            var viewModel = new SearchPetListViewModel
-            {
-                Age = input.Age == 0 ? default : input.Age,
-                Street = input.Street ?? default,
-                Description = input.Description ?? default,
-                Color = input.Color == 0 ? default : input.Color,
-                Size = input.Size == 0 ? default : input.Size,
-                Status = input.Status == 0 ? default : input.Status,
-                Type = input.Type == 0 ? default : input.Type,
-                District = input.District == 0 ? default : input.District,
-            };
-
-            return viewModel;
         }
     }
 }

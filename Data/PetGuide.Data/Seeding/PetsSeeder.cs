@@ -18,7 +18,7 @@
 
             var location = new Location()
             {
-                District = District.Mladost,
+                District = District.Bakston,
                 Street = "Best Street 2",
                 AdditionalLocationInfo = "Next to the bus stop",
             };

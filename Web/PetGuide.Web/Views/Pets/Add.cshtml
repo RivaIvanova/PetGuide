@@ -89,7 +89,7 @@
                             <div class="input-group form-group">
                                 <div class="input-group-prepend" style="width:100%">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <select asp-for="Location.District" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<District>()">
+                                    <select asp-for="Location.District" style="width:100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<District>().OrderBy(x => x.Text)">
                                         <option placeholder="" value="">District</option>
                                     </select>
 

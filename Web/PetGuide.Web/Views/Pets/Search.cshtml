@@ -163,7 +163,7 @@
                 <div class="mt-5" data-aos="fade-up">
 
                     <form>
-                        <h1 class="text-center">Results</h1>
+                        <h1 class="text-center">Recently Added</h1>
                         <div class="inner-form">
 
                             <section id="portfolio" class="portfolio">
@@ -236,7 +236,7 @@
             var infoWindowContent = [
                 @foreach (var petLocation in Model.Locations)
             {
-               @:['<div class="info_content">' + '<a href="/Pets/Details/@petLocation.Id"><h3>@petLocation.Name</h3></a>' + '<p>@petLocation.Street, @petLocation.District.ToString()</p>' + '</div>'],
+               @:['<div class="info_content">' + '<a href="/Pets/Details/@petLocation.Id"><h3>@petLocation.Name</h3></a>' + '<p>@petLocation.Street, @Html.DisplayFor(x => petLocation.District)</p>' + '</div>'],
             }
             ];
             // Display multiple markers on a map

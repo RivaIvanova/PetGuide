@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using PetGuide.Data.Models;
+    using PetGuide.Web.ViewModels.Locations;
     using PetGuide.Web.ViewModels.Pets;
 
     public interface IPetService
@@ -22,9 +23,7 @@
 
         EditPetInputModel GetPetEdit(string id);
 
-        IEnumerable<SearchPetResultViewModel> SearchPets(SearchPetListViewModel input);
-
-        SearchPetListViewModel SetSearchValues(SearchPetListViewModel input);
+        IEnumerable<SearchPetLocationViewModel> SearchPets(SearchPetListViewModel input);
 
         Pet GetPetById(string id);
 
