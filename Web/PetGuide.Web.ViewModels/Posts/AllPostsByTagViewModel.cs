@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class AllPostsInCategoryViewModel
+    public class AllPostsByTagViewModel
     {
-        public string Category { get; set; }
+        public string Tag { get; set; }
 
         public IEnumerable<AllPostsViewModel> Posts { get; set; }
     }

@@ -4,8 +4,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Common;
+    using PetGuide.Data.Models;
     using PetGuide.Services.Data;
     using PetGuide.Web.ViewModels.Events;
 
@@ -13,27 +15,34 @@
     {
         private readonly IEventService eventService;
         private readonly IRequestService requestService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public EventsController(
             IEventService eventService,
-            IRequestService requestService)
+            IRequestService requestService,
+            UserManager<ApplicationUser> userManager)
         {
             this.eventService = eventService;
             this.requestService = requestService;
+            this.userManager = userManager;
         }
 
         // Get All Events
         public IActionResult All()
         {
+            var userId = this.userManager.GetUserId(this.User);
+
             var todaysEvents = this.eventService.GetAll(0);
             var upcommingEvents = this.eventService.GetAll(1);
             var pastEvents = this.eventService.GetAll(-1);
+            var volunteerEvents = this.eventService.GetVolunteerEvents(userId);
 
             var viewModel = new AllEventsListViewModel
             {
                 TodaysEvents = todaysEvents,
                 UpcommingEvents = upcommingEvents,
                 PastEvents = pastEvents,
+                VolunteerEvents = volunteerEvents,
             };
 
             return this.View(viewModel);

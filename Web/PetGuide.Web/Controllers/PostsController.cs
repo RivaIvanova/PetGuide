@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using PetGuide.Services.Data;
     using PetGuide.Web.ViewModels.Posts;
 
@@ -17,14 +18,9 @@
             this.postService = postService;
         }
 
-        public IActionResult All(string tag = "")
+        public IActionResult All()
         {
             var posts = this.postService.GetAll();
-
-            if (tag.Length != 0)
-            {
-                posts = this.postService.GetAllByTag(int.Parse(tag));
-            }
 
             var viewModel = new AllPostsListViewModel
             {
@@ -34,13 +30,9 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Category(int category)
+        public IActionResult Tag(int id)
         {
-            var viewModel = new AllPostsInCategoryViewModel
-            {
-                Posts = this.postService.GetAllByCategory(category),
-            };
-
+            var viewModel = this.postService.GetPostsByTag(id);
             return this.View(viewModel);
         }
 

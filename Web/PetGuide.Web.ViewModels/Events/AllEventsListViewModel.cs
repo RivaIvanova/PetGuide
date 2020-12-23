@@ -9,5 +9,7 @@
         public IEnumerable<AllEventsViewModel> UpcommingEvents { get; set; }
 
         public IEnumerable<AllEventsViewModel> PastEvents { get; set; }
+
+        public IEnumerable<AllEventsViewModel> VolunteerEvents { get; set; }
     }
 }

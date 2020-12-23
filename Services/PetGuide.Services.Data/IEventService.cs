@@ -17,6 +17,8 @@
 
         IEnumerable<AllEventsViewModel> GetAll(int compared);
 
+        IEnumerable<AllEventsViewModel> GetVolunteerEvents(string id);
+
         EventDetailsViewModel GetEventDetails(string id);
 
         EventInputModel GetEventEdit(string id);

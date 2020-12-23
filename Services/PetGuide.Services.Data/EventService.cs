@@ -113,6 +113,25 @@
                .ToList();
         }
 
+        // Get Volunteer Events
+        public IEnumerable<AllEventsViewModel> GetVolunteerEvents(string id)
+        {
+            return this.eventsRepository
+               .AllAsNoTracking()
+               .Where(x => x.EventVolunteers.Any(x => x.UserId == id))
+               .Select(x => new AllEventsViewModel
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Purpose = x.Purpose,
+                   Date = x.DateTime,
+                   Time = x.DateTime,
+                   Description = x.Description,
+                   Location = x.Location,
+               })
+               .ToList();
+        }
+
         // Get Event Details
         public EventDetailsViewModel GetEventDetails(string id)
         {

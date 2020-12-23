@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CommandLine;
@@ -14,6 +15,7 @@
     using PetGuide.Data.Common;
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
+    using PetGuide.Data.Models.Enums;
     using PetGuide.Data.Repositories;
     using PetGuide.Data.Seeding;
     using PetGuide.Services.Data;
@@ -48,12 +50,14 @@
 
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
-            var sw = Stopwatch.StartNew();
+            var category = PostCategory.Grooming;
 
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
+            var cat = Enum.GetValues(typeof(PostCategory))
+                .Cast<PostCategory>()
+                .FirstOrDefault(x => x.Equals(category));
 
-            Console.WriteLine(sw.Elapsed);
+            Console.WriteLine(cat);
+
             return await Task.FromResult(0);
         }
 

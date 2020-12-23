@@ -7,7 +7,7 @@
         <div class="breadcrumb-hero">
             <div class="container">
                 <div class="breadcrumb-hero">
-                    <h2>Advices</h2>
+                    <h2>Articles</h2>
                     <p>Best section where anybody could get usefull information about his or her pets.</p>
                 </div>
             </div>
@@ -57,9 +57,9 @@
 
                         <div class="entry-meta">
                             <ul>
-                                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Model.Author.UserName</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-user"></i> @Model.Author.UserName </li>
                                 <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @Model.CreatedOnAsString</li>
-                                <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a asp-action="All" asp-route-id="@Model.Category.ToString()">@Model.Category.ToString()</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-comment"></i>@Model.Category.ToString()</li>
                             </ul>
                         </div>
 
@@ -103,7 +103,7 @@
                             <div class="float-left">
                                 <i class="icofont-comment"></i>
                                 <ul class="cats">
-                                    <li><a asp-action="Category" asp-route-id="@Model.Category.ToString()">@Model.Category.ToString()</a></li>
+                                    <li><a>@Model.Category.ToString()</a></li>
                                 </ul>
 
                                 <i class="icofont-tags"></i>
@@ -215,7 +215,7 @@
                             <ul>
                                 @foreach (var category in Model.AllCategories)
                                 {
-                                    <li><a asp-action="Category" asp-route-id="@category">@category.ToString() <span> (22) </span></a></li>
+                                    <li><a>@category.Key.ToString() <span> (@category.Value) </span></a></li>
                                 }
                             </ul>
 
@@ -226,7 +226,7 @@
                             <ul>
                                 @foreach (var tag in Model.AllTags)
                                 {
-                                    <li><a asp-action="All" asp-route-id="@tag.Id">@tag.Name.ToString()</a></li>
+                                    <li><a asp-action="Tag" asp-route-id="@tag.Id">@tag.Name.ToString()</a></li>
                                 }
                             </ul>
 

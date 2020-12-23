@@ -16,14 +16,14 @@
 
         IEnumerable<AllPostsViewModel> GetAll();
 
-        IEnumerable<AllPostsViewModel> GetAllByTag(int tagId);
-
-        IEnumerable<AllPostsViewModel> GetAllByCategory(int category);
-
         PostDetailsViewModel GetPostDetails(string id);
+
+        AllPostsByTagViewModel GetPostsByTag(int id);
 
         PostInputModel GetPostEdit(string id);
 
         Post GetPostById(string id);
+
+        Tag GetTagById(int id);
     }
 }

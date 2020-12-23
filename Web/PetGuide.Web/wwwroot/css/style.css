@@ -168,7 +168,7 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 0;
         visibility: hidden;
         padding: 10px 0;
-        background: #fff;
+        background: #f8f7ed;
         box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
         transition: ease all 0.3s;
     }
@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
     .nav-menu .drop-down ul a {
         padding: 10px 20px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         text-transform: none;
         color: #3e511b;
     }
@@ -1136,6 +1136,38 @@ section {
         .portfolio #portfolio-flters li:last-child {
             margin-right: 0;
         }
+
+
+.portfolio #article-filters {
+    padding: 0;
+    margin: 0 auto 20px auto;
+    list-style: none;
+    text-align: center;
+}
+
+    .portfolio #article-filters li {
+        cursor: pointer;
+        display: inline-block;
+        padding: 8px 15px 10px 15px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #444444;
+        margin-bottom: 5px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 3px;
+    }
+
+        .portfolio #article-filters li:hover, .portfolio #article-filters li.filter-active {
+            color: #fff;
+            background: #ff9a35;
+        }
+
+        .portfolio #article-filters li:last-child {
+            margin-right: 0;
+        }
+
 
 .portfolio .portfolio-wrap {
     transition: 0.3s;

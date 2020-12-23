@@ -8,6 +8,7 @@
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Services.Mapping;
     using PetGuide.Web.ViewModels.Posts;
 
     public class PostService : IPostService
@@ -48,56 +49,27 @@
         {
             return this.postsRepository
                 .AllAsNoTracking()
-                .Select(x => new AllPostsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Content = x.Content,
-                    Category = x.Category,
-                    CreatedOn = x.CreatedOn,
-                    Author = x.Author,
-                })
+                .To<AllPostsViewModel>()
                 .ToList();
         }
 
         // Get All Posts By Tag
-        public IEnumerable<AllPostsViewModel> GetAllByTag(int tagId)
+        public AllPostsByTagViewModel GetPostsByTag(int id)
         {
-            var tag = this.tagsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == tagId);
-
-            return this.postsRepository
+            var tag = this.GetTagById(id);
+            var posts = this.postsRepository
                 .AllAsNoTracking()
-                .Where(x => x.Tags.Any(x => x.Tag.Name == tag.Name))
-                .Select(x => new AllPostsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Content = x.Content,
-                    Category = x.Category,
-                    CreatedOn = x.CreatedOn,
-                    Author = x.Author,
-                })
+                .Where(x => x.Tags.Any(x => x.TagId == id))
+                .To<AllPostsViewModel>()
                 .ToList();
-        }
 
-        // Get All Posts By Category
-        public IEnumerable<AllPostsViewModel> GetAllByCategory(int category)
-        {
-            PostCategory postcat = (PostCategory)category;
+            var viewModel = new AllPostsByTagViewModel
+            {
+                Tag = tag.Name,
+                Posts = posts,
+            };
 
-            return this.postsRepository
-                .AllAsNoTracking()
-                .Where(x => x.Category == postcat)
-                .Select(x => new AllPostsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Content = x.Content,
-                    Category = x.Category,
-                    CreatedOn = x.CreatedOn,
-                    Author = x.Author,
-                })
-                .ToList();
+            return viewModel;
         }
 
         // Get Post Details View
@@ -106,10 +78,8 @@
             var post = this.postsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var author = this.usersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == post.AuthorId);
             var allTags = this.tagsRepository.AllAsNoTracking().ToList();
-            var allCategories = Enum.GetValues(typeof(PostCategory))
-                .Cast<PostCategory>()
-                .ToList();
             var postTags = this.tagsRepository.AllAsNoTracking().Where(x => x.PostId == id).ToList();
+            var categories = this.GetCategoriesWithPostsCount();
 
             var viewModel = new PostDetailsViewModel
             {
@@ -123,7 +93,7 @@
                 Tags = postTags,
                 Author = author,
                 AllTags = allTags,
-                AllCategories = allCategories,
+                AllCategories = categories,
             };
 
             return viewModel;
@@ -168,11 +138,19 @@
             await this.postsRepository.SaveChangesAsync();
         }
 
+        // Get Post By Id
         public Post GetPostById(string id)
         {
             return this.postsRepository.All().FirstOrDefault(x => x.Id == id);
         }
 
+        // Get Tag By Id
+        public Tag GetTagById(int id)
+        {
+            return this.tagsRepository.All().FirstOrDefault(x => x.Id == id);
+        }
+
+        // Private Methods
         private void AddTagsToPost(PostInputModel input, Post post)
         {
             var tags = input.Tags.Trim().Split(' ').ToList();
@@ -194,6 +172,23 @@
                     });
                 }
             }
+        }
+
+        private Dictionary<PostCategory, int> GetCategoriesWithPostsCount()
+        {
+            var allCategories = Enum.GetValues(typeof(PostCategory))
+                            .Cast<PostCategory>()
+                            .ToList();
+
+            var categories = new Dictionary<PostCategory, int>();
+
+            foreach (var cat in allCategories)
+            {
+                var posts = this.postsRepository.AllAsNoTracking().Where(x => x.Category == cat).Count();
+                categories.Add(cat, posts);
+            }
+
+            return categories;
         }
     }
 }

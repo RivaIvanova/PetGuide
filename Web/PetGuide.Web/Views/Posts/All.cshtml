@@ -24,12 +24,12 @@
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-lost">Health</li>
-                        <li data-filter=".filter-spotted">Grooming</li>
-                        <li data-filter=".filter-found">Food</li>
-                        <li data-filter=".filter-lost">Behaviour</li>
-                        <li data-filter=".filter-spotted">Toys</li>
-                        <li data-filter=".filter-found">Communication</li>
+                        <li data-filter=".filter-Health">Health</li>
+                        <li data-filter=".filter-Grooming">Grooming</li>
+                        <li data-filter=".filter-Food">Food</li>
+                        <li data-filter=".filter-Behaviour">Behaviour</li>
+                        <li data-filter=".filter-Toys">Toys</li>
+                        <li data-filter=".filter-Communication">Communication</li>
                     </ul>
                 </div>
             </div>
@@ -39,45 +39,50 @@
     <section id="blog" class="blog">
         <div class="container">
 
-            <div class="row">
+            <section id="portfolio" class="portfolio">
+                <div class="row portfolio-container">
 
-                @foreach (var post in Model.Posts)
-                {
+                    @foreach (var post in Model.Posts)
+                    {
 
-                    <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                        <article class="entry">
+                        <div class="col-lg-4  col-md-6 d-flex portfolio-item filter-@post.Category" data-aos="fade-up">
 
-                            <div class="entry-img">
-                                <img src="~/img/register-font2.jpg" alt="" class="img-fluid">
-                            </div>
+                            <article class="entry">
 
-                            <h2 class="entry-title">
-                                <a asp-action="Details" asp-route-id="@post.Id"> @post.Title </a>
-                            </h2>
+                                <div class="entry-img">
+                                    <img src="~/img/register-font2.jpg" alt="" class="img-fluid">
+                                </div>
 
-                            <div class="entry-meta">
-                                <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> @post.Author.UserName </li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @post.Category.ToString() </li>
-                                </ul>
-                            </div>
+                                <h2 class="entry-title">
+                                    <a asp-action="Details" asp-route-id="@post.Id"> @post.Title </a>
+                                </h2>
 
-                            <div class="entry-content">
-                                <textarea disabled rows="4">@post.ShortContent</textarea>
+                                <div class="entry-meta">
+                                    <ul>
+                                        <li class="d-flex align-items-center"><i class="icofont-user"></i> @post.Author.UserName </li>
+                                        <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @post.Category.ToString() </li>
+                                    </ul>
+                                </div>
 
-                            </div>
+                                <div class="entry-content">
+                                    <textarea disabled rows="4">@post.ShortContent</textarea>
 
-                            <div class="read-more">
-                                <a asp-action="Details" asp-route-id="@post.Id">Read More</a>
-                            </div>
+                                </div>
 
-                        </article><!-- End blog entry -->
-                    </div>
-                }
+                                <div class="read-more">
+                                    <a asp-action="Details" asp-route-id="@post.Id">Read More</a>
+                                </div>
 
+                            </article><!-- End blog entry -->
 
 
-            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            </section>
 
             <div class="blog-pagination" data-aos="fade-up">
                 <ul class="justify-content-center">
