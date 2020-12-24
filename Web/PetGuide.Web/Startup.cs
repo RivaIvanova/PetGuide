@@ -95,13 +95,14 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
 
+            services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IPetService, PetService>();
+            services.AddTransient<IPictureService, PictureService>();
             services.AddTransient<IPostService, PostService>();
-            services.AddTransient<IShelterService, ShelterService>();
             services.AddTransient<IRequestService, RequestService>();
-            services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<IShelterService, ShelterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

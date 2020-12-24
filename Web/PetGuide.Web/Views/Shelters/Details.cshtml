@@ -196,7 +196,7 @@
                                                     <p>@Html.DisplayFor(x => pet.Type)</p>
                                                     <div class="portfolio-links">
                                                         <a href="~/img/animal-video.jpg" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
-                                                        <a asp-action="Details" asp-route-id="@pet.Id" title="More Details"><i class="bx bx-link"></i></a>
+                                                        <a asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id" title="More Details"><i class="bx bx-link"></i></a>
                                                     </div>
                                                 </div>
                                             </div>

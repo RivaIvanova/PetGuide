@@ -50,13 +50,9 @@
 
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
-            var category = PostCategory.Grooming;
+            var directory = Directory.GetCurrentDirectory();
 
-            var cat = Enum.GetValues(typeof(PostCategory))
-                .Cast<PostCategory>()
-                .FirstOrDefault(x => x.Equals(category));
-
-            Console.WriteLine(cat);
+            Console.WriteLine(directory);
 
             return await Task.FromResult(0);
         }

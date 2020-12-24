@@ -12,7 +12,7 @@
         }
 
         // Content will be saved on file system
-        public string Extension { get; set; }
+        public string Folder { get; set; }
 
         public string PetId { get; set; }
 
