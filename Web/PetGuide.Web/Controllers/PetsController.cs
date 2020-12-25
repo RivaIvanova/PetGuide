@@ -52,6 +52,7 @@
 
         [HttpPost]
         [Authorize]
+        [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> Add(AddPetInputModel input)
         {
             if (!this.ModelState.IsValid)

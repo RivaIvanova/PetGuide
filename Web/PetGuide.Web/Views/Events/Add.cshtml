@@ -1,5 +1,4 @@
-﻿@using PetGuide.Data.Models.Enums
-@model PetGuide.Web.ViewModels.Events.EventInputModel
+﻿@model PetGuide.Web.ViewModels.Events.EventInputModel
 
 <main id="main">
 
@@ -25,7 +24,7 @@
 
                         <div class="card-body p-0">
 
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
 
                                 <partial name="_AddEditPartial" model="@Model" />
 

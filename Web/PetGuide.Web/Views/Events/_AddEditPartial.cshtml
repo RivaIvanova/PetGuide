@@ -88,3 +88,9 @@
     <textarea asp-for="Activities" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here describe the event activities. e.g. Pet topics discusions, Group training, etc."></textarea>
 
 </div>
+
+<span asp-validation-for="Pictures" class="text-danger"></span>
+<div class="input-group form-group">
+    <input asp-for="Pictures" type="file" multiple="multiple" name="pictures" class="form-control">
+
+</div>

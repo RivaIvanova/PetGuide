@@ -1,6 +1,7 @@
 ﻿namespace PetGuide.Web.Controllers
 {
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
@@ -22,21 +23,24 @@
         public IActionResult Upload() => this.View();
 
         [HttpPost]
-        [RequestSizeLimit(100 * 1024 * 1024)]
+        [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> Upload(IFormFile[] pictures)
         {
-            if (pictures.Length > 10)
+            if (pictures.Length > 5)
             {
-                this.ModelState.AddModelError("images", "You cannot upload more than 10 images!");
+                this.ModelState.AddModelError("pictures", "You cannot upload more than 5 images!");
                 return this.View();
             }
 
-            await this.pictureService.Upload(pictures.Select(i => new PictureInputModel
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            await this.pictureService.Upload(
+                pictures.Select(i => new PictureInputModel
             {
                 Name = i.FileName,
                 Type = i.ContentType,
                 Content = i.OpenReadStream(),
-            }));
+            }), userId);
 
             return this.RedirectToAction(nameof(this.All));
         }

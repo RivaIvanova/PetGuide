@@ -26,7 +26,7 @@
 
                         <div class="card-body p-0">
 
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
 
                                 <div class="entry-content ml-3">
                                     <h3>Shelter name</h3>
@@ -81,7 +81,15 @@
 
                                 </div>
 
+                                <div class="entry-content ml-3">
+                                    <h3>Pictures</h3>
+                                </div>
 
+                                <span asp-validation-for="Pictures" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <input asp-for="Pictures" type="file" multiple="multiple" name="pictures" class="form-control">
+
+                                </div>
 
                                 <div class="entry-footer clearfix">
                                     <div class="row">

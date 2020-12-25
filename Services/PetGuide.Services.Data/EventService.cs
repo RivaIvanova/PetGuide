@@ -10,6 +10,7 @@
     using PetGuide.Services.Mapping;
     using PetGuide.Web.ViewModels.Administration.Events;
     using PetGuide.Web.ViewModels.Events;
+    using PetGuide.Web.ViewModels.Pictures;
 
     public class EventService : IEventService
     {
@@ -17,17 +18,20 @@
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Location> locationsRepository;
         private readonly ILocationService locationService;
+        private readonly IPictureService picturesService;
 
         public EventService(
             IDeletableEntityRepository<PetEvent> eventsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Location> locationsRepository,
-            ILocationService locationService)
+            ILocationService locationService, 
+            IPictureService picturesService)
         {
             this.eventsRepository = eventsRepository;
             this.usersRepository = usersRepository;
             this.locationsRepository = locationsRepository;
             this.locationService = locationService;
+            this.picturesService = picturesService;
         }
 
         // Add Event
@@ -48,6 +52,15 @@
 
             await this.eventsRepository.AddAsync(petEvent);
             await this.eventsRepository.SaveChangesAsync();
+
+            await this.picturesService.Upload(
+              input.Pictures.Select(i => new PictureInputModel
+              {
+                  Name = i.FileName,
+                  Type = i.ContentType,
+                  Content = i.OpenReadStream(),
+              }),
+              null, null, petEvent.Id);
         }
 
         // Edit Event

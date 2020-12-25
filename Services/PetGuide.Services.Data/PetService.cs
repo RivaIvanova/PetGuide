@@ -9,6 +9,7 @@
     using PetGuide.Services.Mapping;
     using PetGuide.Web.ViewModels.Locations;
     using PetGuide.Web.ViewModels.Pets;
+    using PetGuide.Web.ViewModels.Pictures;
 
     public class PetService : IPetService
     {
@@ -16,21 +17,24 @@
         private readonly IDeletableEntityRepository<Location> locationsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly ILocationService locationService;
+        private readonly IPictureService picturesService;
 
         public PetService(
             IDeletableEntityRepository<Pet> petsRepository,
             IDeletableEntityRepository<Location> locationsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            ILocationService locationService)
+            ILocationService locationService,
+            IPictureService picturesService)
         {
             this.petsRepository = petsRepository;
             this.locationsRepository = locationsRepository;
             this.usersRepository = usersRepository;
             this.locationService = locationService;
+            this.picturesService = picturesService;
         }
 
         // Add Pet
-        public async Task AddAsync(AddPetInputModel input, string userId, string shelterId = null)
+        public async Task AddAsync(AddPetInputModel input, string userId)
         {
             var pet = new Pet
             {
@@ -49,6 +53,16 @@
 
             await this.petsRepository.AddAsync(pet);
             await this.petsRepository.SaveChangesAsync();
+
+            await this.picturesService.Upload(
+                input.Pictures.Select(i => new PictureInputModel
+                {
+                    Name = i.FileName,
+                    Type = i.ContentType,
+                    Content = i.OpenReadStream(),
+                }),
+                userId,
+                pet.Id);
         }
 
         // Get Pet Details View

@@ -14,6 +14,7 @@
             this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
             this.Tags = new HashSet<PostTag>();
+            this.Pictures = new HashSet<Picture>();
         }
 
         [Required]
@@ -38,5 +39,7 @@
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<PostTag> Tags { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

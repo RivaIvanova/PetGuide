@@ -1,8 +1,11 @@
 ﻿namespace PetGuide.Web.ViewModels.Posts
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Web.Infrastructure.Attributes;
 
     public class PostInputModel
     {
@@ -19,5 +22,9 @@
 
         [RegularExpression(@"^(?:[a-zA-z]{2,}\s?)*$", ErrorMessage = "Tag should contain only letters and be separated by whitespace.")]
         public string Tags { get; set; }
+
+        [Required]
+        [PicturesMaxCount(10)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

@@ -9,6 +9,7 @@
     using PetGuide.Data.Models;
     using PetGuide.Data.Models.Enums;
     using PetGuide.Services.Mapping;
+    using PetGuide.Web.ViewModels.Pictures;
     using PetGuide.Web.ViewModels.Posts;
 
     public class PostService : IPostService
@@ -16,15 +17,18 @@
         private readonly IDeletableEntityRepository<Post> postsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Tag> tagsRepository;
+        private readonly IPictureService picturesService;
 
         public PostService(
             IDeletableEntityRepository<Post> postsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IDeletableEntityRepository<Tag> tagsRepository)
+            IDeletableEntityRepository<Tag> tagsRepository,
+            IPictureService picturesService)
         {
             this.postsRepository = postsRepository;
             this.usersRepository = usersRepository;
             this.tagsRepository = tagsRepository;
+            this.picturesService = picturesService;
         }
 
         // Add Post
@@ -42,6 +46,15 @@
 
             await this.postsRepository.AddAsync(post);
             await this.postsRepository.SaveChangesAsync();
+
+            await this.picturesService.Upload(
+                input.Pictures.Select(i => new PictureInputModel
+                {
+                    Name = i.FileName,
+                    Type = i.ContentType,
+                    Content = i.OpenReadStream(),
+                }),
+                userId, null, null, null, post.Id);
         }
 
         // Get All Posts

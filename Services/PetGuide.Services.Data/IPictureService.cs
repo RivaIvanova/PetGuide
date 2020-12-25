@@ -7,7 +7,7 @@
 
     public interface IPictureService
     {
-        Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null);
+        Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null, string postId = null);
 
         Task<List<string>> GetAllPictures();
     }

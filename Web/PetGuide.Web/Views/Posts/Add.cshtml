@@ -26,7 +26,7 @@
 
                         <div class="card-body p-0">
 
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
 
                                 <div class="entry-content ml-3">
                                     <h3>Article title</h3>
@@ -65,6 +65,16 @@
                                 <span asp-validation-for="Tags" class="text-danger"></span>
                                 <div class="input-group form-group">
                                     <textarea asp-for="Tags" rows="2" style="resize:none" type="text" class="form-control" placeholder="Tags should contain only letters and be separated by one single whitespace and should not start or end with a whitespace. e.g. &quot;tag anotherTag thirdTag&quot;"></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Pictures</h3>
+                                </div>
+
+                                <span asp-validation-for="Pictures" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <input asp-for="Pictures" type="file" multiple="multiple" name="pictures" class="form-control">
 
                                 </div>
 

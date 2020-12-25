@@ -8,6 +8,7 @@
     using PetGuide.Data.Models;
     using PetGuide.Services.Mapping;
     using PetGuide.Web.ViewModels.Administration.Shelters;
+    using PetGuide.Web.ViewModels.Pictures;
     using PetGuide.Web.ViewModels.Shelters;
 
     public class ShelterService : IShelterService
@@ -17,19 +18,22 @@
         private readonly IDeletableEntityRepository<Location> locationsRepository;
         private readonly IDeletableEntityRepository<Pet> petsRepository;
         private readonly ILocationService locationService;
+        private readonly IPictureService picturesService;
 
         public ShelterService(
             IRepository<Shelter> sheltersRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Location> locationsRepository,
             IDeletableEntityRepository<Pet> petsRepository,
-            ILocationService locationService)
+            ILocationService locationService,
+            IPictureService picturesService)
         {
             this.sheltersRepository = sheltersRepository;
             this.usersRepository = usersRepository;
             this.locationsRepository = locationsRepository;
             this.petsRepository = petsRepository;
             this.locationService = locationService;
+            this.picturesService = picturesService;
         }
 
         // Add Shelter
@@ -47,6 +51,15 @@
 
             await this.sheltersRepository.AddAsync(shelter);
             await this.sheltersRepository.SaveChangesAsync();
+
+            await this.picturesService.Upload(
+            input.Pictures.Select(i => new PictureInputModel
+            {
+                Name = i.FileName,
+                Type = i.ContentType,
+                Content = i.OpenReadStream(),
+            }),
+            null, null, null, shelter.Id);
         }
 
         // Edit Shelter

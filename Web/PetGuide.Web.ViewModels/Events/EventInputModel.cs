@@ -1,8 +1,9 @@
 ﻿namespace PetGuide.Web.ViewModels.Events
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.AspNetCore.Http;
     using PetGuide.Data.Models;
     using PetGuide.Web.Infrastructure.Attributes;
 
@@ -37,5 +38,9 @@
 
         [Required]
         public Location Location { get; set; }
+
+        [Required]
+        [PicturesMaxCount(10)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

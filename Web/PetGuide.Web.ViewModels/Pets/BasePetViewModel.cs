@@ -1,9 +1,13 @@
 ﻿namespace PetGuide.Web.ViewModels.Pets
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.AspNetCore.Http;
 
     using PetGuide.Data.Models;
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Web.Infrastructure.Attributes;
 
     public abstract class BasePetViewModel
     {
@@ -32,5 +36,9 @@
 
         [Required]
         public PetColor Color { get; set; }
+
+        [Required]
+        [PicturesMaxCount(5)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

@@ -49,6 +49,11 @@
         @await this.RenderSectionAsync("EventListing", required: true)
     }
 
+    @if (IsSectionDefined("PictureUpload"))
+    {
+        @await this.RenderSectionAsync("PictureUpload", required: true)
+    }
+
 </head>
 <body>
     <!-- ======= Header ======= -->

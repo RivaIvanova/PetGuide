@@ -28,7 +28,7 @@
             this.picturesRepository = picturesRepository;
         }
 
-        public async Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null)
+        public async Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null, string postId = null)
         {
             var dict = new ConcurrentDictionary<Guid, Picture>();
 
@@ -38,11 +38,11 @@
                .CountAsync();
 
             var tasks = pictures
-                .Select(picture => Task.Run(async () =>
+                .Select(p => Task.Run(async () =>
                 {
                     try
                     {
-                        using var pictureResult = await Image.LoadAsync(picture.Content);
+                        using var pictureResult = await Image.LoadAsync(p.Content);
 
                         var id = Guid.NewGuid();
                         var path = $"/images/{totalPictures % 1000}/";
@@ -60,7 +60,9 @@
                         await this.SavePicture(pictureResult, $"Fullscreen_{name}", storagePath, FullscreenWidth);
                         await this.SavePicture(pictureResult, $"Thumbnail_{name}", storagePath, ThumbnailWidth);
 
-                        dict.GetOrAdd(id, new Picture() { Id = id.ToString(), Folder = path });
+                        var picture = this.CreatePicture(id, path, userId, petId, eventId, shelterId, postId);
+
+                        dict.GetOrAdd(id, picture);
                     }
                     catch
                     {
@@ -74,8 +76,9 @@
             foreach (var picture in dict)
             {
                 await this.picturesRepository.AddAsync(picture.Value);
-                await this.picturesRepository.SaveChangesAsync();
             }
+
+            await this.picturesRepository.SaveChangesAsync();
         }
 
         public Task<List<string>> GetAllPictures()
@@ -105,6 +108,22 @@
             {
                 Quality = 75,
             });
+        }
+
+        private Picture CreatePicture(Guid id, string folder, string userId, string petId, string eventId, string shelterId, string postId)
+        {
+            var picture = new Picture
+            {
+                Id = id.ToString(),
+                Folder = folder,
+                UserId = userId,
+                PetId = petId,
+                PetEventId = eventId,
+                ShelterId = shelterId,
+                PostId = postId,
+            };
+
+            return picture;
         }
     }
 }
