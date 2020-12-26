@@ -11,7 +11,7 @@
     {
         Task AddAsync(EventInputModel input);
 
-        Task EditAsync(string id, EventInputModel input);
+        Task EditAsync(string id, EditEventInputModel input);
 
         Task DeleteAsync(string id);
 
@@ -21,7 +21,7 @@
 
         EventDetailsViewModel GetEventDetails(string id);
 
-        EventInputModel GetEventEdit(string id);
+        EditEventInputModel GetEventEdit(string id);
 
         PetEvent GetEventById(string id);
 

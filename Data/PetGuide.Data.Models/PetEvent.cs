@@ -33,7 +33,7 @@
         public string Activities { get; set; }
 
         [Required]
-        [DateMinValue]
+        [DateMinValue(0)]
         public DateTime DateTime { get; set; }
 
         public int LocationId { get; set; }

@@ -24,7 +24,7 @@
             IDeletableEntityRepository<PetEvent> eventsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Location> locationsRepository,
-            ILocationService locationService, 
+            ILocationService locationService,
             IPictureService picturesService)
         {
             this.eventsRepository = eventsRepository;
@@ -64,12 +64,13 @@
         }
 
         // Edit Event
-        public EventInputModel GetEventEdit(string id)
+        public EditEventInputModel GetEventEdit(string id)
         {
             var petEvent = this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == petEvent.LocationId);
+            var pictures = this.picturesService.GetEventsPictures(id);
 
-            var viewModel = new EventInputModel
+            var viewModel = new EditEventInputModel
             {
                 Name = petEvent.Name,
                 Purpose = petEvent.Purpose,
@@ -78,12 +79,13 @@
                 Description = petEvent.Description,
                 Activities = petEvent.Activities,
                 Location = location,
+                PicturesToShow = pictures,
             };
 
             return viewModel;
         }
 
-        public async Task EditAsync(string id, EventInputModel input)
+        public async Task EditAsync(string id, EditEventInputModel input)
         {
             var petEvent = this.GetEventById(id);
             var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
@@ -97,6 +99,15 @@
             petEvent.Location = location;
 
             await this.eventsRepository.SaveChangesAsync();
+
+            await this.picturesService.Upload(
+            input.Pictures.Select(i => new PictureInputModel
+            {
+                Name = i.FileName,
+                Type = i.ContentType,
+                Content = i.OpenReadStream(),
+            }),
+            null, null, petEvent.Id);
         }
 
         // Delete Event
@@ -105,6 +116,13 @@
             var petEvent = this.GetEventById(id);
             this.eventsRepository.Delete(petEvent);
             await this.eventsRepository.SaveChangesAsync();
+
+            var eventPictures = this.picturesService.GetEventsPictures(id);
+
+            foreach (var picture in eventPictures)
+            {
+                await this.picturesService.DeleteAsync(picture.Id);
+            }
         }
 
         // Get All Events
@@ -150,6 +168,7 @@
         {
             var petEvent = this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == petEvent.LocationId);
+            var pictures = this.picturesService.GetEventsPictures(id);
 
             var viewModel = new EventDetailsViewModel
             {
@@ -161,6 +180,7 @@
                 Description = petEvent.Description,
                 Activities = petEvent.Activities,
                 Location = location,
+                PicturesToShow = pictures,
             };
 
             return viewModel;

@@ -86,11 +86,12 @@
 
         [HttpPost]
         [Authorize(Policy = "EventRoles")]
-        public async Task<IActionResult> Edit(string id, EventInputModel input)
+        public async Task<IActionResult> Edit(string id, EditEventInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                var inputModel = this.eventService.GetEventEdit(id);
+                return this.View(inputModel);
             }
 
             await this.eventService.EditAsync(id, input);

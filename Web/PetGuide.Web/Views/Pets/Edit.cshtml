@@ -19,12 +19,6 @@
 
                         <div class="col-12 col-md-6">
 
-
-
-                        </div>
-
-                        <div class="col-12 col-md-6">
-
                             <div>
                                 <span asp-validation-for="Name" class="text-danger"></span>
                                 <div class="input-group form-group">
@@ -36,6 +30,9 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="col-12 col-md-6">
                             <div>
                                 <span asp-validation-for="Type" class="text-danger"></span>
                                 <div class="input-group form-group">
@@ -48,7 +45,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
                                 <span asp-validation-for="Color" class="text-danger"></span>
                                 <div class="input-group form-group">
@@ -61,7 +60,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
 
                                 <span asp-validation-for="Age" class="text-danger"></span>
@@ -73,7 +74,9 @@
 
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
                                 <span asp-validation-for="Size" class="text-danger"></span>
                                 <div class="input-group form-group">
@@ -86,7 +89,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
 
                                 <span asp-validation-for="Location.District" class="text-danger"></span>
@@ -100,8 +105,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-
+                        <div class="col-12 col-md-6">
                             <div>
 
                                 <span asp-validation-for="Location.Street" class="text-danger"></span>
@@ -113,7 +119,9 @@
 
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
 
                                 <span asp-validation-for="Location.AdditionalLocationInfo" class="text-danger"></span>
@@ -125,7 +133,9 @@
 
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6">
                             <div>
                                 <span asp-validation-for="Status" class="text-danger"></span>
                                 <div class="input-group form-group">
@@ -134,12 +144,12 @@
                                         <select asp-for="Status" style="width: 100%; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" class="form-control" asp-items="Html.GetEnumSelectList<PetStatus>()">
                                             <option placeholder="" value="">Status</option>
                                         </select>
-
                                     </div>
-
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-12 col-md-6"> 
                             <div>
 
                                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -153,8 +163,6 @@
 
                             </div>
                         </div>
-
-
                     </div>
 
                     <div class="form-group">

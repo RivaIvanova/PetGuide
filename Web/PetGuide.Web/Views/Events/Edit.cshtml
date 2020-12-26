@@ -1,4 +1,5 @@
-﻿@model PetGuide.Web.ViewModels.Events.EventInputModel
+﻿@using PetGuide.Data.Models.Enums
+@model PetGuide.Web.ViewModels.Events.EditEventInputModel
 
 <main id="main">
     <!-- ======= Blog Section ======= -->
@@ -13,9 +14,122 @@
 
                         <div class="card-body p-0">
 
-                            <form method="post">
+                            <form method="post" asp-action="Edit" enctype="multipart/form-data">
 
-                                <partial name="_AddEditPartial" model="@Model" />
+                                @*<partial name="_AddEditPartial" model="@Model" />*@
+
+
+                                <div class="entry-content ml-3">
+                                    <h3>Event name</h3>
+                                </div>
+
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Name" rows="1" style="resize:none" type="text" class="form-control" placeholder="Name"></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Event purpose</h3>
+                                </div>
+
+                                <span asp-validation-for="Purpose" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Purpose" rows="1" style="resize:none" type="text" class="form-control" placeholder="Purpose"></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Event date</h3>
+                                </div>
+
+                                <div class="row">
+
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                    <div class="input-group form-group col-6">
+                                        <input asp-for="Date" type="date" class="form-control">
+
+                                    </div>
+
+                                    <span asp-validation-for="Time" class="text-danger"></span>
+                                    <div class="input-group form-group col-6">
+                                        <input asp-for="Time" type="time" class="form-control">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="entry-content ml-3">
+                                    <h3>Location</h3>
+                                </div>
+
+                                <span asp-validation-for="Location.District" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend" style="width:100%">
+                                        <select asp-for="Location.District" class="form-control" asp-items="Html.GetEnumSelectList<District>() ">
+                                            <option placeholder="" value="">District</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <span asp-validation-for="Location.Street" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Location.Street" rows="1" style="resize:none" type="text" class="form-control" placeholder="Street"></textarea>
+
+                                </div>
+
+                                <span asp-validation-for="Location.AdditionalLocationInfo" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Location.AdditionalLocationInfo" rows="1" style="resize:none" type="text" class="form-control" placeholder="Additional location info"></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Description</h3>
+                                </div>
+
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Description" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here you can describe the event..."></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Activities</h3>
+                                </div>
+
+                                <span asp-validation-for="Activities" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <textarea asp-for="Activities" rows="8" style="resize:none" type="text" class="form-control" placeholder="Here describe the event activities. e.g. Pet topics discusions, Group training, etc."></textarea>
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Upload pictures</h3>
+                                </div>
+
+                                <span asp-validation-for="Pictures" class="text-danger"></span>
+                                <div class="input-group form-group">
+                                    <input asp-for="Pictures" type="file" multiple="multiple" name="pictures" class="form-control">
+
+                                </div>
+
+                                <div class="entry-content ml-3">
+                                    <h3>Uploaded pictures</h3>
+                                </div>
+
+                                <div class="row">
+                                    @foreach (var picture in Model.PicturesToShow)
+                                    {
+                                        <div class="col-lg-6 col-md-6 nopad text-center">
+                                            <label class="image-checkbox">
+                                                <img class="img-responsive" src="@picture.Name" />
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
 
                                 <div class="entry-footer clearfix">
                                     <div class="row">
@@ -38,4 +152,6 @@
 
 @section LoginRegisterAdd {
     <link href="~/css/login-register.css" type="text/css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/checkbox.css" rel="stylesheet" asp-append-version="true" />
 }
+

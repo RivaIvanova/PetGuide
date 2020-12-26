@@ -71,6 +71,8 @@
             var pet = this.petsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var user = this.usersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == pet.UserId);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == pet.LocationId);
+            var pictures = this.picturesService.GetPetsPictures(id);
+            var firstPicture = this.picturesService.GetPetsPictures(id).FirstOrDefault();
 
             var viewModel = new PetsDetailsViewModel
             {
@@ -85,6 +87,8 @@
                 CreatedOn = pet.CreatedOn,
                 Description = pet.Description,
                 Contact = user,
+                FirstPictureToShow = firstPicture,
+                PicturesToShow = pictures,
             };
 
             return viewModel;

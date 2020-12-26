@@ -93,7 +93,7 @@
                {
                    Id = x.Id,
                    Name = x.Name,
-                   Picture = x.Pictures.FirstOrDefault(),
+                   PicturesToShow = this.picturesService.GetSheltersPictures(x.Id),
                    Location = x.Location,
                })
                .ToList();
@@ -130,6 +130,8 @@
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == shelter.LocationId);
             var pets = this.petsRepository.AllAsNoTracking().Where(x => x.ShelterId == shelter.Id).ToList();
             var volunteers = this.usersRepository.AllAsNoTracking().Where(x => x.Shelters.Any(x => x.ShelterId == shelter.Id)).ToList();
+            var pictures = this.picturesService.GetSheltersPictures(id);
+            var firstPicture = this.picturesService.GetSheltersPictures(id).FirstOrDefault();
 
             var viewModel = new ShelterDetailsViewModel
             {
@@ -140,6 +142,8 @@
                 Location = location,
                 Pets = pets,
                 ShelterVolunteers = volunteers,
+                FirstPictureToShow = firstPicture,
+                PicturesToShow = pictures,
             };
 
             return viewModel;

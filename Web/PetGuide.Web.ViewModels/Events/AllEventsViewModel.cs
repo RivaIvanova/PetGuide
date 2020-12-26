@@ -1,6 +1,6 @@
 ﻿namespace PetGuide.Web.ViewModels.Events
 {
-    using PetGuide.Data.Models;
+    using PetGuide.Web.ViewModels.Pictures;
 
     public class AllEventsViewModel : BaseEventViewModel
     {

@@ -1731,6 +1731,12 @@ section {
             overflow: hidden;
         }
 
+        .blog .entry .entry-img-pets {
+            max-height: 200px;
+            margin: -20px -20px 20px -20px;
+            overflow: hidden;
+        }
+
         .blog .entry .entry-title {
             font-size: 20px;
             line-height: 26px;

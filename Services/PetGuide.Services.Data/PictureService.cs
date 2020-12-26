@@ -81,11 +81,65 @@
             await this.picturesRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(string id)
+        {
+            var picture = this.picturesRepository.All().FirstOrDefault(x => x.Id == id);
+            this.picturesRepository.Delete(picture);
+            await this.picturesRepository.SaveChangesAsync();
+        }
+
         public Task<List<string>> GetAllPictures()
             => this.picturesRepository
             .AllAsNoTracking()
             .Select(x => x.Folder + "/Thumbnail_" + x.Id + ".jpg")
             .ToListAsync();
+
+        public IEnumerable<PictureViewModel> GetEventsPictures(string id)
+        {
+            return this.picturesRepository
+                .All()
+                .Where(x => x.PetEventId == id)
+                .Select(x => new PictureViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
+                })
+                .ToList();
+        }
+
+        public IEnumerable<PictureViewModel> GetSheltersPictures(string id)
+        {
+            return this.picturesRepository
+                .All()
+                .Where(x => x.ShelterId == id)
+                .Select(x => new PictureViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
+                })
+                .ToList();
+        }
+
+        public IEnumerable<PictureViewModel> GetPetsPictures(string id)
+        {
+            return this.picturesRepository
+               .All()
+               .Where(x => x.PetId == id)
+               .Select(x => new PictureViewModel
+               {
+                   Id = x.Id,
+                   Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
+               })
+               .ToList();
+        }
+
+        public async Task EditAsync(IEnumerable<PictureViewModel> pictures)
+        {
+            foreach (var picture in pictures)
+            {
+                await this.DeleteAsync(picture.Id);
+            }
+        }
 
         private async Task SavePicture(Image image, string name, string path, int resizeWidth)
         {
