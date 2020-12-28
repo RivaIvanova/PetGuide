@@ -155,6 +155,7 @@
                             <li data-filter=".filter-Lost">Lost Pets</li>
                             <li data-filter=".filter-Spotted">Spotted Pets</li>
                             <li data-filter=".filter-Found">Found Pets</li>
+                            <li data-filter=".filter-Sheltered">Sheltered Pets</li>
                         </ul>
                     </div>
                 </div>
@@ -174,12 +175,12 @@
                                         {
                                             <div class="col-lg-4 col-md-6 portfolio-item filter-@pet.Status">
                                                 <div class="portfolio-wrap">
-                                                    <img src="~/img/animal-video.jpg" class="img-fluid" alt="">
+                                                    <img src="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" class="img-fluid" alt="">
                                                     <div class="portfolio-info">
                                                         <h4>@pet.Name</h4>
                                                         <p>@Html.DisplayFor(x => pet.Type)</p>
                                                         <div class="portfolio-links">
-                                                            <a href="~/img/animal-video.jpg" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
+                                                            <a href="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
                                                             <a asp-action="Details" asp-route-id="@pet.Id" title="More Details"><i class="bx bx-link"></i></a>
                                                         </div>
                                                     </div>

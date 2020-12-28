@@ -7,14 +7,17 @@
 
     public interface IPictureService
     {
-        Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null, string postId = null);
+        Task Upload(IEnumerable<PictureInputModel> pictures, string userId, string id);
 
         Task DeleteAsync(string id);
 
-        Task EditAsync(IEnumerable<PictureViewModel> pictures);
+        Gallery GetGallery(string userId);
 
-        Task<List<string>> GetAllPictures();
+        UploadPicturesInputModel GetUpload(string id);
 
+        IEnumerable<PictureViewModel> GetPicturesToShow(string id);
+
+        // Delete
         IEnumerable<PictureViewModel> GetEventsPictures(string id);
 
         IEnumerable<PictureViewModel> GetSheltersPictures(string id);

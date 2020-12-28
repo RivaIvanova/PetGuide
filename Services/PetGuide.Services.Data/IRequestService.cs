@@ -15,14 +15,18 @@
 
         Task DeclineAsync(string id);
 
+        Task SubscribeAsync(string id, string email);
+
+        bool IsSubscribed(string email);
+
         bool IsRequestSent(string id, string volunteerId);
 
         IEnumerable<RequestViewModel> GetAll();
 
         Request GetRequestById(string id);
 
-        EmailViewModel GetEventEmailDetails(string id, string receiverId);
+        EmailViewModel GetPetEmailDetails(string id, string receiverId);
 
-        EmailViewModel GetShelterEmailDetails(string id, string receiverId);
+        EmailViewModel GetVolunteerEmail(string receiverId);
     }
 }

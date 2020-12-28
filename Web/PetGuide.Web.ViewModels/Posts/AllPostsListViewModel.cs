@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class AllPostsListViewModel
+    public class AllPostsListViewModel : PagingViewModel
     {
         public IEnumerable<AllPostsViewModel> Posts { get; set; }
     }

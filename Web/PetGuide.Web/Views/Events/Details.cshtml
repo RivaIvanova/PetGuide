@@ -25,13 +25,6 @@
                         </form>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     </div>
-
-                    <div class="entry-footer ml-1 clearfix">
-                        <div class="form-group mb-0 mt-0 text-center">
-                            <a class="btn search_btn" asp-area="Administration" asp-controller="Administration" asp-action="Events">Go to events</a>
-                        </div>
-                    </div>
-
                 </div>
             }
         </div>
@@ -63,11 +56,6 @@
                                 <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> @Model.Time.ToString("t")</li>
                             </ul>
 
-                            @*<div class="float-right share">
-                <a href="" title="Share on Twitter"><i class="icofont-twitter"></i></a>
-                <a href="" title="Share on Facebook"><i class="icofont-facebook"></i></a>
-                <a href="" title="Share on Instagram"><i class="icofont-instagram"></i></a>
-            </div>*@
                         </div>
 
                         <div class="entry-content">
@@ -95,10 +83,6 @@
                                 </form>
                                 <button type="button" class="btn search_btn" data-toggle="modal" data-target="#confirmModal">Become a volunteer</button>
                             </div>
-
-                            <form method="post" asp-controller="Requests" asp-action="SendToEmail" asp-route-id="@Model.Id">
-                                <button class="btn btn-warning">Send to my email</button>
-                            </form>
                         }
 
 
@@ -189,6 +173,14 @@
 
 
                         <div class="container mt-5 page-top">
+                            @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <div class="entry-footer clearfix">
+                                    <div class="form-group mb-3 mt-0 text-center">
+                                        <a asp-controller="Pictures" asp-action="Upload" asp-route-id="@Model.Id" class="btn search_btn ">Add more pictures</a>
+                                    </div>
+                                </div>
+                            }
                             <div class="row">
                                 @foreach (var picture in Model.PicturesToShow)
                                 {

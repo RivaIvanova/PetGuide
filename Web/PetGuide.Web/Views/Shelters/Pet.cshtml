@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post"  enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-12 col-md-6">
 
@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
 
                             <span asp-validation-for="Description" class="text-danger"></span>
                             <div class="input-group form-group">
@@ -107,6 +107,17 @@
 
                             </div>
 
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <span asp-validation-for="Pictures" class="text-danger"></span>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                </div>
+                                <input asp-for="Pictures" type="file" multiple="multiple" name="pictures" class="form-control">
+
+                            </div>
                         </div>
 
                     </div>

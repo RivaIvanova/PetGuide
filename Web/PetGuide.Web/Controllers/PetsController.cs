@@ -43,6 +43,28 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
+        public IActionResult My(int id = 1)
+        {
+            if (id <= 0)
+            {
+                id = 1;
+            }
+
+            const int itemsPerPage = 12;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var viewModel = new MyPetsViewModel
+            {
+                PageNumber = id,
+                ItemsCount = this.petService.GetCount(),
+                ItemsPerPage = itemsPerPage,
+                MyPets = this.petService.GetMyPets(userId, id, itemsPerPage),
+            };
+
+            return this.View(viewModel);
+        }
+
         // Add Pets
         [Authorize]
         public IActionResult Add()

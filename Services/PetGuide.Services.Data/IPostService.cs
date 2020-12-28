@@ -25,5 +25,7 @@
         Post GetPostById(string id);
 
         Tag GetTagById(int id);
+
+        int GetCount();
     }
 }

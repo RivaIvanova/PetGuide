@@ -1,11 +1,9 @@
 ﻿namespace PetGuide.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using PetGuide.Services.Data;
@@ -13,23 +11,27 @@
 
     public class PicturesController : Controller
     {
-        private readonly IPictureService pictureService;
+        private readonly IPictureService picturesService;
 
-        public PicturesController(IPictureService pictureService)
+        public PicturesController(IPictureService picturesService)
         {
-            this.pictureService = pictureService;
+            this.picturesService = picturesService;
         }
 
         [HttpGet]
-        public IActionResult Upload() => this.View();
+        public IActionResult Upload(string id)
+        {
+            var viewModel = this.picturesService.GetUpload(id);
+
+            return this.View(viewModel);
+        }
 
         [HttpPost]
         [RequestSizeLimit(5 * 1024 * 1024)]
-        public async Task<IActionResult> Upload(string id, Gallery input)
+        public async Task<IActionResult> Upload(UploadPicturesInputModel input)
         {
-            if (pictures.Length > 5)
+            if (!this.ModelState.IsValid)
             {
-                this.ModelState.AddModelError("pictures", "You cannot upload more than 5 pictures!");
                 return this.View();
             }
 
@@ -43,15 +45,18 @@
                     Content = i.OpenReadStream(),
                 }),
                 userId,
-                pet.Id);
+                input.Id);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction(nameof(this.Gallery));
         }
 
-        public async Task<IActionResult> All()
+        public IActionResult Gallery()
         {
-            return this.View(await this.pictureService.GetAllPictures());
-        }
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            var viewModel = this.picturesService.GetGallery(userId);
+
+            return this.View(viewModel);
+        }
     }
 }

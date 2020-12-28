@@ -8,6 +8,7 @@
     using PetGuide.Data.Models;
     using PetGuide.Services.Mapping;
     using PetGuide.Web.ViewModels.Administration.Shelters;
+    using PetGuide.Web.ViewModels.Pets;
     using PetGuide.Web.ViewModels.Pictures;
     using PetGuide.Web.ViewModels.Shelters;
 
@@ -59,7 +60,8 @@
                 Type = i.ContentType,
                 Content = i.OpenReadStream(),
             }),
-            null, null, null, shelter.Id);
+            null,
+            shelter.Id);
         }
 
         // Edit Shelter
@@ -128,10 +130,10 @@
         {
             var shelter = this.sheltersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == shelter.LocationId);
-            var pets = this.petsRepository.AllAsNoTracking().Where(x => x.ShelterId == shelter.Id).ToList();
+            var pets = this.petsRepository.AllAsNoTracking().Where(x => x.ShelterId == shelter.Id);
             var volunteers = this.usersRepository.AllAsNoTracking().Where(x => x.Shelters.Any(x => x.ShelterId == shelter.Id)).ToList();
-            var pictures = this.picturesService.GetSheltersPictures(id);
-            var firstPicture = this.picturesService.GetSheltersPictures(id).FirstOrDefault();
+            var pictures = this.picturesService.GetPicturesToShow(id);
+            var firstPicture = this.picturesService.GetPicturesToShow(id).FirstOrDefault();
 
             var viewModel = new ShelterDetailsViewModel
             {
@@ -140,7 +142,7 @@
                 Description = shelter.Description,
                 Activities = shelter.Activities,
                 Location = location,
-                Pets = pets,
+                Pets = pets.To<SearchPetResultViewModel>().ToList(),
                 ShelterVolunteers = volunteers,
                 FirstPictureToShow = firstPicture,
                 PicturesToShow = pictures,
@@ -170,34 +172,16 @@
 
             await this.petsRepository.AddAsync(pet);
             await this.petsRepository.SaveChangesAsync();
-        }
 
-        // Admin
-        public IEnumerable<ShelterViewModel> GetAllSheltersAdminView()
-        {
-            return this.sheltersRepository
-                 .AllAsNoTracking()
-                 .OrderByDescending(x => x.CreatedOn)
-                 .To<ShelterViewModel>()
-                 .ToList();
-        }
-
-        public SheltersListViewModel SheltersAdminView()
-        {
-            var petsCount = this.petsRepository.AllAsNoTracking().Where(x => x.ShelterId != null).Count();
-            var volunteersCount = this.usersRepository.AllAsNoTracking().Where(x => x.Shelters.Count > 0).Count();
-            var sheltersCount = this.sheltersRepository.AllAsNoTracking().Count();
-            var shelters = this.GetAllSheltersAdminView();
-
-            var shelter = new SheltersListViewModel
-            {
-                PetsCount = petsCount,
-                VolunteersCount = volunteersCount,
-                SheltersCount = sheltersCount,
-                Shelters = shelters,
-            };
-
-            return shelter;
+            await this.picturesService.Upload(
+                input.Pictures.Select(i => new PictureInputModel
+                {
+                    Name = i.FileName,
+                    Type = i.ContentType,
+                    Content = i.OpenReadStream(),
+                }),
+                userId,
+                pet.Id);
         }
     }
 }

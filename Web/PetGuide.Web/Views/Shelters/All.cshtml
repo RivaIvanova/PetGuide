@@ -35,17 +35,14 @@
                                 <textarea class="card-text" disabled rows="1">@shelter.Address </textarea>
 
                                 <div class="read-more">
-                                    <a href="/Shelters/Details/@shelter.Id"><i class="icofont-arrow-right"></i> Read More</a>
+                                    <a asp-action="Details" asp-route-id="@shelter.Id"><i class="icofont-arrow-right"></i> Read More</a>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 }
-
-
             </div>
-
         </div>
     </section>
 </main>

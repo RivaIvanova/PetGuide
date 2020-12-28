@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PetGuide.Common;
     using PetGuide.Services.Data;
+    using PetGuide.Services.Messaging;
     using PetGuide.Web.Controllers;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -13,17 +14,17 @@
     public class AdministrationController : BaseController
     {
         private readonly IRequestService requestsService;
-        private readonly IShelterService sheltersService;
-        private readonly IEventService eventsService;
+        private readonly IEmailSender emailSender;
+        private readonly IDashboardService dashboardService;
 
         public AdministrationController(
             IRequestService requestsService,
-            IShelterService sheltersService,
-            IEventService eventsService)
+            IEmailSender emailSender,
+            IDashboardService dashboardService)
         {
             this.requestsService = requestsService;
-            this.sheltersService = sheltersService;
-            this.eventsService = eventsService;
+            this.emailSender = emailSender;
+            this.dashboardService = dashboardService;
         }
 
         [HttpPost]
@@ -31,6 +32,12 @@
         public async Task<IActionResult> Approve(string id)
         {
             await this.requestsService.ApproveAsync(id);
+
+            var receiverId = this.requestsService.GetRequestById(id).VolunteerId;
+            var email = this.requestsService.GetVolunteerEmail(receiverId);
+
+            await this.emailSender.SendEmailAsync(email.SenderEmail, email.SenderName, email.ReceiverEmail, email.Title, email.Content);
+
             return this.RedirectToAction("Index", "Dashboard");
         }
 
@@ -45,7 +52,7 @@
         [Authorize(Policy = "DashboardRoles")]
         public IActionResult Shelters()
         {
-            var viewModel = this.sheltersService.SheltersAdminView();
+            var viewModel = this.dashboardService.SheltersAdminView();
 
             return this.View(viewModel);
         }
@@ -53,7 +60,15 @@
         [Authorize(Policy = "DashboardRoles")]
         public IActionResult Events()
         {
-            var viewModel = this.eventsService.EventsAdminView();
+            var viewModel = this.dashboardService.EventsAdminView();
+
+            return this.View(viewModel);
+        }
+
+        [Authorize(Policy = "DashboardRoles")]
+        public IActionResult Pets()
+        {
+            var viewModel = this.dashboardService.PetsAdminView();
 
             return this.View(viewModel);
         }

@@ -54,7 +54,8 @@
                     Type = i.ContentType,
                     Content = i.OpenReadStream(),
                 }),
-                userId, null, null, null, post.Id);
+                userId,
+                post.Id);
         }
 
         // Get All Posts
@@ -93,20 +94,21 @@
             var allTags = this.tagsRepository.AllAsNoTracking().ToList();
             var postTags = this.tagsRepository.AllAsNoTracking().Where(x => x.PostId == id).ToList();
             var categories = this.GetCategoriesWithPostsCount();
+            var pictures = this.picturesService.GetPicturesToShow(id);
 
             var viewModel = new PostDetailsViewModel
             {
                 Id = post.Id,
                 Title = post.Title,
                 Content = post.Content,
-                Comments = post.Comments,
                 CreatedOn = post.CreatedOn,
-                Likes = post.Likes,
                 Category = post.Category,
                 Tags = postTags,
                 Author = author,
                 AllTags = allTags,
                 AllCategories = categories,
+                FirstPictureToShow = pictures.FirstOrDefault(),
+                PicturesToShow = pictures,
             };
 
             return viewModel;
@@ -161,6 +163,11 @@
         public Tag GetTagById(int id)
         {
             return this.tagsRepository.All().FirstOrDefault(x => x.Id == id);
+        }
+
+        public int GetCount()
+        {
+            return this.postsRepository.All().Count();
         }
 
         // Private Methods

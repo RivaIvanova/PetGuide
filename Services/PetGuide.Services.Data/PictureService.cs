@@ -22,13 +22,27 @@
         private const int FullscreenWidth = 1000;
 
         private readonly IDeletableEntityRepository<Picture> picturesRepository;
+        private readonly IDeletableEntityRepository<Pet> petsRepository;
+        private readonly IDeletableEntityRepository<PetEvent> petEventsRepository;
+        private readonly IDeletableEntityRepository<Post> postsRepository;
+        private readonly IRepository<Shelter> sheltersRepository;
 
-        public PictureService(IDeletableEntityRepository<Picture> picturesRepository)
+        public PictureService(
+            IDeletableEntityRepository<Picture> picturesRepository,
+            IDeletableEntityRepository<Pet> petsRepository,
+            IDeletableEntityRepository<PetEvent> petEventsRepository,
+            IDeletableEntityRepository<Post> postsRepository,
+            IRepository<Shelter> sheltersRepository)
         {
             this.picturesRepository = picturesRepository;
+            this.petsRepository = petsRepository;
+            this.petEventsRepository = petEventsRepository;
+            this.postsRepository = postsRepository;
+            this.sheltersRepository = sheltersRepository;
         }
 
-        public async Task Upload(IEnumerable<PictureInputModel> pictures, string userId = null, string petId = null, string eventId = null, string shelterId = null, string postId = null)
+        // Upload Picture
+        public async Task Upload(IEnumerable<PictureInputModel> pictures, string userId, string id)
         {
             var dict = new ConcurrentDictionary<Guid, Picture>();
 
@@ -44,9 +58,9 @@
                     {
                         using var pictureResult = await Image.LoadAsync(p.Content);
 
-                        var id = Guid.NewGuid();
+                        var pictureId = Guid.NewGuid();
                         var path = $"/images/{totalPictures % 1000}/";
-                        var name = $"{id}.jpg";
+                        var name = $"{pictureId}.jpg";
 
                         var storagePath = Path.Combine(
                             Directory.GetCurrentDirectory(), $"wwwroot{path}".Replace("/", "\\"));
@@ -60,9 +74,7 @@
                         await this.SavePicture(pictureResult, $"Fullscreen_{name}", storagePath, FullscreenWidth);
                         await this.SavePicture(pictureResult, $"Thumbnail_{name}", storagePath, ThumbnailWidth);
 
-                        var picture = this.CreatePicture(id, path, userId, petId, eventId, shelterId, postId);
-
-                        dict.GetOrAdd(id, picture);
+                        dict.GetOrAdd(pictureId, this.CreatePicture(pictureId, path, userId, id));
                     }
                     catch
                     {
@@ -88,11 +100,64 @@
             await this.picturesRepository.SaveChangesAsync();
         }
 
-        public Task<List<string>> GetAllPictures()
-            => this.picturesRepository
-            .AllAsNoTracking()
-            .Select(x => x.Folder + "/Thumbnail_" + x.Id + ".jpg")
-            .ToListAsync();
+        // Get Upload Pictures
+        public UploadPicturesInputModel GetUpload(string id)
+        {
+            var pictures = this.GetPicturesToShow(id);
+
+            var viewModel = new UploadPicturesInputModel
+            {
+                Id = id,
+                PicturesToShow = pictures,
+            };
+
+            return viewModel;
+        }
+
+        public IEnumerable<PictureViewModel> GetPicturesToShow(string id)
+        {
+            return this.picturesRepository
+                .All()
+                .Where(x => x.PetId == id || x.PetEventId == id || x.ShelterId == id || x.PostId == id)
+                .Select(x => new PictureViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Folder + "/Fullscreen_" + x.Id + ".jpg",
+                })
+                .ToList();
+        }
+
+        public Gallery GetGallery(string userId)
+        {
+            var pictures = this.picturesRepository
+                .AllAsNoTracking()
+                .Where(x => x.UserId == userId)
+                .Select(x => new PictureViewModel
+                {
+                    Name = x.Folder + "/Fullscreen_" + x.Id + ".jpg",
+                })
+                .ToList();
+
+            var viewModel = new Gallery
+            {
+                PicturesToShow = pictures,
+            };
+
+            return viewModel;
+        }
+
+        public IEnumerable<PictureViewModel> GetPetsPictures(string id)
+        {
+            return this.picturesRepository
+               .All()
+               .Where(x => x.PetId == id)
+               .Select(x => new PictureViewModel
+               {
+                   Id = x.Id,
+                   Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
+               })
+               .ToList();
+        }
 
         public IEnumerable<PictureViewModel> GetEventsPictures(string id)
         {
@@ -120,27 +185,6 @@
                 .ToList();
         }
 
-        public IEnumerable<PictureViewModel> GetPetsPictures(string id)
-        {
-            return this.picturesRepository
-               .All()
-               .Where(x => x.PetId == id)
-               .Select(x => new PictureViewModel
-               {
-                   Id = x.Id,
-                   Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
-               })
-               .ToList();
-        }
-
-        public async Task EditAsync(IEnumerable<PictureViewModel> pictures)
-        {
-            foreach (var picture in pictures)
-            {
-                await this.DeleteAsync(picture.Id);
-            }
-        }
-
         private async Task SavePicture(Image image, string name, string path, int resizeWidth)
         {
             var width = image.Width;
@@ -164,11 +208,16 @@
             });
         }
 
-        private Picture CreatePicture(Guid id, string folder, string userId, string petId, string eventId, string shelterId, string postId)
+        private Picture CreatePicture(Guid pictureId, string folder, string userId, string id)
         {
-            var picture = new Picture
+            var petId = this.petsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id)?.Id;
+            var eventId = this.petEventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id)?.Id;
+            var shelterId = this.sheltersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id)?.Id;
+            var postId = this.postsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id)?.Id;
+
+            return new Picture
             {
-                Id = id.ToString(),
+                Id = pictureId.ToString(),
                 Folder = folder,
                 UserId = userId,
                 PetId = petId,
@@ -176,8 +225,6 @@
                 ShelterId = shelterId,
                 PostId = postId,
             };
-
-            return picture;
         }
     }
 }

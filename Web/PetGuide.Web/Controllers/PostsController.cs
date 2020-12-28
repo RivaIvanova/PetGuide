@@ -18,12 +18,23 @@
             this.postService = postService;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            if (id <= 0)
+            {
+                id = 1;
+            }
+
+            const int itemsPerPage = 12;
+
             var posts = this.postService.GetAll();
+            var postsCount = this.postService.GetCount();
 
             var viewModel = new AllPostsListViewModel
             {
+                PageNumber = id,
+                ItemsCount = postsCount,
+                ItemsPerPage = itemsPerPage,
                 Posts = posts,
             };
 
@@ -96,7 +107,7 @@
             return this.RedirectToAction(nameof(this.Details), new { id });
         }
 
-        // Delete Pets
+        // Delete Posts
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Delete(string id)

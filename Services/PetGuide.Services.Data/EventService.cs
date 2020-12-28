@@ -7,35 +7,30 @@
 
     using PetGuide.Data.Common.Repositories;
     using PetGuide.Data.Models;
-    using PetGuide.Services.Mapping;
-    using PetGuide.Web.ViewModels.Administration.Events;
     using PetGuide.Web.ViewModels.Events;
     using PetGuide.Web.ViewModels.Pictures;
 
     public class EventService : IEventService
     {
         private readonly IDeletableEntityRepository<PetEvent> eventsRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Location> locationsRepository;
         private readonly ILocationService locationService;
         private readonly IPictureService picturesService;
 
         public EventService(
             IDeletableEntityRepository<PetEvent> eventsRepository,
-            IDeletableEntityRepository<ApplicationUser> usersRepository,
             IDeletableEntityRepository<Location> locationsRepository,
             ILocationService locationService,
             IPictureService picturesService)
         {
             this.eventsRepository = eventsRepository;
-            this.usersRepository = usersRepository;
             this.locationsRepository = locationsRepository;
             this.locationService = locationService;
             this.picturesService = picturesService;
         }
 
         // Add Event
-        public async Task AddAsync(EventInputModel input)
+        public async Task AddAsync(EventInputModel input, string userId)
         {
             var location = this.locationService.GetLocation(input.Location.District, input.Location.Street, input.Location.AdditionalLocationInfo);
             var dateAndTime = this.GetDateAndTime(input.Date, input.Time);
@@ -60,7 +55,8 @@
                   Type = i.ContentType,
                   Content = i.OpenReadStream(),
               }),
-              null, null, petEvent.Id);
+              userId,
+              petEvent.Id);
         }
 
         // Edit Event
@@ -68,7 +64,6 @@
         {
             var petEvent = this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == petEvent.LocationId);
-            var pictures = this.picturesService.GetEventsPictures(id);
 
             var viewModel = new EditEventInputModel
             {
@@ -79,7 +74,6 @@
                 Description = petEvent.Description,
                 Activities = petEvent.Activities,
                 Location = location,
-                PicturesToShow = pictures,
             };
 
             return viewModel;
@@ -99,15 +93,6 @@
             petEvent.Location = location;
 
             await this.eventsRepository.SaveChangesAsync();
-
-            await this.picturesService.Upload(
-            input.Pictures.Select(i => new PictureInputModel
-            {
-                Name = i.FileName,
-                Type = i.ContentType,
-                Content = i.OpenReadStream(),
-            }),
-            null, null, petEvent.Id);
         }
 
         // Delete Event
@@ -117,7 +102,7 @@
             this.eventsRepository.Delete(petEvent);
             await this.eventsRepository.SaveChangesAsync();
 
-            var eventPictures = this.picturesService.GetEventsPictures(id);
+            var eventPictures = this.picturesService.GetPicturesToShow(id);
 
             foreach (var picture in eventPictures)
             {
@@ -168,7 +153,7 @@
         {
             var petEvent = this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
             var location = this.locationsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == petEvent.LocationId);
-            var pictures = this.picturesService.GetEventsPictures(id);
+            var pictures = this.picturesService.GetPicturesToShow(id);
 
             var viewModel = new EventDetailsViewModel
             {
@@ -190,31 +175,6 @@
         public PetEvent GetEventById(string id)
         {
             return this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
-        }
-
-        public IEnumerable<EventViewModel> GetAllEventsAdminView()
-        {
-            return this.eventsRepository
-                 .AllAsNoTracking()
-                 .OrderByDescending(x => x.DateTime)
-                 .To<EventViewModel>()
-                 .ToList();
-        }
-
-        public EventsListViewModel EventsAdminView()
-        {
-            var volunteersCount = this.usersRepository.AllAsNoTracking().Where(x => x.PetEvents.Count > 0).Count();
-            var eventsCount = this.eventsRepository.AllAsNoTracking().Count();
-            var events = this.GetAllEventsAdminView();
-
-            var petEvent = new EventsListViewModel
-            {
-                VolunteersCount = volunteersCount,
-                EventsCount = eventsCount,
-                Events = events,
-            };
-
-            return petEvent;
         }
 
         private DateTime GetDateAndTime(DateTime date, DateTime time)

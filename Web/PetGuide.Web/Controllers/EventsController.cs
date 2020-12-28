@@ -72,7 +72,9 @@
                 return this.View();
             }
 
-            await this.eventService.AddAsync(input);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            await this.eventService.AddAsync(input, userId);
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -105,29 +107,6 @@
         {
             await this.eventService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.All));
-        }
-
-        // Volunteer Request Success
-        public IActionResult VolunteerSuccess(string id)
-        {
-            var viewModel = new VolunteerSuccessViewModel { Id = id };
-
-            return this.View(viewModel);
-        }
-
-        // Add Volunteer Request
-        [HttpPost]
-        public async Task<IActionResult> Volunteer(string id)
-        {
-            var volunteerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if (this.requestService.IsRequestSent(id, volunteerId))
-            {
-                return this.BadRequest();
-            }
-
-            await this.requestService.AddAsync(id, volunteerId);
-            return this.RedirectToAction(nameof(this.VolunteerSuccess), new { id });
         }
     }
 }

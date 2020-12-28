@@ -1,0 +1,56 @@
+﻿@model PetGuide.Web.ViewModels.Pets.MyPetsViewModel
+
+<main id="main">
+    <!-- ======= Search Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <section id="portfolio" class="portfolio" style="padding-top: 60px">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="portfolio-flters">
+                            <li data-filter="*" class="filter-active">All</li>
+                            <li data-filter=".filter-Lost">Lost Pets</li>
+                            <li data-filter=".filter-Spotted">Spotted Pets</li>
+                            <li data-filter=".filter-Found">Found Pets</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div>
+                <div class="mt-5" data-aos="fade-up">
+
+                    <form>
+                        <h1 class="text-center">My Pets</h1>
+                        <div class="inner-form">
+                            <section id="portfolio" class="portfolio">
+                                <div class="row mt-3 portfolio-container">
+
+                                    @{
+                                        foreach (var pet in Model.MyPets)
+                                        {
+                                            <div class="col-lg-4 col-md-6 portfolio-item filter-@pet.Status">
+                                                <div class="portfolio-wrap">
+                                                    <img src="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" class="img-fluid" alt="">
+                                                    <div class="portfolio-info">
+                                                        <h4>@pet.Name</h4>
+                                                        <p>@Html.DisplayFor(x => pet.Type)</p>
+                                                        <div class="portfolio-links">
+                                                            <a href="@pet.FirstPicture?.Name" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
+                                                            <a asp-action="Details" asp-route-id="@pet.Id" title="More Details"><i class="bx bx-link"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </section>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->

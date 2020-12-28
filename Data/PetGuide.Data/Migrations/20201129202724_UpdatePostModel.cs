@@ -1,6 +1,7 @@
 ﻿namespace PetGuide.Data.Migrations
 {
     using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class UpdatePostModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

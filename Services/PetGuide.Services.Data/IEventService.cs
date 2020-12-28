@@ -4,12 +4,11 @@
     using System.Threading.Tasks;
 
     using PetGuide.Data.Models;
-    using PetGuide.Web.ViewModels.Administration.Events;
     using PetGuide.Web.ViewModels.Events;
 
     public interface IEventService
     {
-        Task AddAsync(EventInputModel input);
+        Task AddAsync(EventInputModel input, string userId);
 
         Task EditAsync(string id, EditEventInputModel input);
 
@@ -24,9 +23,5 @@
         EditEventInputModel GetEventEdit(string id);
 
         PetEvent GetEventById(string id);
-
-        IEnumerable<EventViewModel> GetAllEventsAdminView();
-
-        EventsListViewModel EventsAdminView();
     }
 }

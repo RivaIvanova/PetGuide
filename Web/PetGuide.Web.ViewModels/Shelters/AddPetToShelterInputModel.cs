@@ -1,8 +1,12 @@
 ﻿namespace PetGuide.Web.ViewModels.Shelters
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     using PetGuide.Data.Models.Enums;
+    using PetGuide.Web.Infrastructure.Attributes;
 
     public class AddPetToShelterInputModel
     {
@@ -28,5 +32,9 @@
 
         [Required]
         public PetColor Color { get; set; }
+
+        [Required]
+        [PicturesMaxCount(5)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

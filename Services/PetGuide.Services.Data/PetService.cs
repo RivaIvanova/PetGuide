@@ -161,6 +161,26 @@
                 .ToList();
         }
 
+        // Get My Pets View
+        public IEnumerable<SearchPetResultViewModel> GetMyPets(string userId, int page, int petsPerPage)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            var petsToSkip = (page - 1) * petsPerPage;
+
+            return this.petsRepository
+                .AllAsNoTracking()
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip(petsToSkip)
+                .Take(petsPerPage)
+                .To<SearchPetResultViewModel>()
+                .ToList();
+        }
+
         // Get Pets Count
         public int GetCount()
         {

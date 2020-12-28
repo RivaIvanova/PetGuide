@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/favicon.ico" rel="icon" />
+    <link href="~/favicon-image.png" rel="apple-touch-icon">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/lib/icofont/src/icofont/icofont.min.css" rel="stylesheet">
+
+    @if (IsSectionDefined("Modal"))
+    {
+        @await this.RenderSectionAsync("Modal", required: true)
+    }
+
+</head>
+<body>
+
+    @this.RenderBody()
+
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

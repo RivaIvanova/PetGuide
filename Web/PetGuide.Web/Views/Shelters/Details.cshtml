@@ -45,13 +45,6 @@
                                         <a class="btn search_btn flat-color-1" asp-controller="Shelters" asp-action="Pet" asp-route-id="@Model.Id">Add pet to shelter</a>
                                     </div>
                                 </div>
-
-                                <div class="entry-footer ml-1 clearfix">
-                                    <div class="form-group mb-0 mt-0 text-center">
-                                        <a class="btn search_btn" asp-area="Administration" asp-controller="Administration" asp-action="Events">Go to shelters</a>
-                                    </div>
-                                </div>
-
                             </div>
                         }
 
@@ -59,7 +52,7 @@
                             <div class="carousel-inner" style="max-height: 450px">
 
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="@Model.FirstPictureToShow.Name.Replace("Thumbnail", "Fullscreen")" alt="Shelter Pictures">
+                                    <img class="d-block w-100" src="@Model.FirstPictureToShow?.Name.Replace("Thumbnail", "Fullscreen")" alt="Shelter Pictures">
                                 </div>
 
                                 @foreach (var picture in Model.PicturesToShow.Where(x => x.Id != Model.FirstPictureToShow.Id))
@@ -198,12 +191,12 @@
                                     {
                                         <div class="col-lg-4 col-md-6 portfolio-item filter-lost">
                                             <div class="portfolio-wrap">
-                                                <img src="~/img/animal-video.jpg" class="img-fluid" alt="">
+                                                <img src="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" class="img-fluid" alt="">
                                                 <div class="portfolio-info">
                                                     <h4>@pet.Name</h4>
                                                     <p>@Html.DisplayFor(x => pet.Type)</p>
                                                     <div class="portfolio-links">
-                                                        <a href="~/img/animal-video.jpg" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
+                                                        <a href="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" data-gall="portfolioGallery" class="venobox" title="@pet.Name"><i class="icofont-image"></i></a>
                                                         <a asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id" title="More Details"><i class="bx bx-link"></i></a>
                                                     </div>
                                                 </div>

@@ -16,32 +16,32 @@
         private readonly IDeletableEntityRepository<PetEvent> eventsRepository;
         private readonly IDeletableEntityRepository<Request> requestsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IDeletableEntityRepository<Pet> petsRepository;
+        private readonly IDeletableEntityRepository<Subscription> subscriptionsRepository;
         private readonly IRepository<Shelter> sheltersRepository;
-        private readonly IEventService eventService;
-        private readonly IShelterService shelterService;
 
         public RequestService(
             IDeletableEntityRepository<PetEvent> eventsRepository,
             IDeletableEntityRepository<Request> requestsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IRepository<Shelter> sheltersRepository,
-            IEventService eventService,
-            IShelterService shelterService)
+            IDeletableEntityRepository<Pet> petsRepository,
+            IDeletableEntityRepository<Subscription> subscriptionsRepository,
+            IRepository<Shelter> sheltersRepository)
         {
             this.eventsRepository = eventsRepository;
             this.requestsRepository = requestsRepository;
             this.usersRepository = usersRepository;
+            this.petsRepository = petsRepository;
+            this.subscriptionsRepository = subscriptionsRepository;
             this.sheltersRepository = sheltersRepository;
-            this.eventService = eventService;
-            this.shelterService = shelterService;
         }
 
         // Add Request
         public async Task AddAsync(string id, string volunteerId)
         {
             var volunteer = this.usersRepository.All().FirstOrDefault(x => x.Id == volunteerId);
-            var petEvent = this.eventService.GetEventById(id);
-            var shelter = this.shelterService.GetShelterById(id);
+            var petEvent = this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
+            var shelter = this.sheltersRepository.All().FirstOrDefault(x => x.Id == id);
 
             var request = new Request
             {
@@ -112,19 +112,40 @@
             await this.requestsRepository.SaveChangesAsync();
         }
 
+        // Add Subscription
+        public async Task SubscribeAsync(string id, string email)
+        {
+            var subscription = new Subscription
+            {
+                UserId = id,
+                Email = email,
+            };
+
+            await this.subscriptionsRepository.AddAsync(subscription);
+            await this.subscriptionsRepository.SaveChangesAsync();
+        }
+
+        public bool IsSubscribed(string email)
+        {
+            return this.subscriptionsRepository
+                .AllAsNoTracking()
+                .Any(x => x.Email.Equals(email));
+        }
+
         public Request GetRequestById(string id)
         {
             return this.requestsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public EmailViewModel GetEventEmailDetails(string id, string receiverId)
+        public EmailViewModel GetPetEmailDetails(string id, string receiverId)
         {
             var receiver = this.usersRepository.All().FirstOrDefault(x => x.Id == receiverId);
-            var petEvent = this.eventService.GetEventById(id);
+            var pet = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
 
             var html = new StringBuilder();
-            html.AppendLine($"<h1>{petEvent.Name}</h1>");
-            html.AppendLine($"<h3>{petEvent.Purpose}</h3>");
+            html.AppendLine($"<h1>{pet.Name}</h1>");
+            html.AppendLine($"<h3>{pet.Type}</h3>");
+            html.AppendLine($"<h5>{pet.Description}</h3>");
             html.AppendLine($"<img src=\"https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2018/03/13114640/golden-retriever-birthday-party-header.jpg\" />");
 
             var email = new EmailViewModel
@@ -132,16 +153,33 @@
                 SenderEmail = "ivanova.riva@gmail.com",
                 SenderName = "PetGuide",
                 ReceiverEmail = receiver.Email,
-                Title = petEvent.Name,
+                Title = pet.Name,
                 Content = html.ToString(),
             };
 
             return email;
         }
 
-        public EmailViewModel GetShelterEmailDetails(string id, string receiverId)
+        public EmailViewModel GetVolunteerEmail(string receiverId)
         {
-            throw new System.NotImplementedException();
+            var receiver = this.usersRepository.All().FirstOrDefault(x => x.Id == receiverId);
+
+            var html = new StringBuilder();
+            html.AppendLine($"<h1> PetGuide Volunteer </h1>");
+            html.AppendLine($"<h3> We are happy that you decided to become a volunteer and help us. </h3>");
+            html.AppendLine($"<h5> Volunteering is a voluntary act of an individual or group freely giving time and labour for community service. </h3>");
+            html.AppendLine($"<img src=\"https://www.littlewhitedogco.com/wp-content/uploads/2019/10/volunteer-1200x630.jpg\" />");
+
+            var email = new EmailViewModel
+            {
+                SenderEmail = "ivanova.riva@gmail.com",
+                SenderName = "PetGuide",
+                ReceiverEmail = receiver.Email,
+                Title = "Volunteer",
+                Content = html.ToString(),
+            };
+
+            return email;
         }
     }
 }

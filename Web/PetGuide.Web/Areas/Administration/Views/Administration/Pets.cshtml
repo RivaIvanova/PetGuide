@@ -1,0 +1,186 @@
+﻿@{
+    this.Layout = "_AdminLayout";
+}
+
+@model PetGuide.Web.ViewModels.Administration.Pets.PetsListViewModel
+
+<main id="main-dashboard">
+    <div class="content">
+        <div class="container">
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="fa fa-paw"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.LostPetsCount</span></div>
+                                            <div class="stat-heading">Lost Pets</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="fa fa-paw"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.FoundPetsCount</span></div>
+                                            <div class="stat-heading">Found Pets</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="fa fa-paw"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.SpottedPetsCount</span></div>
+                                            <div class="stat-heading">Spotted Pets</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="fa fa-paw"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@Model.ShelteredPetsCount</span></div>
+                                            <div class="stat-heading">Sheltered Pets</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /Widgets -->
+
+            <div class="clearfix"></div>
+            <!-- Orders -->
+            <div class="orders">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">Pets</h4>
+                            </div>
+                            <div class="card-body--">
+                                <div class="table-stats order-table ov-h">
+                                    <table class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th class="serial">#</th>
+                                                <th>ID</th>
+                                                <th>Created On</th>
+                                                <th>Status</th>
+                                                <th>Type</th>
+                                                <th>Name</th>
+                                                <th>Size</th>
+                                                <th>Color</th>
+                                                <th>Location</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var index = 1;
+                                                foreach (var pet in Model.Pets)
+                                                {
+                                                    <tr>
+                                                        <td class="serial">@index.</td>
+                                                        <td>@pet.Id</td>
+                                                        <td>@pet.CreatedOn.ToString("g")</td>
+                                                        <td><span class="name">@pet.Status.ToString()</span></td>
+                                                        <td><span class="name">@pet.Type.ToString()</span></td>
+                                                        <td><span class="name">@pet.Name</span></td>
+                                                        <td><span class="name">@pet.Size.ToString()</span></td>
+                                                        <td><span class="name">@pet.Color.ToString()</span></td>
+                                                        <td><span class="name">@pet.LocationAsString</span></td>
+                                                        <td>
+                                                            <form method="post">
+                                                                <a asp-area="" asp-controller="Pets" asp-action="Edit" asp-route-id="@pet.Id"><i class="fa fa-edit fa-2x"></i></a>
+                                                                <a class="cursor-pointer" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-alt color-red fa-2x"></i></a>
+                                                                <a asp-area="" asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id"><i class="fa fa-eye flat-color-1 fa-2x"></i></a>
+
+                                                            </form>
+                                                            <form method="post" id="deleteForm" asp-area="" asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id">
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+
+                                                    index++;
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div> <!-- /.table-stats -->
+                            </div>
+                        </div> <!-- /.card -->
+                    </div>  <!-- /.col-lg-8 -->
+
+                </div>
+            </div>
+            <!-- /.orders -->
+        </div>
+    </div>
+</main>
+
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-delete">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="fa fa-times"></i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this event?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Modal {
+    <link href="~/css/modal.css" type="text/css" rel="stylesheet" asp-append-version="true" />
+} 

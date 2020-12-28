@@ -35,7 +35,7 @@
                     .Select(x => new PictureViewModel
                     {
                         Id = x.Id,
-                        Name = x.Folder + "/Thumbnail_" + x.Id + ".jpg",
+                        Name = x.Folder + "/Fullscreen_" + x.Id + ".jpg",
                     })
                     .FirstOrDefault()));
         }

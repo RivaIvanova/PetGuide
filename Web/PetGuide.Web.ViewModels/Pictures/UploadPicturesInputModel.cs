@@ -9,6 +9,8 @@
 
     public class UploadPicturesInputModel : Gallery
     {
+        public string Id { get; set; }
+
         [Required]
         [PicturesMaxCount(5)]
         public ICollection<IFormFile> Pictures { get; set; }

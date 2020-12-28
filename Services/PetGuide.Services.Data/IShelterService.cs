@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using PetGuide.Data.Models;
-    using PetGuide.Web.ViewModels.Administration.Shelters;
     using PetGuide.Web.ViewModels.Shelters;
 
     public interface IShelterService
@@ -24,9 +23,5 @@
         Shelter GetShelterById(string id);
 
         ICollection<AllSheltersViewModel> GetAll();
-
-        IEnumerable<ShelterViewModel> GetAllSheltersAdminView();
-
-        SheltersListViewModel SheltersAdminView();
     }
 }

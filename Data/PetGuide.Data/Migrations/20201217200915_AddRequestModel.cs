@@ -1,6 +1,7 @@
 ﻿namespace PetGuide.Data.Migrations
 {
     using System;
+
     using Microsoft.EntityFrameworkCore.Migrations;
 
     public partial class AddRequestModel : Migration

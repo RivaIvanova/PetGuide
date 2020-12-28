@@ -27,7 +27,7 @@
                                         {
                                             <div class="col-lg-4 col-md-6 portfolio-item">
                                                 <div class="portfolio-wrap">
-                                                    <img src="~/img/animal-video.jpg" class="img-fluid" alt="">
+                                                    <img src="@pet.FirstPicture?.Name.Replace("Thumbnail", "Fullscreen")" class="img-fluid" alt="">
                                                     <div class="portfolio-info">
                                                         <h4>@pet.Name</h4>
                                                         <p>@Html.DisplayFor(x => pet.Type)</p>
@@ -87,7 +87,7 @@
             var infoWindowContent = [
                 @foreach (var petLocation in Model.PetsWithLocation)
             {
-               @:['<div class="info_content">' + '<a href="/Pets/Details/@petLocation.Id"><h3>@petLocation.Name</h3></a>' + '<p>@petLocation.Street, @petLocation.District.ToString()</p>' + '</div>'],
+               @:['<div class="info_content">' + '<a href="/Pets/Details/@petLocation.Id"><h3>@petLocation.Name</h3></a>' + '<p>@petLocation.Type.ToString(), @petLocation.Status.ToString()</p>' + '<p>@petLocation.Street, @petLocation.District.ToString()</p>' + '</div>'],
             }
             ];
             // Display multiple markers on a map

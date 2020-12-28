@@ -17,6 +17,8 @@
 
         IEnumerable<AllPetsViewModel> GetAll(int page, int petsPerPage = 12);
 
+        IEnumerable<SearchPetResultViewModel> GetMyPets(string userId, int page, int petsPerPage = 12);
+
         IEnumerable<SearchPetResultViewModel> GetRecentlyAdded();
 
         PetsDetailsViewModel GetPetsDetails(string id);

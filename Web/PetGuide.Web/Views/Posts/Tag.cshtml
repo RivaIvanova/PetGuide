@@ -12,36 +12,19 @@
                 </div>
             </div>
         </div>
-        <section id="portfolio" class="portfolio" style="padding-top: 60px">
-            <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters">
-                        <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-lost">Health</li>
-                        <li data-filter=".filter-spotted">Grooming</li>
-                        <li data-filter=".filter-found">Food</li>
-                        <li data-filter=".filter-lost">Behaviour</li>
-                        <li data-filter=".filter-spotted">Toys</li>
-                        <li data-filter=".filter-found">Communication</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
     </section><!-- End Breadcrumbs -->
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
         <div class="container">
 
             <div class="row">
-
                 @foreach (var post in Model.Posts)
                 {
-
                     <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
                         <article class="entry">
 
                             <div class="entry-img">
-                                <img src="~/img/register-font2.jpg" alt="" class="img-fluid">
+                                <img src="@post.FirstPicture?.Name" alt="" class="img-fluid">
                             </div>
 
                             <h2 class="entry-title">
@@ -67,21 +50,7 @@
                         </article><!-- End blog entry -->
                     </div>
                 }
-
-
-
             </div>
-
-            <div class="blog-pagination" data-aos="fade-up">
-                <ul class="justify-content-center">
-                    <li class="disabled"><i class="icofont-rounded-left"></i></li>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#"><i class="icofont-rounded-right"></i></a></li>
-                </ul>
-            </div>
-
         </div>
     </section><!-- End Blog Section -->
 

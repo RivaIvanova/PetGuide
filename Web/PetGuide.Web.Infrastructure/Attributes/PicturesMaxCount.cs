@@ -22,7 +22,7 @@
                 }
             }
 
-            this.ErrorMessage = $"Pictures should not be more than {this.maxCount}.";
+            this.ErrorMessage = $"Pictures should be between 1 and {this.maxCount}.";
             return false;
         }
     }

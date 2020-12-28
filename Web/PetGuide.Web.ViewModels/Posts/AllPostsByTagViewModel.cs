@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class AllPostsByTagViewModel
+    public class AllPostsByTagViewModel : PagingViewModel
     {
         public string Tag { get; set; }
 
